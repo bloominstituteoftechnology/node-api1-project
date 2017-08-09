@@ -17,6 +17,8 @@ of the game hangman that can be played by making HTTP requests!
 - Run `npm install` to download the dependencies.
 - Install `nodemon` via `npm install -g nodemon`. `nodemon` will keep your
   server running and automatically restart it if you change anything.
+- Install [Postman](https://www.getpostman.com/) so you can make requests and
+  examine responses.
 - Run `npm start` to start the server.
 - Implement hangman in `src/app.js` as per the instructions below.
 - To test your application at any point, run `npm start` to start the server.
