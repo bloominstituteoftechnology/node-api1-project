@@ -11,7 +11,7 @@ Topics:
 You've been focusing on client-side JavaScript thus far, but now you'll make the
 transition to server-side. The goal here is to handle requests from the client
 and deliver back responses. In the mini project, you'll write an implementation
-of Hangman that can be played by making HTTP requests!
+of the game hangman that can be played by making HTTP requests!
 
 ## Running the Project
 - Run `npm install` to download the dependencies.
@@ -32,7 +32,7 @@ First, some terminology:
 - Word so far: the word that the user currently sees based off his/her guesses.
   This is the final word with all non-guessed characters replaced by a dash
   `'-'`. For instance, if the final word is `'hello'` and the user has guessed
-  `'a'`, `'e'`, and `i`, the word so far would be `'-e---`.
+  `'a'`, `'e'`, and `'i'`, the word so far would be `'-e---'`.
 
 We've given you a function `readWords()` that reads an array of dictionary words
 from the `words.txt` file. First, use this function to select a random word from
