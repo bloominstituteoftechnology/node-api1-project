@@ -1,89 +1,144 @@
-# Node.js and Express Mini Project
-Topics:
-  * Client and server
-  * Node.js and Express
-  * HTTP requests and responses
-  * HTTP headers and status codes
-  * Request parameters
-  * API design and development
+# Building RESTful APIs with Node.js and Express Mini
 
-## Description
-You've been focusing on client-side JavaScript thus far, but now you'll make the
-transition to server-side. The goal here is to handle requests from the client
-and deliver back responses. In the mini project, you'll write an implementation
-of the game hangman that can be played by making HTTP requests!
+## Topics
 
-## Running the Project
-- Run `npm install` to download the dependencies.
-- Install `nodemon` via `npm install -g nodemon`. `nodemon` will keep your
-  server running and automatically restart it if you change anything.
-- Install [Postman](https://www.getpostman.com/) so you can make requests and
-  examine responses.
-- Run `npm start` to start the server.
-- Implement hangman in `src/app.js` as per the instructions below.
-- To test your application at any point, run `npm start` to start the server.
-  Then, you can make requests to `http://localhost:3000` in Postman or in your
-  browser! To make POST requests, you'll need to use Postman. Craft the
-  corrrect requests to play hangman and test your implementation!
+* Building a RESTful API.
+* Performing CRUD operations.
+* Writing API endpoints.
 
-## Instructions
-You'll develop a version of Hangman that can be played by making HTTP requests!
-First, some terminology:
+## Assignment
 
-- Final word: the final, correct word that the user is aiming to guess.
-- Word so far: the word that the user currently sees based off his/her guesses.
-  This is the final word with all non-guessed characters replaced by a dash
-  `'-'`. For instance, if the final word is `'hello'` and the user has guessed
-  `'a'`, `'e'`, and `'i'`, the word so far would be `'-e---'`.
+Use Node.js and Express to build an API that performs CRUD operations on users.
 
-We've given you a function `readWords()` that reads an array of dictionary words
-from the `words.txt` file. First, use this function to select a random word from
-the dictionary to be the final word. Note that whenver your server is restarted
-(i.e. when you change files or re-run `npm start`), a new word will be selected
-and the game will restart.
+### Download Project Files and Install Dependencies
 
-Now, you'll need to implement two routes:
+* **Fork** and **Clone** this repository.
+* **CD into the folder** where you cloned the repository.
+* Type `yarn` or `npm install` to download all dependencies listed inside `package.json`.
 
-### `POST /guess`
-When the client makes a `POST` request to `/guess`:
+### Database access
 
-- Ensure that the client provides `letter` in the request body. `letter` should
-  be the key and the value should be a string containing only a single
-  character. If there's an error, send an object of the form
-  `{ error: "Error message" }` as a JSON response. Make sure to respond with
-  an appropriate status code.
+Database access will be done using the `db.js` file included inside the `data` folder. This file publishes the following methods:
 
-- If the client has already guessed this letter, respond with an error in the
-  same format as mentioned above.
+* find: calling find returns a promise that resolves to an array of all the users contained in the database.
+* findById: this method expects an _id_ as it's only parameter and returns the user corresponding to the _id_ provided or an empty array if no user with that _id_ is found.
+* insert: calling insert passing it a user object will add it to the database and return an object with the id of the inserted user. The object looks like this: `{ id: 123 }`.
+* update: accepts two arguments, the first is the id of the user to update and the second is an object with the changes to apply. It returns the count of updated records. If the count is 1 it means the record was updated correctly.
+* remove: the remove method accepts an id as it's first parameter and upon successfully deleting the user from the database it returns the number of records deleted.
 
-- Keep track of the guess in some data structure. In the `GET /` route
-  implementation (see below), you'll need to use this data structure to compute
-  the word so far. Think carefully about what data structure you'd like to use
-  here to make the computation easy.
+Now that we have a way to add, update, remove and retrieve data from the provided databse, it is time to work on the API.
 
-### `GET /`
-When the client makes a `GET` request to `/guess`:
+### Start the API and Implement Requirements
 
-- Compute the word so far by replacing each letter in the final word that hasn't
-  been guessed by `-`. Don't actually modify the final word in any way.
+* To start the server, type `yarn start` or `npm start` from the root folder (where the _package.json_ file is). The server is configured to restart automatically as you make changes.
+* Add the code necessary to implement the API requirements.
+* **Test the API using _Postman_ as you work through the exercises.**
 
-- Send back a JSON response containing an object with two properties,
-  `wordSoFar` and `guesses`, to the client. `wordSoFar` should be the word so
-  far (as per our definition underneath "Instructions"), and `guesses` should be
-  the data structure you use to represent all guesses the user has made. This
-  gives the user information about the current state of the game so he/she can
-  formulate his/her next guess.
+### User Schema
 
-### Play!
-Now, you can play hangman by cycling through the requests above. Make a `POST
-/guess` request in Postman, passing in a `letter` in the request body. You can
-then see whether you guessed correctly, what the word so far is, and the list
-of guessed letters by requesting `GET /`. Keep guessing until you can figure out
-the word!
+Users in the database conform to the following object structure:
 
-## Extras
-If you'd like an extra challenge (albeit not related to node/express), think
-about how you'd write a program to guess the word for you. Given the dictionary
-of words, how would you go about correctly guessing the final word? It's easy to
-simply guess every letter, but how could you do this efficiently? Is there a way
-to eliminate a large number of possible words with each guess?
+```js
+{
+  name: "Jane", // String, required
+  bio: "Doe",  // String, required
+  age: 18, // Number, required, should be an integer between 1 and 120
+  created_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, required, defaults to current date
+  updated_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, required, defaults to current date
+}
+```
+
+### Write endpoints to perform the following queries.
+
+Configure the API to respond to the following routes:
+
+| Method | Endpoint       | Description                                                                                                                       |
+| ------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                                              |
+| GET    | /api/users     | Returns an array of all the user objects contained in the database.                                                               |
+| GET    | /api/users/:id | Returns the user object with the specified id.                                                                                    |
+| DELETE | /api/users/:id | Removes the user with the specified id and returns the deleted user.                                                              |
+| PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
+
+#### Endpoint Specifications
+
+When the client makes a `POST` request to `/api/users`:
+
+* If the request body is missing the `name` or `bio` property:
+
+  * cancel the request.
+  * respond with HTTP status code `400` (Bad Request).
+  * return the following JSON response: `{ errorMessage: "Please provide name and bio for the user." }`.
+
+* If the information about the _user_ is valid:
+
+  * save the new _user_ the the database.
+  * return HTTP status code `201` (Created).
+  * return the newly created _user document_.
+
+* If there's an error while saving the _user_:
+  * cancel the request.
+  * respond with HTTP status code `500` (Server Error).
+  * return the following JSON object: `{ error: "There was an error while saving the user to the database" }`.
+
+When the client makes a `GET` request to `/api/users`:
+
+* If there's an error in retrieving the _users_ from the database:
+  * cancel the request.
+  * respond with HTTP status code `500`.
+  * return the following JSON object: `{ error: "The users information could not be retrieved." }`.
+
+When the client makes a `GET` request to `/api/users/:id`:
+
+* If the _user_ with the specified `id` is not found:
+
+  * return HTTP status code `404` (Not Found).
+  * return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
+
+* If there's an error in retrieving the _user_ from the database:
+  * cancel the request.
+  * respond with HTTP status code `500`.
+  * return the following JSON object: `{ error: "The user information could not be retrieved." }`.
+
+When the client makes a `DELETE` request to `/api/users/:id`:
+
+* If the _user_ with the specified `id` is not found:
+
+  * return HTTP status code `404` (Not Found).
+  * return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
+
+* If there's an error in removing the _user_ from the database:
+  * cancel the request.
+  * respond with HTTP status code `500`.
+  * return the following JSON object: `{ error: "The user could not be removed" }`.
+
+When the client makes a `PUT` request to `/api/users/:id`:
+
+* If the _user_ with the specified `id` is not found:
+
+  * return HTTP status code `404` (Not Found).
+  * return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
+
+* If the request body is missing the `name` or `bio` property:
+
+  * cancel the request.
+  * respond with HTTP status code `400` (Bad Request).
+  * return the following JSON response: `{ errorMessage: "Please provide name and bio for the user." }`.
+
+* If there's an error when updating the _user_:
+
+  * cancel the request.
+  * respond with HTTP status code `500`.
+  * return the following JSON object: `{ error: "The user information could not be modified." }`.
+
+* If the user is found and the new information is valid:
+
+  * update the user document in the database using the new information sent in the `reques body`.
+  * return HTTP status code `200` (OK).
+  * return the newly updated _user document_.
+
+## Stretch Problems
+
+* Use `create-react-app` to create an application inside the root folder, name it `client`.
+* From the React application connect to the `/api/users` endpoint in the API and show the list of users.
+* Style the list of users however you see fit.
