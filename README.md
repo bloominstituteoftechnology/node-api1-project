@@ -42,7 +42,6 @@ Users in the database conform to the following object structure:
 {
   name: "Jane", // String, required
   bio: "Doe",  // String, required
-  age: 18, // Number, required, should be an integer between 1 and 120
   created_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, required, defaults to current date
   updated_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, required, defaults to current date
 }
