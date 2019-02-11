@@ -1,15 +1,15 @@
-exports.seed = function(knex, Promise) {
+exports.seed = function(knex) {
   return knex('users')
-    .del()
+    .truncate()
     .then(function() {
       return knex('users').insert([
         {
-          name: 'AtokiBot',
-          bio: 'CS8 Student at Lambda School',
+          name: 'Samwise Gamgee',
+          bio: 'Gardener and poet. Married to Rose Cotton',
         },
         {
-          name: 'GeekBot',
-          bio: 'CS8 Student at Lambda School',
+          name: 'Frodo Baggins',
+          bio: 'The ring bearer',
         },
       ]);
     });
