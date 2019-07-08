@@ -1,27 +1,26 @@
 {
-  "name": "nodemini",
+  "name": "webapi-i-challenge",
   "version": "1.0.0",
-  "description": "Express Demo",
+  "description": "WEB API I Challenge",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LambdaSchool/node-express-mini.git"
+    "url": "git+https://github.com/LambdaSchool/webapi-i-challenge.git"
   },
   "keywords": [],
   "author": "Lambda School",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LambdaSchool/node-express-mini/issues"
+    "url": "https://github.com/LambdaSchool/webapi-i-challenge/issues"
   },
-  "homepage": "https://github.com/LambdaSchool/node-express-mini#readme",
+  "homepage": "https://github.com/LambdaSchool/webapi-i-challenge#readme",
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.19.1"
   },
   "dependencies": {
-    "knex": "^0.16.3",
-    "sqlite3": "^4.0.6"
+    "knex": "^0.18.3",
+    "sqlite3": "^4.0.9"
   }
 }
