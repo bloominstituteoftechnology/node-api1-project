@@ -1,4 +1,4 @@
-# Building RESTful APIs with Node.js and Express Mini
+# Node API Challenge
 
 ## Topics
 
@@ -14,7 +14,7 @@ Use Node.js and Express to build an API that performs CRUD operations on users.
 
 - **Fork** and **Clone** this repository.
 - **CD into the folder** where you cloned the repository.
-- Type `yarn` or `npm install` to download all dependencies listed inside `package.json`.
+- Type `npm install` to download all dependencies listed inside `package.json`.
 
 ### Database access
 
@@ -30,7 +30,7 @@ Now that we have a way to add, update, remove and retrieve data from the provide
 
 ### Start the API and Implement Requirements
 
-- To start the server, type `yarn server` or `npm run server` from the root folder (where the _package.json_ file is). The server is configured to restart automatically as you make changes.
+- To start the server, type `npm run server` from the root folder (where the _package.json_ file is). The server is configured to restart automatically as you make changes.
 - Add the code necessary to implement the API requirements.
 - **Test the API using _Postman_ as you work through the exercises.**
 
@@ -47,7 +47,7 @@ Users in the database conform to the following object structure:
 }
 ```
 
-### Write endpoints to perform the following queries.
+### Write endpoints to perform the following queries
 
 Inside `index.js` add the code necessary to implement the following _endpoints_:
 
@@ -132,7 +132,7 @@ When the client makes a `PUT` request to `/api/users/:id`:
 
 - If the user is found and the new information is valid:
 
-  - update the user document in the database using the new information sent in the `reques body`.
+  - update the user document in the database using the new information sent in the `request body`.
   - return HTTP status code `200` (OK).
   - return the newly updated _user document_.
 
@@ -140,7 +140,7 @@ When the client makes a `PUT` request to `/api/users/:id`:
 
 To work on the stretch problems you'll need to enable the `cors` middleware. Follow these steps:
 
-- add the `cors` npm module: `yarn add cors` or `npm i cors`.
+- add the `cors` npm module: `npm i cors`.
 - add `server.use(cors())` after `server.use(express.json())`.
 
 Create a new React application and connect it to your server:
