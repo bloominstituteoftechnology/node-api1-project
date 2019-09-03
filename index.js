@@ -34,20 +34,7 @@ server.get('/api/users', (req, res) => {
 server.post('/api/users', (req, res) => {
     //read info sent by client
     const userInfo = req.body;
-    // res.send('info from body', userInfo);
 
-    // dataB
-    //     .insert(userInfo)
-    //     .then(({id}) => {
-    //         dataB.findById({id});
-    //     })
-    //     .then(user => {
-    //         res.status(201).json(user);
-    //     })
-    //     .catch(err=>{
-    //         console.log(err);
-    //         res.status(500).json({error: 'server error'});
-    //     });
     const { name, bio } = req.body;
     if (name && bio) {
         dataB
@@ -98,14 +85,26 @@ server.get('/api/users/:id', (req, res) => {
 });
 
 // //-*-*-*-* DELETE REQUEST  -*-*-*-*
-server.delete('/api/users', (req, res) => {
+server.delete('/api/users/:id', (req, res) => {
+    const { id } = req.params;
+
     dataB
-        .remove()
-        .then(users => res.status(200).json(users)) //200 means good
+        .remove(id)
+        .then(deleted => {
+            console.log('deleted', deleted);
+            if (deleted) {
+                res.status(204).json(deleted);
+            } //200 means good
+            else {
+                res.status(404).json({
+                    message: 'The user with the specified ID does not exist.',
+                });
+            }
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: 'The user information could not be retrieved.',
+                error: 'The user could not be removed',
             });
         });
 });
