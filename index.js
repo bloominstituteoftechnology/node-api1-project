@@ -24,6 +24,18 @@ server.get('/api/users', (req, res) => {
     });
 })
 
+//get specific user
+server.get('/api/users/:id', (req, res) => {
+    const id = req.params.id;
+    db.findById(id)
+    .then(user => {
+        res.send(user)
+    })
+    .catch(error => {
+        res.send(error, 'error in the user get req.');
+    })
+})
+
 
 
 
