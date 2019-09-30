@@ -1,7 +1,7 @@
 // implement your API here
 
 //http module 
-const http = require('http');
+// const http = require('http');
 
 const express = require('express');
 
@@ -31,15 +31,26 @@ server.get('/api/users', (req, res) => {
 
 //GET specific user
 server.get('/api/users/:id', (req, res) => {
-    const id = req.params.id;
+    const {id} = req.params;
     db.findById(id)
     .then(user => {
-        res.send(user)
+        if(user){
+            res.status(200).json(user);
+        }
+        else 
+        {
+            res.status(404).json({ message: "The user with the specified ID does not exist." });
+        }
     })
     .catch(error => {
-        res.json({ message: "The user with the specified ID does not exist." });
-        // res.statusCode = 400;
-    })
+        console.log(error)
+        res.status(500).json({ error: "The user information could not be retrieved." });
+    });
+
+
+
+
+
 })
 
 //POST for users
