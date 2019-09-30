@@ -22,7 +22,7 @@ server.get('/api/users', (req, res) => {
       });
   });
   
-server.get('/api/users/:id', (req, res) => {
+  server.get('/api/users/:id', (req, res) => {
     Users.findById(req.params.id)
       .then(user => {
         if (user) {
@@ -40,7 +40,7 @@ server.get('/api/users/:id', (req, res) => {
       });
   });
 
- server.post('/api/users',(req,res)=>{
+  server.post('/api/users',(req,res)=>{
       const {name, bio} = req.body;
 
       if (!name || !bio) {
@@ -59,7 +59,7 @@ server.get('/api/users/:id', (req, res) => {
               });
           }
         });
-  server.delete('/api/users/:id', (req, res) => {
+        server.delete('/api/users/:id', (req, res) => {
           Users.remove(req.params.id)
             .then(count => {
               if (count && count > 0) {
