@@ -36,7 +36,17 @@ server.get('/api/users/:id', (req, res) => {
     })
 })
 
-
+//post for users
+server.post('/api/users', (req, res) => {
+    const userInfo = req.body;
+    db.insert(userInfo)
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        res.json({message: 'error in your post'});
+    });
+})
 
 
 
