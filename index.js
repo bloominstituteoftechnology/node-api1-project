@@ -17,19 +17,19 @@ server.get('/', (req, res) => {
     res.send('Welcome!');
 });
 
-//get all seed users
+//GET all seed users => complete.
 server.get('/api/users', (req, res) => {
     db.find()
     .then(users => {
         res.send(users)
     })
     .catch(error => {
-        res.send({ error: "The users information could not be retrieved." });
+        res.json({ error: "The users information could not be retrieved." });
         res.statusCode = 500;
     });
 })
 
-//get specific user
+//GET specific user
 server.get('/api/users/:id', (req, res) => {
     const id = req.params.id;
     db.findById(id)
@@ -37,11 +37,12 @@ server.get('/api/users/:id', (req, res) => {
         res.send(user)
     })
     .catch(error => {
-        res.send(error, 'error in the user get req.');
+        res.json({ message: "The user with the specified ID does not exist." });
+        // res.statusCode = 400;
     })
 })
 
-//post for users
+//POST for users
 server.post('/api/users', (req, res) => {
     const userInfo = req.body;
     db.insert(userInfo)
@@ -50,10 +51,11 @@ server.post('/api/users', (req, res) => {
     })
     .catch(error => {
         res.json({message: 'error in your post'});
+        res.statusCode = 500;
     });
 })
 
-//put 
+//PUT 
 server.put('/api/users/:id', (req, res) => {
     const id = req.params.id;
     const user = req.body;
@@ -63,10 +65,22 @@ server.put('/api/users/:id', (req, res) => {
     })
     .catch(error => {
         res.json({ message: 'The user with the specified ID does not exist.' });
+        res.statusCode = 500;
     });
 })
 
-
+//DELETE req.
+server.delete('/api/users/:id', (req, res) => {
+    const id = req.params.id;
+    db.remove(id)
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        res.json({ message: "The user with the specified ID does not exist." });
+    });
+    
+})
 
 
 //port 
