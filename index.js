@@ -36,6 +36,27 @@ server.get('/api/users', (req, res) => {
           .json({ errorMessage: 'The user information could not be found.' });
       });
   });
+
+  server.post('/api/users',(req,res)=>{
+      const {name, bio} = req.body;
+
+      if (!name || !bio) {
+          res.status(400)
+          .json({errorMsg: 'Please provide name and bio for the user in your msg body'});
+        } else {
+            Users.insert(req.body)
+              .then(user => {
+                res.status(201).json(user);
+              })
+              .catch(() => {
+                res.status(500).json({
+                  errorMessage:
+                    'There was an error while saving the user!!! Please try again!!!',
+                });
+              });
+          }
+        });
+        
   
 
 const port = 3333;
