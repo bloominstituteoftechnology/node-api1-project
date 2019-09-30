@@ -5,7 +5,10 @@ const Users = require('./data/db')
 
 const server = express();
 
-server.use(express.json());
+const cors = require('cors');
+
+server.use(express.json())
+server.use(cors());
 
 server.get('/api/users', (req, res) => {
     Users.find()
@@ -19,7 +22,7 @@ server.get('/api/users', (req, res) => {
       });
   });
   
-  server.get('/api/users/:id', (req, res) => {
+server.get('/api/users/:id', (req, res) => {
     Users.findById(req.params.id)
       .then(user => {
         if (user) {
@@ -37,7 +40,7 @@ server.get('/api/users', (req, res) => {
       });
   });
 
-  server.post('/api/users',(req,res)=>{
+ server.post('/api/users',(req,res)=>{
       const {name, bio} = req.body;
 
       if (!name || !bio) {
@@ -56,7 +59,7 @@ server.get('/api/users', (req, res) => {
               });
           }
         });
-        server.delete('/api/users/:id', (req, res) => {
+  server.delete('/api/users/:id', (req, res) => {
           Users.remove(req.params.id)
             .then(count => {
               if (count && count > 0) {
@@ -72,6 +75,34 @@ server.get('/api/users', (req, res) => {
             .catch(() => {
               res.status(500).json({ errorMessage: 'The user could not be removed' });
             });
+        });
+        
+  server.put('/api/users/:id', (req, res) => {
+          const { name, bio } = req.body;
+        
+          if (!name || !bio) {
+            res
+              .status(400)
+              .json({ errorMessage: 'Please provide user name and bio.' });
+          } else {
+            Users.update(req.params.id, req.body)
+              .then(user => {
+                if (user) {
+                  res.status(200).json(user);
+                } else {
+                  res
+                    .status(404)
+                    .json({
+                      message: 'The user with the specified ID does not exist.',
+                    });
+                }
+              })
+              .catch(() => {
+                res.status(500).json({
+                  errorMessage: 'The user has been updated.',
+                });
+              });
+          }
         });
         
 
