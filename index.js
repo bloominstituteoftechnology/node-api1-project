@@ -57,23 +57,23 @@ server.get('/api/users', (req, res) => {
           }
         });
         server.delete('/api/users/:id', (req, res) => {
-            Users.remove(req.params.id)
-              .then(count => {
-                if (count && count > 0) {
-                  res.status(200).json({
-                    message: 'the user was deleted.',
-                  });
-                } else {
-                  res
-                    .status(404)
-                    .json({ message: 'The user with this ID does not exist.' });
-                }
-              })
-              .catch(() => {
-                res.status(500).json({ errorMessage: 'Could not remove user' });
-              });
-          });
-  
+          Users.remove(req.params.id)
+            .then(count => {
+              if (count && count > 0) {
+                res.status(200).json({
+                  message: 'the user was deleted.',
+                });
+              } else {
+                res
+                  .status(404)
+                  .json({ message: 'The user ID does not exist .' });
+              }
+            })
+            .catch(() => {
+              res.status(500).json({ errorMessage: 'The user could not be removed' });
+            });
+        });
+        
 
 const port = 3333;
 server.listen(port, () => console.log(`\n *** Api listening on port ${port} ***\n`))
