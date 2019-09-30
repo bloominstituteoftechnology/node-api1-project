@@ -5,5 +5,5 @@ const Users = require('./data/db')
 
 const server = express();
 
-server.user(express.json());
+server.use(express.json());
 
