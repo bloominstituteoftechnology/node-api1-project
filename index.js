@@ -6,6 +6,7 @@ const dataBase = require("./data/db");
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
 server.get("/", (req, res) => {
   res.send("hello world...its working");
