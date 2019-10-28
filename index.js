@@ -71,3 +71,25 @@ server.delete('/api/users/:id', (req, res) => {
             })
         })
 })
+
+server.put('/api/users/:id', (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
+
+    users.update(id, changes)
+        .then(updated => {
+            if (updated) {
+                res.status(200).json(updated);
+            } else {
+                res.status(404).json({
+                    message: 'The use with the specified ID does not exist'
+                })
+            }
+        })
+        .catch(err => {
+            res.status(400).json({
+                err: err,
+                message: 'Please provide name and bio for the user'
+            })
+        })
+})
