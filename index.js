@@ -4,20 +4,20 @@ const db = require('./data/db.js');
 const server = express(); 
 
 server.get('/', (req, res) => {
-    res.send('Hello Node23!!!!');
+    res.send('Node API1 Project, Ahoy!');
 });
 
-server.get('/hubs', (req,res) => {
+server.get('/lambda', (req,res) => {
     db.find() 
-    .then(hubs => {
-        res.json(hubs);
+    .then(lambda => {
+        res.json(lambda);
     })
     .catch(err => {
-        // res.send('An error, sorrrry.')
-        res.json({error: 'failed to get hubs from db'})
+        // res.send('An error, sorrrry.') --doing .json instead per today's lecture
+        res.json({error: 'failed to get lambda from db'})
     });
 });
 
-const port = 8000; 
-server.listen(port, () => console.log('\n=== API on port 8000 ===\n'));
+const port = 9000; 
+server.listen(port, () => console.log('\n=== API on port 9000 ===\n'));
 
