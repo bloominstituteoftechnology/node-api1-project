@@ -13,6 +13,7 @@ app.get('/api/users', getAllUsers)
 app.get('/api/users/:id', getUser)
 app.post('/api/users', addUser)
 app.delete('/api/users/:id', removeUser)
+app.put('/api/users/:id', updateUser)
 app.get('*', handleRequest)
 app.post('*', handleRequest)
 app.put('*', handleRequest)
@@ -64,7 +65,22 @@ function removeUser(req, res) {
 
     db.remove(id)
         .then(data => {
-            console.log(data)
+            res.json(data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function updateUser(req, res) {
+    console.log('user')
+    const id = req.params.id
+    const user = {
+        name: req.body.name,
+        bio: req.body.bio
+    }
+    db.update(id, user)
+        .then(data => {
             res.json(data)
         })
         .catch(error => {
