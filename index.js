@@ -17,7 +17,7 @@ server.get('/api/users', (res, req) => {
         })
 })
 
-server.post('api/users', (res, req) => {
+server.post('/api/users', (res, req) => {
     const { name, bio } = req.body
 
     db.insert(name, bio)
@@ -30,7 +30,22 @@ server.post('api/users', (res, req) => {
         })
 })
 
+server.get('/api/users/:id', (res, req) => {
+    db.findById(req.params.id)
+    .then(user => {
+        if (user){
+            res.status(200).json({ success:true, user })        
+            
+        }
+        else{
+            res.status(404).json({ success:false, message:'User not found' })
+        }
+    })
+    .catch(error => {
+        res.status(500).json({ success:false, error })
+    })
 
+})
 
 server.listen(process.env.PORT || 3000, () => {
     console.log('LIstening on' + process.env.PORT || 3000)
