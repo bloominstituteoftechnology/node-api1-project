@@ -31,6 +31,7 @@ server.get('/api/users', (req, res)=>{
 })
 
 server.get('/api/users/:id', (req, res)=>{
+    //working!
     const id = req.params.id 
     db.findById(id)
     .then(user=>{
@@ -56,9 +57,28 @@ server.post('/api/users', (req, res)=>{
 
 })
 
-server.post('/api/user', (req, res)=>{
-
+server.delete('/api/user/:id', (req, res)=>{
+    const id = req.params.id
+    db.remove(id)
+    .then(user=>{
+        console.log(user,id)
+        res.status(201).json({success:`the user with ID ${id} was deleted`})
+    })
+    .catch(err=>{
+        console.log('error', err)
+        res.status(500).json({error: 'failed to delete'})
+    })
 })
+
+server.put('/api/user/:id', (req, res)=>{
+    const id = req.params.id
+    const updatedUser = req.body;
+    db.update(id, updatedUser)
+    .then(()=>res.status(201).json({success: 'user updated'}))
+    .catch(err=>{
+        res.status(500).json({error: 'user update unsuccessful'})    })
+})
+
 
 
 const port = 8000; // localhost:8000
