@@ -1,6 +1,6 @@
 // implement your API here
 const express = require('express'); 
-const db = require('./data/db.js');
+const db = require('./data/db');
 const server = express(); 
 
 server.use(express.json()); //teaches express how to read json, needed for POST and PUT to work
