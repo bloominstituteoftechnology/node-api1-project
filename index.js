@@ -30,6 +30,17 @@ server.get('/api/users', (req, res)=>{
     })
 })
 
+server.get('/api/users/:id', (req, res)=>{
+    const id = req.params.id 
+    db.findById(id)
+    .then(user=>{
+        res.status(201).json(user)
+    })
+    .catch(err =>{
+        res.status(500).json({error: 'could not retrieve anyone from the database'})
+    })
+})
+
 
 server.post('/api/users', (req, res)=>{
     const userInfo = req.body;
