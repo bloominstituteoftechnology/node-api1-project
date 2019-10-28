@@ -1,6 +1,4 @@
 // implement your API here
-  
-// implement your API here
 //get express to run api like data
 const express = require('express')
 // set up server to depend on express
