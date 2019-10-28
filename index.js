@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.get('/api/users', getAllUsers)
 app.get('/api/users/:id', getUser)
+app.post('/api/users', addUser)
 app.get('*', handleRequest)
 app.post('*', handleRequest)
 app.put('*', handleRequest)
@@ -38,6 +39,22 @@ function getUser(req, res) {
             console.log(error)
         })
     console.log('id')
+}
+
+function addUser(req, res) {
+    console.log('user')
+    const user = {
+        name: req.body.name,
+        bio: req.body.bio
+    }
+    db.insert(user)
+        .then(data => {
+            res.json(data)
+            console.log(data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 function handleRequest(req, res) {
