@@ -46,14 +46,18 @@ server.get('/api/users/:id', (req, res)=>{
 server.post('/api/users', (req, res)=>{
     const userInfo = req.body;
     console.log(userInfo)
+    if (userInfo.name!==null& userInfo.bio!==null){
     db.insert(userInfo)
     .then(user=>{
-        res.status(201).json(user)
+        res.status(201).json(userInfo)
     })
     .catch(err=>{
-        res.status(500).json({error:"Failed to add user to the database"})
+        res.status(500).json({ error: "There was an error while saving the user to the database" })
         
     })
+}else{
+    res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
+}
 
 })
 
@@ -73,6 +77,7 @@ server.delete('/api/user/:id', (req, res)=>{
 server.put('/api/user/:id', (req, res)=>{
     const id = req.params.id
     const updatedUser = req.body;
+    console.log('updated user',updatedUser)
     db.update(id, updatedUser)
     .then(()=>res.status(201).json({success: 'user updated'}))
     .catch(err=>{
