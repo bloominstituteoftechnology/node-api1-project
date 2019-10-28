@@ -52,17 +52,34 @@ server.put('/api/users', (res, req) => {
     const changes = req.body
     db.update(id, changes)
         .then(updated => {
-           if(updated) {
-               res.status(200).json({ success: true, updated})
-           }
-           else{
-               res.status(404).json({success:false, message:'Cannot find user'})
-           }
+            if (updated) {
+                res.status(200).json({ success: true, updated })
+            }
+            else {
+                res.status(404).json({ success: false, message: 'Cannot find user' })
+            }
         })
         .catch(error => {
-            res.status(500).json({ success:false, error })
+            res.status(500).json({ success: false, error })
         })
 })
+
+server.delete('/api/users', (res, req) => {
+    const { id } = req.params
+    db.remove(id)
+        .then(deleted => {
+            if (deleted) {
+                res.status(400).end()
+            }
+            else {
+                res.status(404).json({ success: false, message: 'User not found' })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, error })
+        })
+})
+
 
 server.listen(process.env.PORT || 3000, () => {
     console.log('LIstening on' + process.env.PORT || 3000)
