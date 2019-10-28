@@ -12,6 +12,7 @@ app.use(express.json());
 app.get('/api/users', getAllUsers)
 app.get('/api/users/:id', getUser)
 app.post('/api/users', addUser)
+app.delete('/api/users/:id', removeUser)
 app.get('*', handleRequest)
 app.post('*', handleRequest)
 app.put('*', handleRequest)
@@ -51,6 +52,20 @@ function addUser(req, res) {
         .then(data => {
             res.json(data)
             console.log(data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function removeUser(req, res) {
+    console.log('user')
+    const id = req.params.id;
+
+    db.remove(id)
+        .then(data => {
+            console.log(data)
+            res.json(data)
         })
         .catch(error => {
             console.log(error)
