@@ -12,3 +12,17 @@ server.post('/api/users', (req, res) => {
             })
         })
 })
+
+
+server.get('/api/users', (req, res) => {
+    users.find()
+        .then(users => {
+            res.json(users);
+        })
+        .catch(err => {
+            res.status(500).json({
+                err: err,
+                message: 'The users information could not be retrieved'
+            })
+        })
+})
