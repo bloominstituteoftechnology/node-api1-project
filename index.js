@@ -12,23 +12,21 @@ server.use(express.json()); //teaches express how to read json, needed for POST 
 server.get('/api/users', (req,res) => {
     db.find() 
     .then(users => {
-        res.json(users);
+        res.status(200).json(users);
     })
     .catch(err => {
         // res.send('An error, sorrrry.') --doing .json instead per today's lecture
-        res.json({error: 'failed to get lambda from db'});
+        res.status(500).json({errorMessage: "failed to get users from db"});
     });
 });
 
-server.post('/lambda', (res,req) => {
-    const lambdaInfo = req.body;
-
-    db.insert(lambdaInfo)
-    .then(lambda => {
-        res.json(lambda);
+server.post('/api/users', (res,req) => {
+    db.insert()
+    .then(users => {
+        res.status(200).json(users);
     })
     .catch(err => {
-        res.json({error: 'failed to insert lambda from db'});
+        res.status(400).json({errorMessage: "Please provide name and bio for the user."});
     });
 });
 
