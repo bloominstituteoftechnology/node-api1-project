@@ -20,7 +20,9 @@
     "nodemon": "^1.19.4"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "knex": "^0.20.0",
     "sqlite3": "^4.1.0"
-  }
+  },
+  "license": "ISC"
 }

@@ -1,6 +1,6 @@
 // implement your API here
 
-console.log("/n=== It's alive ===/n")
+console.log("n/=== It's alive ===/n")
 //import express from 'express' // ES modules
 const express = require('express'); //commonjs modules, and it is equivalent to the line above
 
