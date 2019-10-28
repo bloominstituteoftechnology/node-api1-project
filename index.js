@@ -17,6 +17,21 @@ server.get('/api/users', (res, req) => {
         })
 })
 
+server.post('api/users', (res, req) => {
+    const { name, bio } = req.body
+
+    db.insert(name, bio)
+        .then(user => {
+            res.status(201).json({ success: true, user })
+        })
+
+        .catch(error => {
+            res.status(500).json({ success: false, error })
+        })
+})
+
+
+
 server.listen(process.env.PORT || 3000, () => {
     console.log('LIstening on' + process.env.PORT || 3000)
 })
