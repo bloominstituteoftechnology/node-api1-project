@@ -6,6 +6,58 @@ const db = require('./data/db');
 
 const server = express(); //creates a server
 
+server.use(express.json());
+
+//this posts a new person
+server.post('/users', (req, res) => {
+    const { name, bio } = req.body;
+  
+    if (!name || !bio) {
+      res
+        .status(400)
+        .json({ errorMessage: 'Please provide name and bio for the user.' });
+    } else {
+      db.insert(req.body)
+        .then(user => {
+          res.status(201).json(user);
+        })
+        .catch(() => {
+          res.status(500).json({
+            errorMessage:
+              'There was an error while saving the user to the database',
+          });
+        });
+    }
+  });
+//edits the persons info
+  server.put('/users/:id', (req, res) => {
+    const { name, bio } = req.body;
+  
+    if (!name || !bio) {
+      res
+        .status(400)
+        .json({ errorMessage: 'Please provide name and bio for the user.' });
+    } else {
+      db.update(req.params.id, req.body)
+        .then(user => {
+          if (user) {
+            res.status(200).json(user);
+          } else {
+            res
+              .status(404)
+              .json({
+                message: 'The user with the specified ID does not exist.',
+              });
+          }
+        })
+        .catch(() => {
+          res.status(500).json({
+            errorMessage: 'The user information could not be modified.',
+          });
+        });
+    }
+  });
+
 server.get('/', (req, res) => {
     res.send('hello new node 23');
 })
@@ -33,26 +85,6 @@ server.get('/users/:id', (req, res) => {
         console.log('find by id error', err);
         res.status(500).json({ error: "information for this user is non-existant"})
     })   
-})
-//this posts a new person
-server.post('/users', (req, res) => {
-    const { name, bio } = req.params;
-
-    (!name || !bio)
-    ? res
-        .status(400)
-        .json({ errorMessage: "Please provide name and bio for the user."})
-
-    : db
-        .insert(req.params.id)
-        .then(user => {
-            res.status(201).json(user);
-        })
-        .catch(() => {
-            res
-            .status(500)
-            .json({ error: 'failed to add the person to the database'});
-        });
 })
 
 server.delete('/users/:id', (req, res) => {
