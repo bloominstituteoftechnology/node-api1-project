@@ -79,7 +79,7 @@ server.put('/api/users/:id', (req, res) => {
     const editedUser = {
         ...req.body,
     };
-
+    
     db.update(id, editedUser)
     .then(edited => {
         if (id === []) {
@@ -92,7 +92,7 @@ server.put('/api/users/:id', (req, res) => {
     .catch(error => {
         res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
     });
-})
+});
 
 
 
