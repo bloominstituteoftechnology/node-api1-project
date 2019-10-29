@@ -1,11 +1,13 @@
 // implement your API here
 const express = require('express')
+const cors = require('cors')
 
 const db = require('./data/db')
 
 const server = express()
 
 server.use(express.json());
+server.use(cors())
 
 console.log('hello')
 
@@ -80,7 +82,7 @@ server.delete('/api/user/:id', (req, res)=>{
     })
 })
 
-server.put('/api/user/:id', (req, res)=>{
+server.put('/api/users/:id', (req, res)=>{
     const id = req.params.id
     const updatedUser = req.body;
     console.log('hello',updatedUser.name&&updatedUser)
