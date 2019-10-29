@@ -9,25 +9,8 @@ const server = express(); //creates a server
 server.get('/', (req, res) => {
     res.send('hello new node 23');
 })
-
-server.post('/api/users', (req, res) => {
-    const user = req.body
-    console.log(user);
-    console.log('this is req', req);
-    console.log('this is res', res);
-
-    db.insert(user)
-    .then(person => {
-        res.status(201).json(person);
-    })
-    .catch(err => {
-        console.log('error', err);
-        res.json({ error: 'failed to add the person to the database'});
-    });
-})
-
-server.get('/api/users', (req, res) => {
-    const users = req.params
+//get the persons from the data base
+server.get('/users', (req, res) => {
 
     db.find()
     .then(user => {
@@ -38,34 +21,47 @@ server.get('/api/users', (req, res) => {
         }
     })
 })
-
-server.get('/api/users/:id', (req, res) => {
+//this gets one person from the data base
+server.get('/users/:id', (req, res) => {
     const id = req.params.id;
 
-    users.findById(id)
+    db.findById(id)
     .then(user => {
-        if(user === []) {
-            res.status(404).json({ message: "Can not find user with this id"})
-        } else {
-            res.json(user)
-        }
+        res.status(200).json(user);
     })
     .catch(err => {
         console.log('find by id error', err);
         res.status(500).json({ error: "information for this user is non-existant"})
     })   
 })
+//this posts a new person
+server.post('/users', (req, res) => {
+    const { name, bio } = req.params;
 
-server.delete('/api/users/:id', (req, res) => {
-    const id = req.params.id;
+    (!name || !bio)
+    ? res
+        .status(400)
+        .json({ errorMessage: "Please provide name and bio for the user."})
 
-    db.remove(id)
+    : db
+        .insert(req.params.id)
+        .then(user => {
+            res.status(201).json(user);
+        })
+        .catch(() => {
+            res
+            .status(500)
+            .json({ error: 'failed to add the person to the database'});
+        });
+})
+
+server.delete('/users/:id', (req, res) => {
+    db.remove(req.params.id)
     .then(user => {
-        res.status(200).json({ message: 'user with id ${id} deleted' })
+        res.status(200).json({ message: `user with id ${id} deleted` })
     })
     .catch(err => {
-        console.log('error', err);
-        res.status(404).json({ error: 'the user with this id does not exist'});
+        res.status(500).json({ error: 'failed to delete user'});
     })
 })
 
