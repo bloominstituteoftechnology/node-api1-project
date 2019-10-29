@@ -51,7 +51,7 @@ server.get('/api/users/:id', (req, res) => {
 //post new user
 server.post('/api/users', (req, res) => {
     // define data to post
-    const {name, bio} = req.body
+    const {name, bio} = req.body;
   
     (! name || !bio)
     ? res
@@ -70,18 +70,19 @@ server.post('/api/users', (req, res) => {
 })
 
 //delete req
-server.delete('/api/users/:id', (req, res) => {
-    const id = req.params.id
-    (`!users/${id}`)
-    ? res
-    .status(404)
-    .json({ message: "The user with the specified ID does not exist." })
-    :db.
-    remove(id)
-    .then(users => {
-        res.status(200).json(users)
-    })
-    .catch(() => {
-        res.status(500).json({ error: 'The user information could not be removed.' });
+
+server.delete("/api/users/:id", (req, res) => {
+    db.remove(req.params.id)
+      .then(user => {
+        if (!user) {
+          res
+            .status(404)
+            .json({ message: "The user with the specified ID does not exist." });
+        } else {
+          res.status(201).send("Successfully deleted!");
+        }
+      })
+      .catch(error => {
+        res.status(500).json({ error: "The user could not be removed" });
       });
-})
+  });

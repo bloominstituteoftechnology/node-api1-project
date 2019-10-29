@@ -17,10 +17,11 @@
   },
   "homepage": "https://github.com/LambdaSchool/webapi-i-challenge#readme",
   "devDependencies": {
-    "nodemon": "^1.19.3"
+    "nodemon": "^1.19.4"
   },
   "dependencies": {
-    "knex": "^0.19.4",
+    "express": "^4.17.1",
+    "knex": "^0.20.0",
     "sqlite3": "^4.1.0"
   }
 }
