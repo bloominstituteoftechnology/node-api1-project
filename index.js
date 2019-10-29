@@ -10,8 +10,33 @@ server.get('/', (req, res) => {
     res.send('hello new node 23');
 })
 
+server.post('/api/users', (req, res) => {
+    const user = req.body
+    console.log(user);
+    console.log('this is req', req);
+    console.log('this is res', res);
+
+    db.insert(user)
+    .then(person => {
+        res.status(201).json(person);
+    })
+    .catch(err => {
+        console.log('error', err);
+        res.json({ error: 'failed to add the person to the database'});
+    });
+})
+
 server.get('/api/users', (req, res) => {
     const users = req.params
+
+    db.find()
+    .then(user => {
+        if(user === []) {
+            res.status(404).json({ message: "did not find users"})
+        } else {
+            res.json(user)
+        }
+    })
 })
 
 server.get('/api/users/:id', (req, res) => {
