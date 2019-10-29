@@ -23,12 +23,12 @@ server.post('/api/users', (req,res) => {
     //     ...req.body,
     // };
 
-    // other way of doing this (saw this most ofen in help)
+    // other way of doing this (saw this most often in help)
     const { name, bio } = req.body;
    
     db.insert(req.body)
     .then(users => {
-        if (user === []) {
+        if (users === []) {
             res.status(500).json({ error: "There was an error while saving the user to the database" });
         } else {
         res.status(201).json(users);
@@ -47,10 +47,15 @@ server.put('/api/users/:id', (req, res) => {
 
     db.update(id, editedUser)
     .then(edited => {
-        res.status(203).json(edited);
-    })
+        if (id === []) {
+            res.status(404).json({ message: "The user with the specified ID does not exist." });
+        } else if (editedUser === []) {
+            res.status(500).json({ error: "The user information could not be modified." });
+        } else {
+            res.status(203).json(edited);
+    }})
     .catch(error => {
-        res.status(400).json({ message: "The user with the specified ID does not exist." });
+        res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
     });
 })
 
