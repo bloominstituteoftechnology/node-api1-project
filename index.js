@@ -4,6 +4,9 @@
 
 const express = require('express');
 
+//must bring in database in order to use CRUD operations (each function in the db.js file returns a PROMISE)
+const db = require('./data/db');
+
 // const hostname= '127.0.0.1';
 // const port = 3000;
 
@@ -29,28 +32,41 @@ server.listen(4000, () => {
 //ROUTE HANDLER:
 //('endpoint', (callback)  => {for server request tells server wht to do}
 //req = request, res = response
+
+//CRUD - Create Read Update Delete/Destroy
+//       Post,  Get,  PUT,   Delete
 server.get('/', (req, res) => {
     res.send('server is working');
 })
 
-server.post('/api/users', (req,res) => {
+// server.post('/api/users', (req, res) => {
 
+// })
+
+server.get('/api/users', (req, res) => {
+    db.find()
+        .then(users => {
+            res.status(200).json(users);
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: err,
+                success: false
+
+            })
+        })
 })
 
-server.get('/api/users', (req,res) => {
+// server.get('/api/users/:id', (req, res) => {
     
-})
+// })
 
-server.get('/api/users/:id', (req,res) => {
+// server.delete('/api/users/:id', (req, res) => {
     
-})
+// })
 
-server.delete('/api/users/:id', (req,res) => {
+// server.put('/api/users/:id', (req, res) => {
     
-})
-
-server.put('/api/users/:id', (req,res) => {
-    
-})
+// })
 
 console.log("hello world")
