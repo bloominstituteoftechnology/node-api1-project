@@ -1,13 +1,18 @@
 // implement your API here
+require('dotenv').config();
 const express = require('express');
 const userModel = require('./data/db')
 const server = express();
 
+console.log('\nmessage:', process.env.MSG);
+
 server.use(express.json());
 
 server.get('/', (req, res) => {
-  res.send('Welcome To The Lord Of The Rings API!');
+    res.status(200).json({ message: process.env.MSG });
 });
+
+const port = process.env.PORT || 5000;
 
 // `find()`: calling find returns a promise that resolves to an array of all the users contained in the database.
 server.get ('/api/users', (req, res) => {
@@ -115,6 +120,6 @@ server.delete('/api/users/:id', (req, res) => {
     })
 });
 
-server.listen(8000, () => { 
-    console.log('API running on port 8000')
+server.listen(port, () => { 
+    console.log(`\n Server running on port ${port} \n`);
 });
