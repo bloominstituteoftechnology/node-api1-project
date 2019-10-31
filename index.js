@@ -103,6 +103,7 @@ server.put('/api/users/:id', (req, res)=>{
 })
 
 
+const port = process.env.PORT || 4000
 
 const port = 8000; // localhost:8000
 server.listen(port, () => console.log('\n=== API on port 8000 ===\n'));
