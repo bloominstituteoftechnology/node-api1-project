@@ -22,11 +22,35 @@ const server = express();
 // }
 
 //using hostname and port set with standard http request, takes a port and a callback function below:
-
-server.listen(5000, () => {
-    console.log('===server listening on port 5000===');
+//listening on the port
+server.listen(4000, () => {
+    console.log('===server listening on port 4000===');
 });
+//ROUTE HANDLER:
+//('endpoint', (callback)  => {for server request tells server wht to do}
+//req = request, res = response
+server.get('/', (req, res) => {
+    res.send('server is working');
+})
 
+server.post('/api/users', (req,res) => {
 
+})
+
+server.get('/api/users', (req,res) => {
+    
+})
+
+server.get('/api/users/:id', (req,res) => {
+    
+})
+
+server.delete('/api/users/:id', (req,res) => {
+    
+})
+
+server.put('/api/users/:id', (req,res) => {
+    
+})
 
 console.log("hello world")
