@@ -9,6 +9,7 @@ flex-wrap: wrap;
 `
 
 const UserBox = styled.div`
+background: whitesmoke;
 margin: 1% auto;
 padding: 30px;
 width: 25%;

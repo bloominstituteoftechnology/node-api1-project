@@ -4,7 +4,11 @@ import './App.css';
 import Users from '../src/components/Users'
 import axios from 'axios'
 
+
+
 function App() {
+  document.body.style.background = 'dodgerblue'
+
   const baseURL = 'http://localhost:8000/api/users' 
   const [users, setUsers] = useState([])
   const [render, setRender] = useState(false)
