@@ -1,4 +1,5 @@
 // implement your API here
+const cors = require('cors')
 require('dotenv').config();
 const express = require('express');
 const userModel = require('./data/db')
@@ -7,6 +8,7 @@ const server = express();
 console.log('\nmessage:', process.env.MSG);
 
 server.use(express.json());
+server.use(cors());
 
 server.get('/', (req, res) => {
     res.status(200).json({ message: process.env.MSG });
