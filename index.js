@@ -3,7 +3,7 @@ const cors = require('cors')
 require('dotenv').config();
 const express = require('express');
 const userModel = require('./data/db')
-const server = express();
+const server = express(); 
 
 console.log('\nmessage:', process.env.MSG);
 
@@ -16,7 +16,7 @@ server.get('/', (req, res) => {
 
 const port = process.env.PORT || 5000;
 
-// `find()`: calling find returns a promise that resolves to an array of all the users contained in the database.
+//  `find()`: calling find returns a promise that resolves to an array of all the users contained in the database.
 server.get ('/api/users', (req, res) => {
     userModel
         .find()
