@@ -82,22 +82,30 @@ server.delete('/users/:id', (req, res) => {
     });
 });
 
-// // PUT
-// server.put('/users/:id', (req, res) => {
-//   const id = req.params.id;
-//   const userInfo = req.body;
+// PUT
+// Updates the user with the specified id using data from the request body. Returns the modified document, NOT the original.
+server.put('/users/:id', (req, res) => {
+  const { name, bio } = req.body;
 
-//   db.update(id, userInfo)
-//     .then(user => {
-//       if (user) {
-//         res.status(200).json({ success: true, user });
-//       } else {
-//         res
-//           .status(404)
-//           .json({ success: false, message: `id ${id} does not exist` });
-//       }
-//     })
-//     .catch(err => {
-//       res.status(500).json({ success: false, err });
-//     });
-// });
+if (!name || !bio) {
+  res.status(400).json({ errorMessage: 'Please provide name and bio for user. '})
+} else {
+  userData.update(req.params.id, req.body)
+  .then(user => {
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res
+        .status(404)
+        .json({
+          message: "User with specified id does not exist.",
+        })
+    }
+  })
+  .catch(() => {
+    res.status(500).json({
+      message: 'User could not be modified',
+    })
+  })
+}
+});
