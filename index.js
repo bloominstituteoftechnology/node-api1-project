@@ -13,6 +13,7 @@ console.log(`\n*** API on port ${port} ***\n`))
 //CRUD -------------------
 
 // POST
+// Creates a user using the information sent inside the request body.
 server.post("/users", (req, res) => {
   const { name, bio } = req.body;
 
@@ -35,6 +36,7 @@ server.post("/users", (req, res) => {
 });
 
 // GET
+// Returns an array of all the user objects contained in the database.
 server.get('/users', (req, res) => {
   userData.find()
     .then(users => {
@@ -43,6 +45,23 @@ server.get('/users', (req, res) => {
     .catch(err => {
       res.status(500).json({ errorMessage: "The users could not be retrieved" });
     });
+});
+
+// GET id
+// Returns the user object with the specified id.
+server.get('/users/:id', (req, res) => {
+  userData.findById(req.params.id)
+  .then(user => {
+    if(user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: "User with this id does not exist."})
+    }
+  })
+  .catch(() => {
+    res.status(500)
+    .json({ errorMessage: 'User could not be retrieved. '})
+  })
 });
 
 // // DELETE
