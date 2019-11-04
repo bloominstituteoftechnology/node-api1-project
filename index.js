@@ -64,22 +64,23 @@ server.get('/users/:id', (req, res) => {
   })
 });
 
-// // DELETE
-// server.delete('/users/:id', (req, res) => {
-//   const { id } = req.params;
-
-//   db.remove(id)
-//     .then(deletedUser => {
-//       if (deletedUser) {
-//         res.status(204).end();
-//       } else {
-//         res.status(404).json({ message: `I could not find id=${id}` });
-//       }
-//     })
-//     .catch(err => {
-//       res.status(500).json({ success: false, err });
-//     });
-// });
+// DELETE
+// Removes the user with the specified id and returns the deleted user.
+server.delete('/users/:id', (req, res) => {
+  userData.remove(req.params.id)
+    .then(deleted  => {
+      if (deleted && deleted > 0) {
+        res.status(200).json({
+          message: 'user was deleted',
+        });
+      } else {
+        res.status(404).json({ message: `User id=${id} does not exist.` });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'User could not be removed.' });
+    });
+});
 
 // // PUT
 // server.put('/users/:id', (req, res) => {
