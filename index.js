@@ -5,12 +5,12 @@ const express = require('express');
 
 const server = express();
 
-const port = process.env.PORT
+const ports = process.env.PORT
 
-server.listen(port, () => {
-console.log(`\n*** Server Running on port ${port}***\n`);
+server.listen(ports, () => {
+console.log(`\n*** Server Running on port ${ports}***\n`);
 
-}
+})
 
 // server.listen(4000, ()=> {
 //    console.log('===server listening on port 4000====');
