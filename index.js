@@ -2,7 +2,6 @@
 
 const db = require('./data/db.js');
 const express = require('express');
-
 const server = express();
 
 const ports = process.env.PORT
