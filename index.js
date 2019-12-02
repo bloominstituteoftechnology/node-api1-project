@@ -9,7 +9,7 @@ const server = express();
 server.use(express.json());
 
 
-//GET 
+//GET request
 server.get('/api/users', (req, res) => {
 
     db.find()
@@ -22,7 +22,7 @@ server.get('/api/users', (req, res) => {
     })
 });
 
-//GET by Id
+//GET by Id request
 
 server.get('/api/users/:id', (req, res) => {
     const id = req.params.id;
@@ -41,12 +41,12 @@ server.get('/api/users/:id', (req, res) => {
 });
 
 
-//post
+//POST requst
 server.post('/api/users', (req, res) => {
     const users = req.body; 
     db.insert(users)
     .then(data => {
-        if('name' === ' ' || 'bio' === ' '){
+        if("name" || "bio" === ""){
             res.status(400).json({ message: "Please provide name and bio for the user."})
         } else {
             res.status(201).json(data);
@@ -58,14 +58,13 @@ server.post('/api/users', (req, res) => {
     });
 });
 
-//delete
+//DELETE request
 server.delete('/api/users/:id', (req, res) => {
     const id = req.params.id;
-
     db.remove(id)
     .then(removed => {
         if(removed){
-            res.status(200).json({ message: 'user removed successfully.', removed });
+            res.status(200).json({ message: 'user removed successfully.', removed});
         } else {
             res.status(404).json({ message: "The user with the specified ID does not exist."});
         }
@@ -76,9 +75,27 @@ server.delete('/api/users/:id', (req, res) => {
     });
 });
 
+//PUT request
+server.put('/api/users/:id', (req, res) => {
+ const user = req.body;
+ const id = req.params.id;
 
-
-
+    if (user.name && user.bio) {
+        db.update(id, user)
+        .then(user => {
+            res.status(200).json(user);
+        }) 
+        .catch(err => {
+            console.log('error on PUT/api/users/:id', err);
+            res.status(500).json({ errorMessage: "The information could not be modified"});
+        });
+    } else if (user.id !== user.id) {
+        res.status(404).json({message: "The user with the specified ID does not exist."});
+    }
+    else {
+        res.status(400).json({ errorMessage: "Please provide name and bio for the user."});
+    }
+});
 
 
 const port = 5000; 
