@@ -3,7 +3,7 @@
 ## Topics
 
 - Writing API endpoints.
-- Performing CRUD operations.
+- Performing CRUD 
 
 ## Assignment
 
