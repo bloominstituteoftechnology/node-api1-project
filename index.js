@@ -22,4 +22,22 @@ server.get(`/users`, (req, res) => {
     });
 });
 
+server.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.findById(id)
+    .then(user => {
+      // If the user is found, returns the user, else, returns a default message
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({message: `Unable to find user with id of ${id}`});
+      }
+    })
+    .catch(error => {
+      console.log(`Error on GET /users/${id}`);
+      res.status(404).json({errorMessage: `Error obtaining id ${id}`});
+    });
+});
+
 server.listen(port, () => console.log(`\n***Server running on port ${port}***\n`));
