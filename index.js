@@ -22,6 +22,25 @@ server.get(`/users`, (req, res) => {
     });
 });
 
+server.post(`/users`, (req, res) => {
+  const {name, bio} = req.body;
+
+  // First need to check if both the bio and the name exist
+  if (!name || !bio) {
+    res.status(400).json({errorMessage: "Please provide name and bio for the user."});
+  } else {
+
+    // If the checks pass, then we can insert the newly created user into the DB
+    db.insert(req.body)
+      .then(user => {
+        res.status(201).json(user)
+      })
+      .catch(error => {
+        res.status(500).json({error: "There was an error while saving the user to the database."});
+      })
+  }
+});
+
 server.get('/users/:id', (req, res) => {
   const id = req.params.id;
 
