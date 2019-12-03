@@ -55,6 +55,29 @@ server.post( '/users', ( req, res ) => {
     } );
 } );
 
+server.put( '/users/:id', ( req, res ) => {
+  const userData = req.body;
+  const id = req.params.id;
+
+  console.log( userData.bio );
+  if ( userData.name === undefined || userData.bio === undefined ) {
+    return res.status( 400 ).json( { errorMessage: "Please provide name and bio for the user." } );
+  }
+
+  if ( id === 0 ) {
+    return res.status( 400 ).json( { message: "The user with the specified ID does not exist." } );
+  }
+  
+  db.update( id, userData )
+    .then( user => {
+      res.status( 201 ).json( user );
+    } )
+    .catch( error => {
+      console.log( 'error on POST /users', error );
+      res.status( 500 ).json( { errorMessage: 'error adding the user' } );
+    } );
+} );
+
 server.delete( '/users/:id', (req, res) => {
   const id = req.params.id;
 
@@ -75,7 +98,7 @@ server.delete( '/users/:id', (req, res) => {
 server.put( '/users/:id', (req, res) => {
   const id = req.params.id;
 
-  db.remove( userData.id )
+  db.remove( id )
     .then( user => {
       if ( user === 0 ) {
         res.status( 400 ).json( { errorMessage: "The user with the specified ID does not exist." } )
