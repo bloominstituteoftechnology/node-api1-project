@@ -43,11 +43,13 @@ server.get('/api/users/:id', (req, res) => {
 
 //POST requst
 server.post('/api/users', (req, res) => {
-    const users = req.body; 
-    db.insert(users)
+    const {name, bio} = req.body; 
+    db.insert({name, bio}) 
     .then(data => {
-        if("name" || "bio" === ""){
+        if( !name || !bio){
+            
             res.status(400).json({ message: "Please provide name and bio for the user."})
+            
         } else {
             res.status(201).json(data);
         }
