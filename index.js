@@ -5,7 +5,7 @@ const server = express();
 server.use(express.json());
 
 server.get("/", (req, res) => {
-  res.send({ api: "up and running..." });
+  res.send({ api: "up and running,yo..." });
 });
 
 ///GET///
