@@ -30,7 +30,6 @@ app.post('/api/users/', (req, res) => {
     }
 
     const newUser = {
-        id: String(db.length + 1 ),
         name: req.body.name,
         bio: req.body.bio
     }
@@ -47,11 +46,11 @@ app.delete('/api/users/:id', (req, res) => {
         : res.status(404).json({ message: "The user with the specified ID does not exist." })
 })
 
-
-
 const port = 8080
 const host = "127.0.0.1" //this is another way of saying localHost.
 
 app.listen(port, host, () => {
     console.log(`server running at http://${host}:${port}`)
 })
+
+
