@@ -41,6 +41,25 @@ app.get('/api/users/:id', (req,res) => {
               res.status(500).json({ errorMessage: `The user with ${id} information could not be retrieved.` })
       })
 })
+
+app.post('/api/users', (req,res) => {
+     const user = req.body; 
+     console.log(user);
+     if(!user.name || !user.bio) res.status(400).json({ errorMessage: "Please provide name and bio for the user." });     
+     db.insert(user)
+       .then( response => {
+           if(response) {
+              console.log(response);
+              res.status(201).json(response);
+           } else {
+              res.status(403).json({msg:'You are not authorized to add user'});
+           }
+       })
+       .catch( err => {
+             res.status(500).json({ errorMessage: "There was an error while saving the user to the database" });
+       })
+})
+
 app.listen(PORT,hostname, () => {
    console.log(`app running at http://${hostname}:${PORT}`);
 })
