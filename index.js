@@ -15,21 +15,21 @@ app.get('/', (req, res) => {
 
 //getting a list of all users.
 
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
     //I want to see the IP of the request.
     console.log('ip: ', req.ip)
     //we're returning the entire database object in the request.
     res.json (db)
 })
 
-app.get('/users/:id', (req, res) => {
+app.get('/api/users/:id', (req, res) => {
     const user = db.find(row => row.id === req.params.id)
     user 
         ? res.json(user)
         : res.status(404).json({ message: "The user with the specified ID does not exist." })
 })
 
-app.post('/users/', (req, res) => {
+app.post('/api/users/', (req, res) => {
     if(!req.body.name || !req.body.bio) {
         return res.status(400).json({ error: "Need a user name and bio!" })
     }
@@ -43,7 +43,7 @@ app.post('/users/', (req, res) => {
     res.status(201).json(newUser)
 })
 
-app.delete('/users/:id', (req, res) => {
+app.delete('/api/users/:id', (req, res) => {
     const user = db.find(row => row.id === req.params.id)
     user 
         //if I'm doing this correctly, we should get back everything that /doesn't/ match the ID of the user I'm providing.
