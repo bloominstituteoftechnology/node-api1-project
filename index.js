@@ -7,42 +7,67 @@ const app = express()
 
 app.use(express.json())
 
-
-app.get('/', (req, res) => {
+//this is a request handler function. 
+app.get('/api/', (req, res) => {
     console.log('ip: ', req.ip)
     res.status(200).json({ message: "Welcome to Node/Express!"})
 })
 
 //getting a list of all users.
-
 app.get('/api/users', (req, res) => {
-    //I want to see the IP of the request.
-    console.log('ip: ', req.ip)
-    //we're returning the entire database object in the request.
-    res.json (db)
+    db.find()
+    .then(user => {
+        res
+            .status(200)
+            .json(user)
+    })
+    .catch(() => {
+        res
+            .status(404)
+            .json({error: "Unable to locate users!"})
+    })
 })
 
+//getting a specific user by ID.
 app.get('/api/users/:id', (req, res) => {
-    const user = db.find(row => row.id === req.params.id)
-    user 
-        ? res.json(user)
-        : res.status(404).json({ message: "The user with the specified ID does not exist." })
+    db.findById(req.params.id)
+
+    .then((user) => {
+        res
+            .status(200)
+            .json(user)
+    })
+    .catch(() => {
+        res
+            .status(404)
+            .json({ error: "User not found!" })
+            console.log(error)
+    })
+   
 })
 
+//adding a new user to the database.
 app.post('/api/users/', (req, res) => {
     if(!req.body.name || !req.body.bio) {
-        return res.status(400).json({ error: "Need a user name and bio!" })
+        return res
+            .status(400)
+            .json({ error: "Need a user name and bio!" })
     }
 
     const newUser = {
         name: req.body.name,
-        bio: req.body.bio
+        bio: req.body.bio,
+        // created_at: Date(),
+        // updated_at: Date()
     }
 
-    db.push(newUser)
-    res.status(201).json(newUser)
+    db.insert(newUser)
+    res
+        .status(201)
+        .json(newUser)
 })
 
+//deleting a user from the database.
 app.delete('/api/users/:id', (req, res) => {
     const user = db.find(row => row.id === req.params.id)
     user 
@@ -51,9 +76,11 @@ app.delete('/api/users/:id', (req, res) => {
         : res.status(404).json({ message: "The user with the specified ID does not exist." })
 })
 
+//updating a user's information on the database.
+
 const port = 8080
 const host = "127.0.0.1" //this is another way of saying localHost.
 
 app.listen(port, host, () => {
-    console.log(`server running at http://${host}:${port}/api`)
+    console.log(`server running at http://${host}:${port}`)
 })
