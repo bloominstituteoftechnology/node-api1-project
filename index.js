@@ -21,7 +21,7 @@ app.get('/api/users/:id', (req, res) => {
     const user = db.find(row => row.id === req.params.id)
     user 
         ? res.json(user)
-        : res.status(404).json({ error: "User not found!" })
+        : res.status(404).json({ message: "The user with the specified ID does not exist." })
 })
 
 app.post('/api/users/', (req, res) => {
@@ -37,4 +37,21 @@ app.post('/api/users/', (req, res) => {
 
     db.push(newUser)
     res.status(201).json(newUser)
+})
+
+app.delete('/api/users/:id', (req, res) => {
+    const user = db.find(row => row.id === req.params.id)
+    user 
+        //if I'm doing this correctly, we should get back everything that /doesn't/ match the ID of the user I'm providing.
+        ? db = db.filter(row = row.id !== row.params.id)
+        : res.status(404).json({ message: "The user with the specified ID does not exist." })
+})
+
+
+
+const port = 8080
+const host = "127.0.0.1" //this is another way of saying localHost.
+
+app.listen(port, host, () => {
+    console.log(`server running at http://${host}:${port}`)
 })
