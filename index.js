@@ -52,5 +52,3 @@ const host = "127.0.0.1" //this is another way of saying localHost.
 app.listen(port, host, () => {
     console.log(`server running at http://${host}:${port}`)
 })
-
-
