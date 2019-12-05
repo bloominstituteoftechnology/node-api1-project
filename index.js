@@ -38,12 +38,12 @@ app.post('api/users', (req, res) => {
 })
 
 // app.put('/users/:id', (req, res) => {
-//     if () {
+//     .then( => {
 
-//     } else {
-
-//     }
 // })
+//     .catch( => {
+
+//     })
 
 app.delete('api/users/:id', (req,res) => {
     const user = db.find(row => row.id === req.params.id)
