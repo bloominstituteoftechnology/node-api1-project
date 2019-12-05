@@ -5,18 +5,18 @@ let db = require('./data/db')
 
 const app = express()
 
-app.use(epxress.json())
+app.use(express.json())
 
 app.get('/', (req, res) => {
     console.log('ip:', req.ip)
     res.json({ message: 'Welcome!' })
 })
 
-app.get('/users', (req, res) => {
+app.get('api/users', (req, res) => {
     res.json(db)
 })
 
-app.get('/users/:id', (req, res) => {
+app.get('api/users/:id', (req, res) => {
     const user = db.find(row => row.id === req.params.id)
         if (user) {
             res.json(user)
@@ -25,7 +25,7 @@ app.get('/users/:id', (req, res) => {
         }
 })
 
-app.post('/users', (req, res) => {
+app.post('api/users', (req, res) => {
     if (!req.body.name) {
         return res.status(400).json({ error: 'Need a user name' })
     }
@@ -37,9 +37,15 @@ app.post('/users', (req, res) => {
     res.status(201).json(newUser)
 })
 
-// app.put('/')
+// app.put('/users/:id', (req, res) => {
+//     if () {
 
-app.delete('/users/:id', (req,res) => {
+//     } else {
+
+//     }
+// })
+
+app.delete('api/users/:id', (req,res) => {
     const user = db.find(row => row.id === req.params.id)
     if (user) {
         db = db.filter(row => row.id !== req.params.id)
@@ -55,3 +61,10 @@ const host = '127.0.0.1'
 app.listen(port, host, () => {
     console.log(`Server running at http://${host}:${port}`)
 })
+
+// .then(response => {
+//             return res.status(200).json({
+//                     url: `/api/users/${id}`,
+//                     user: response
+//                 })
+//         })
