@@ -78,6 +78,29 @@ app.delete('/api/users/:id', () => {
       })
 });
 
+app.put('/api/users/:id', (req,res) => {
+    const id = req.params.id;
+    const user = req.body;
+    if(!user.name) res.status(400).json({ errorMessage: `Please provide ${user.name} for the user.` });
+    if(!user.bio) res.status(400).json({ errorMessage: `Please provide ${user.bio} for the user.` });
+    if(!id) res.status(400).json({errorMessage:`${id} missing for the user`});
+    db.findById(id)
+      .then( response => {
+         if(response.name&& response.bio) {
+            db.update(id, user)
+              .then( response =>{
+                 res.status(200).json(response);
+              })
+              .catch(err => {
+                 res.status(500).json({ errorMessage: `The user with id ${id} information could not be modified.` })
+              })
+         }
+      })
+      .catch( err => {
+          res.status(404).json({message: `The user with the specified ${id} does not exist.`});
+      })
+})
+
 app.listen(PORT,hostname, () => {
    console.log(`app running at http://${hostname}:${PORT}`);
 })
