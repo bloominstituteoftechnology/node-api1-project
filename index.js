@@ -58,7 +58,25 @@ app.post('/api/users', (req,res) => {
        .catch( err => {
              res.status(500).json({ errorMessage: "There was an error while saving the user to the database" });
        })
-})
+});
+
+app.delete('/api/users/:id', () => {
+    const id = req.params.id;
+    db.findById(id)
+      .then( response => {
+          if(!response.name) res.status(404).json({ message: "The user with the specified ID does not exist." });
+          db.delete(response.id)
+            .then( response => {
+               res.status(200).json({msg:"Successfully deleted"});
+            })
+            .catch(err => {
+               res.status(500).json({ errorMessage: "The user could not be removed"});
+            })
+      })
+      .catch(err => {
+              res.status(500).json({errorMessage: "Could not find the user server error"});
+      })
+});
 
 app.listen(PORT,hostname, () => {
    console.log(`app running at http://${hostname}:${PORT}`);
