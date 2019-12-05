@@ -5,7 +5,7 @@ const express = require("express");
 const user = require("./data/db.js");
 
 const port = 5000;
-const host = "127.0.0.1";
+const host = "127.0.0.1"; //localhost
 const app = express();
 app.use(express.json());
 
@@ -51,37 +51,98 @@ app.post("/api/users", (req, res) => {
       });
   });
 
-//   - If there's an error while saving the _user_:
-//   - respond with HTTP status code `500` (Server Error).
-//   - return the following JSON object: `{ errorMessage: "There was an error while saving the user to the database" }`.
-
-
 // | GET    | /api/users     | Returns an array of all the user objects contained in the database.     
 
-// - If there's an error in retrieving the _users_ from the database:
-//   - respond with HTTP status code `500`.
-//   - return the following JSON object: `{ errorMessage: "The users information could not be retrieved." }`.
+app.get("/api/users", (req, res) => {
+  user
+    .find()
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(() => {
+    //     - respond with HTTP status code `500`.
+    //     - return the following JSON object: `{ errorMessage: "The users information could not be retrieved." }`.
+    //   res.status(500).json({ error: "The users information could not be retrieved." });
+    });
+});
 
 //| GET    | /api/users/:id | Returns the user object with the specified `id`.    
 
-// - If the _user_ with the specified `id` is not found:
-//   - respond with HTTP status code `404` (Not Found).
-//   - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
-
-// - If there's an error in retrieving the _user_ from the database:
-//   - respond with HTTP status code `500`.
+app.get("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+  user
+    .findById(id)
+    .then(userId => {
+      if (!userId) {
+        res
+        // - respond with HTTP status code `404` (Not Found).
+        // - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
+          .status(404)
+          .json({ message: "The user with the specified ID does not exist." });
+      } else {
+        return res.status(200).send(userId);
+      }
+    })
+    .catch(error => {
+      res
+      //  - respond with HTTP status code `500`.
 //   - return the following JSON object: `{ errorMessage: "The user information could not be retrieved." }`.
+        .status(500)
+        .json({ errorMessage: "The user information could not be retrieved" });
+    });
+});
 
 
 // | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.   
 
+app.delete("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+  user.findById(id).then(userId => {
+    if (!userId) {
+      res
+      //- respond with HTTP status code `404` (Not Found).
+//   - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
+        .status(404)
+        .json({ message: "The user with the specified ID does not exist." });
+    }
+  });
+  user
+    .remove(id)
+    .then(userId => {
+      if (userId) {
+        res.status(200).send(`${userId}, records deleted`);
+      }
+    })
+    .catch(error => {
+        // - respond with HTTP status code `500`.
+//   - return the following JSON object: `{ errorMessage: "The user could not be removed" }`.
+      res.status(500).json({ errorMessage: "The user could not be removed" });
+    });
+});
+
+app.listen(port, host, () => {
+  console.log(`Server running at http://${host}:${port}`);
+});
+
+// | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
+
 // - If the _user_ with the specified `id` is not found:
 
 //   - respond with HTTP status code `404` (Not Found).
 //   - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
 
-// - If there's an error in removing the _user_ from the database:
-//   - respond with HTTP status code `500`.
-//   - return the following JSON object: `{ errorMessage: "The user could not be removed" }`.
+// - If the request body is missing the `name` or `bio` property:
 
-// | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
+//   - respond with HTTP status code `400` (Bad Request).
+//   - return the following JSON response: `{ errorMessage: "Please provide name and bio for the user." }`.
+
+// - If there's an error when updating the _user_:
+
+//   - respond with HTTP status code `500`.
+//   - return the following JSON object: `{ errorMessage: "The user information could not be modified." }`.
+
+// - If the user is found and the new information is valid:
+
+//   - update the user document in the database using the new information sent in the `request body`.
+//   - respond with HTTP status code `200` (OK).
+//   - return the newly updated _user document_.
