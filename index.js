@@ -2,28 +2,21 @@
 
 const express = require('express')
 
-const server = express()
+const app = express()
 
-server.get('/', (req, res) => {
-    res.send('Hello World')
-})
+// server.get('/', (req, res) => {
+//     res.send('Hello World')
+// })
 
-server.get('/hobbits', (req, res) => {
-    const hobbits = {
-         id: 1, 
-         name: 'Samwise Gamgee',
-    }
-    // {
-    //     id: 2,
-    //     name: 'Frodo Baggins',
-    // }
+// server.get('/hobbits', (req, res) => {
+    
+// })
 
-    res.status(200).json(hobbits)
-})
+// server.get('/')
 
-server.get('/')
+const port = 5000
+const host = '127.0.0.1'
 
-
-server.listen(5000, () => {
-    console.log('API running on port 5000')
+app.listen(port, host, () => {
+    console.log(`Server running at http://${host}:${port}`)
 })
