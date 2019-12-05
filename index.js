@@ -6,6 +6,8 @@ let db = require('./data/db')
 const app = express()
 
 app.use(express.json())
+app.use(cors())
+
 
 //this is a request handler function. 
 app.get('/api/', (req, res) => {
