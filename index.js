@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send({ message: "" });
+  res.send({ message: "Working!" });
 });
 
 // Write endpoints to perform the following queries
@@ -102,15 +102,14 @@ app.delete("/api/users/:id", (req, res) => {
       res
       //- respond with HTTP status code `404` (Not Found).
 //   - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
-        .status(404)
-        .json({ message: "The user with the specified ID does not exist." });
+        .status(404).json({ message: "The user with the specified ID does not exist." });
     }
   });
   user
     .remove(id)
     .then(userId => {
       if (userId) {
-        res.status(200).send(`${userId}, records deleted`);
+        res.status(200).send(`${userId} deleted`);
       }
     })
     .catch(error => {
@@ -120,29 +119,43 @@ app.delete("/api/users/:id", (req, res) => {
     });
 });
 
-app.listen(port, host, () => {
-  console.log(`Server running at http://${host}:${port}`);
+// | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
+app.put('/api/user/:id', (req, res)=>{
+    const {name, bio} = req.body;
+    const id = req.params.id;
+
+    if(!id){
+        //   - respond with HTTP status code `404` (Not Found).
+//   - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
+res.status(404).json({ message: "The user with the specified ID does not exist." })
+    }else if(!name || !bio){
+        // - respond with HTTP status code `400` (Bad Request).
+        // - return the following JSON response: `{ errorMessage: "Please provide name and bio for the user." }`.
+        res.status(400).json({ message: "Please provide name and bio for the user." })
+    } else{
+        db.update(id, { name, bio })
+            .then(response => {
+                console.log(response)
+                res.status(201).json({message: 'Update Successful', newUser: {name, bio}})
+            })
+            .catch(err => {
+                console.log(err)
+                //   - respond with HTTP status code `500`.
+//   - return the following JSON object: `{ errorMessage: "The user information could not be modified." }`.
+                res.status(500).json({ errorMessage: "The user information could not be modified." })
+
+            })
+    }
+
 });
 
-// | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
-
-// - If the _user_ with the specified `id` is not found:
-
-//   - respond with HTTP status code `404` (Not Found).
-//   - return the following JSON object: `{ message: "The user with the specified ID does not exist." }`.
-
-// - If the request body is missing the `name` or `bio` property:
-
-//   - respond with HTTP status code `400` (Bad Request).
-//   - return the following JSON response: `{ errorMessage: "Please provide name and bio for the user." }`.
-
-// - If there's an error when updating the _user_:
-
-//   - respond with HTTP status code `500`.
-//   - return the following JSON object: `{ errorMessage: "The user information could not be modified." }`.
 
 // - If the user is found and the new information is valid:
 
 //   - update the user document in the database using the new information sent in the `request body`.
 //   - respond with HTTP status code `200` (OK).
 //   - return the newly updated _user document_.
+
+app.listen(port, host, () => {
+    console.log(`Server running at http://${host}:${port}`);
+  });
