@@ -37,7 +37,7 @@ app.get('/api/users/:id', (req, res) => {
             .status(200)
             .json(user)
     })
-    .catch(() => {
+    .catch((error) => {
         res
             .status(404)
             .json({ error: "User not found!" })
@@ -51,7 +51,7 @@ app.post('/api/users/', (req, res) => {
     if(!req.body.name || !req.body.bio) {
         return res
             .status(400)
-            .json({ error: "Need a user name and bio!" })
+            .json({ error: "Please provide name and bio for the user." })
     }
 
     const newUser = {
@@ -62,18 +62,64 @@ app.post('/api/users/', (req, res) => {
     }
 
     db.insert(newUser)
-    res
+    ? res
         .status(201)
         .json(newUser)
+
+    : res
+        .status(500)
+        .json({ errorMessage: "There was an error while saving the user to the database." })
 })
+
+app.put('/api/users/:id', (req, res) => {
+    const userID = req.params.id
+    const updatedUser = req.body
+
+    !updatedUser.name && !updatedUser.bio
+        //if there's no updated information in either the user's name or bio sections...
+        ?  res
+            .status(400)
+            .json({ error: "Please provide name and bio for the user." })
+
+            //if there IS updated information, we go ahead with the request.
+        :  db.update(userID, updatedUser)
+            .then((user) => {
+                user
+                ? res
+                    .status(200)
+                    .json(user)
+                    
+                    //if that user doesn't exist... 
+                : res
+                    .status(404)
+                    .json({ errorMessage: "The user with the specified ID does not exist." })
+
+            })
+
+            //if the request fails for other reasons, we use a catch-all error.
+            .catch(() => {
+                res.status(500).json({ errorMessage: "The user information could not be modified."})
+            })
+    })
 
 //deleting a user from the database.
 app.delete('/api/users/:id', (req, res) => {
-    const user = db.find(row => row.id === req.params.id)
-    user 
-        //if I'm doing this correctly, we should get back everything that /doesn't/ match the ID of the user I'm providing.
-        ? db = db.filter(row = row.id !== row.params.id)
-        : res.status(404).json({ message: "The user with the specified ID does not exist." })
+    //we're removing the user at this point.
+   db.remove(req.params.id)
+   .then((user) => {
+    (user && user > 0)
+        ? res
+            .status(200)
+            .json({ message: "The user has been deleted."})
+        : res
+            .status(404)
+            .json({ error: "The user with the specified ID does not exist."})
+   })
+   .catch(() => {
+       res
+         .status(500)
+         .json({ error: "The user could not be removed."})
+   })
 })
 
 //updating a user's information on the database.
