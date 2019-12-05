@@ -25,15 +25,14 @@ app.get('/api/users', (req, res) => {
     })
     .catch(() => {
         res
-            .status(404)
-            .json({error: "Unable to locate users!"})
+            .status(500)
+            .json({errorMessage: "The users information could not be retrieved."})
     })
 })
 
 //getting a specific user by ID.
 app.get('/api/users/:id', (req, res) => {
     db.findById(req.params.id)
-
     .then((user) => {
         user
         ? res
@@ -46,10 +45,9 @@ app.get('/api/users/:id', (req, res) => {
     .catch((error) => {
         res
             .status(404)
-            .json({ message: "The user with the specified ID does not exist" })
+            .json({ errorMessage: "The user with the specified ID does not exist" })
             console.log(error)
     })
-   
 })
 
 //adding a new user to the database.
@@ -63,8 +61,6 @@ app.post('/api/users/', (req, res) => {
     const newUser = {
         name: req.body.name,
         bio: req.body.bio,
-        // created_at: Date(),
-        // updated_at: Date()
     }
 
     db.insert(newUser)
