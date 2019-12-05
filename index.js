@@ -33,14 +33,18 @@ app.get('/api/users/:id', (req, res) => {
     db.findById(req.params.id)
 
     .then((user) => {
-        res
+        user
+        ? res
             .status(200)
             .json(user)
+        : res
+            .status(500)
+            .json({ errorMessage: "The user information could not be retrieved." })
     })
     .catch((error) => {
         res
             .status(404)
-            .json({ error: "User not found!" })
+            .json({ message: "The user with the specified ID does not exist" })
             console.log(error)
     })
    
