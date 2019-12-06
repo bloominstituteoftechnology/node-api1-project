@@ -19,18 +19,17 @@ app.get('/api/users', (req, res) => {
        res.json(users)
     })
         .catch( error => {
-            res.status(500).json({ message: "The users information could not be retrieved."  })
+            res.status(500).json({ message: "The users information could not be retrieved." })
         })
-}
+})
 
 app.get('/api/users/:id', (req, res) => {
     const user = db.findById(req.params.id)
     .then(data => {
         if (data) {
          res.json(data)
-        }
     } else {
-       res.status(404).json({ error: "The user information could not be retrieved." })
+            res.status(404).json({ message: "The user with the specified ID does not exist." })
     }
 
         // if (user.id) {
@@ -55,13 +54,13 @@ app.post('/api/users', (req, res) => {
     db.push(newUser)
     res.status(201).json(newUser)
 
-    //  else {
-    //     res.status(500).json({ error: "There was an error while saving the user to the database" })
-    // }
+    } else {
+        res.status(500).json({ error: "There was an error while saving the user to the database" })
+    }
 })
 // PUT update data
     app.put('/api/users/:id', (req, res) => {
-     const{name, bio } = req.body{
+     const{name, bio } = req.body {
         if(!name || !bio) {
             return res.status(400).json({ error: "Please provide name and bio for the user" })
         }
