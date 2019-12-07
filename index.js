@@ -53,12 +53,12 @@ app.post('/api/users', (req, res) => {
 })
     
 // PUT update data
-    app.put('/api/users/:id', async (req, res) => {
+    app.put('/api/users/:id', (req, res) => {
      const{ name, bio } = req.body
         if (!name || !bio) {
             return res.status(400).json({ error: "Please provide name and bio for the user" })
         }
-
+        // findById; make sure the resource exists before we look for it. 
         db.findById(req.params.id)
         .then(user => {
             if (user) {
@@ -73,7 +73,7 @@ app.post('/api/users', (req, res) => {
             })
     })
 // DELETE data
-app.delete('/api/users/:id', async (req,res) => {
+app.delete('/api/users/:id', (req,res) => {
     db.findById(req.params.id)
     .then(user => {
         if(user) {
