@@ -83,27 +83,58 @@ app.delete('/api/users/:id', (req,res) => {
     
 });
 
-app.put('/api/users/:id', (req,res) => {
-    const id = req.params.id;
-    const user = req.body;
-    if(!user.name) res.status(400).json({ errorMessage: `Please provide ${user.name} for the user.` });
-    if(!user.bio) res.status(400).json({ errorMessage: `Please provide ${user.bio} for the user.` });
-    if(!id) res.status(400).json({errorMessage:`${id} missing for the user`});
-    db.findById(id)
-      .then( response => {
-         if(response.name&& response.bio) {
-            db.update(id, user)
-              .then( response =>{
-                 res.status(200).json(response);
-              })
-              .catch(err => {
-                 res.status(500).json({ errorMessage: `The user with id ${id} information could not be modified.` })
-              })
-         }
-      })
-      .catch( err => {
-          res.status(404).json({message: `The user with the specified ${id} does not exist.`});
-      })
+// app.put('/api/users/:id', (req,res) => {
+//     const id = req.params.id;
+//     const user = req.body;
+//     if(!user.name) res.status(400).json({ errorMessage: `Please provide ${user.name} for the user.` });
+//     if(!user.bio) res.status(400).json({ errorMessage: `Please provide ${user.bio} for the user.` });
+//     if(!id) res.status(400).json({errorMessage:`${id} missing for the user`});
+//     db.findById(id)
+//       .then( response => {
+//          if(response.name&& response.bio) {
+//             db.update(id, user)
+//               .then( response =>{
+//                  res.status(200).json(response);
+//               })
+//               .catch(err => {
+//                  res.status(500).json({ errorMessage: `The user with id ${id} information could not be modified.` })
+//               })
+//          }
+//       })
+//       .catch( err => {
+//           res.status(404).json({message: `The user with the specified ${id} does not exist.`});
+//       })
+// })
+
+// app.put('/api/users/:id',(req,res) => {
+//    const {id} = req.params;
+//    const {name, bio} = req.body;
+//    if(!name) res.status(400).json({ errorMessage: `Please provide ${user.name} for the user.` });
+//    if(!bio) res.status(400).json({ errorMessage: `Please provide ${user.bio} for the user.` });
+//    if(!id) res.status(400).json({errorMessage:`${id} missing for the user`});
+//    db.findById(id)
+//      .then( user => {
+//         if(!user.name && !user.bio) res.status(404).json({message: `The user with the specified ${id} does not exist.`});
+//         return db.update(id, {name,bio});
+//      })
+//      .then(() => db.findById(id))
+//      .then(data => res.status(201).json(data))
+//      .catch( err => res.status(500).json({ errorMessage: `The user with id ${id} information could not be modified.` }))
+
+// })
+
+app.put('/api/users/:id', async (req,res) => {
+    const {name, bio} = req.body;
+    try {
+      const user = await db.findById(req.params.id);
+      if( !user.name || !user.bio) res.status(400).json({ errorMessage: `Please provide ${user} for the user.` });
+      await db.update(req.params.id, {name,bio});
+      const updatedUser = await db.findById(req.params.id);
+      res.status(201).json(updatedUser);
+
+    } catch {
+      res.status(500).json({ errorMessage: `The user with id ${id} information could not be modified.` })
+    }
 })
 
 app.listen(PORT,hostname, () => {
