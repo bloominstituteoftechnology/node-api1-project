@@ -60,28 +60,42 @@ app.post('/api/users', (req,res) => {
        })
 });
 
-app.delete('/api/users/:id', (req,res) => {
-   const {id} = req.params;
-   db.findById(id)
-     .then( response => {
-         if(response.name) {
-            db.remove(id)
-                .then(count => {
-         if(!count) res.status(404).json({ message: "The post with the specified ID does not exist." })
-         res.status(200).json({msg:`The user with Id ${id} deleted successfully`});
-     }) 
-     .catch(err => {
-         res.status(500).json({ error: "The post could not be removed" })
-     })
-         } else {
-            res.status(404).json({ message: `The user with the specified ID# ${id} does not exist.`});
-         }
-     })
-     .catch(err => {
-             res.status(500).json({errorMessage: "Could not find the user with server error"});
-     });
+// app.delete('/api/users/:id', (req,res) => {
+//    const {id} = req.params;
+//    db.findById(id)
+//      .then( response => {
+//          if(response.name) {
+//             db.remove(id)
+//                 .then(count => {
+//          if(!count) res.status(404).json({ message: "The post with the specified ID does not exist." })
+//          res.status(200).json({msg:`The user with Id ${id} deleted successfully`});
+//      }) 
+//      .catch(err => {
+//          res.status(500).json({ error: "The post could not be removed" })
+//      })
+//          } else {
+//             res.status(404).json({ message: `The user with the specified ID# ${id} does not exist.`});
+//          }
+//      })
+//      .catch(err => {
+//              res.status(500).json({errorMessage: "Could not find the user with server error"});
+//      });
     
-});
+// });
+app.delete("/api/users/:id", async (req,res) => {
+     try {
+        const user = await db.findById(req.params.id);
+        if(!user.name) res.status(400).json({ errorMessage: `Please provide ${user.name} for the user.` });
+        if(!user.bio) res.status(400).json({ errorMessage: `Please provide ${user.bio} for the user.` });
+
+        await db.remove(req.params.id);
+        res.status(200).json(user);
+     } catch {
+       res.status(500).json({error:"The user could not be removed."})
+     }
+})
+
+
 
 // app.put('/api/users/:id', (req,res) => {
 //     const id = req.params.id;
