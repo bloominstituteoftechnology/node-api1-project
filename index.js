@@ -36,7 +36,7 @@ app.get('/api/users/:id', (req, res) => {
         res.status(500).json({ error: "The users information could not be retrieved."})
     })
 
-// POST, create data
+// POST, create data/user
 app.post('/api/users', (req, res) => {
     const { name, bio } = req.body
     if (!name || !bio) {
@@ -52,7 +52,7 @@ app.post('/api/users', (req, res) => {
     })
 })
     
-// PUT update data
+// PUT update data/user
     app.put('/api/users/:id', (req, res) => {
      const{ name, bio } = req.body
         if (!name || !bio) {
