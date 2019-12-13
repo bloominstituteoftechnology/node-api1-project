@@ -5,8 +5,8 @@ app.use(express.json());
 const PORT = process.env.PORT ||8080;
 const hostname = process.env.HOST || '0.0.0.0';
 const db = require("./data/db");
-const dotenv = require("dotenv");
-dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 
 app.get("/", (req,res) => {    

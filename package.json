@@ -4,7 +4,8 @@
   "description": "Node API 1 Project Starter Code",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon -r dotenv/config index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,11 @@
   },
   "homepage": "https://github.com/LambdaSchool/node-api1-project#readme",
   "devDependencies": {
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "dotenv": "^8.2.0"
   },
   "dependencies": {
-    "dotenv": "^8.2.0",
+   
     "express": "^4.17.1",
     "knex": "^0.20.3",
     "sqlite3": "^4.1.0"
