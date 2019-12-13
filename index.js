@@ -2,16 +2,19 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
-const PORT = 8080;
-const hostname = '127.0.0.1';
+const PORT = process.env.PORT ||8080;
+const hostname = process.env.HOST || '0.0.0.0';
 const db = require("./data/db");
 const dotenv = require("dotenv");
-dotenv.congif();
+dotenv.config();
 
 
-app.get("/", (req,res) => {
-     console.log('woring',db)
-    res.status(200).json({"msg": "App is working now"});
+app.get("/", (req,res) => {    
+    res.status(200).json({
+       "msg": "App is working now",
+       PROJECT_DETAILS: process.env.PROJECT_DETAILS,
+       SECRET_KEY: process.env.SECRET_KEY      
+   });
 });
 
 app.get("/api/users", (req,res) => {
