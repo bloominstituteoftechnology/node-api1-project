@@ -10,16 +10,16 @@ app.use(express.json())
 // GET is read data
 app.get('/api', (req, res) => {
     console.log('ip:', req.ip)
-    res.json({ message: 'Welcome to Node Express!' })
+    return res.json({ message: 'Welcome to Node Express!' })
 })
 
 app.get('/api/users', (req, res) => {
     db.find()
     .then(users => {
-       res.json(users)
+       return res.json(users)
     })
         .catch( err => {
-            res.status(500).json({ message: "The users information could not be retrieved." })
+           return res.status(500).json({ message: "The users information could not be retrieved." })
         })
 })
 
@@ -27,13 +27,13 @@ app.get('/api/users/:id', (req, res) => {
     db.findById(req.params.id)
     .then(data => {
         if (data) {
-         res.json(data)
+          return res.json(data)
     } else {
-            res.status(404).json({ message: "The user with the specified ID does not exist." })
+            return res.status(404).json({ message: "The user with the specified ID does not exist." })
     }
 })
     .catch(err => {
-        res.status(500).json({ error: "The users information could not be retrieved."})
+        return res.status(500).json({ error: "The users information could not be retrieved."})
     })
 
 // POST, create data/user
@@ -45,10 +45,10 @@ app.post('/api/users', (req, res) => {
     
     db.insert({ name, bio })
     .then(data => {
-        res.status(201).json(data)
+        return res.status(201).json(data)
     })
     .catch(err => {
-        res.status(500).json({ error: "There was an error while saving the user to the database" })
+        return res.status(500).json({ error: "There was an error while saving the user to the database" })
     })
 })
     
@@ -64,12 +64,12 @@ app.post('/api/users', (req, res) => {
             if (user) {
                 return db.update(req.params.id, { name, bio })
             }
-            res.status(404).json({ error: "The user with the specified ID does not exist" })
+            return res.status(404).json({ error: "The user with the specified ID does not exist" })
         }) 
             .then(() => db.findById(req.params.id))
             .then(data => res.json(data))
             .catch(err => {
-                res.status(500).json({ error: "The user information could not be modified" })
+                return res.status(500).json({ error: "The user information could not be modified" })
             })
     })
 // DELETE data
@@ -79,12 +79,12 @@ app.delete('/api/users/:id', (req,res) => {
         if(user) {
             return db.remove(req.params.id)
         }
-        res.status(404).json({ error: "The user with the specified ID does not exist" })
+        return res.status(404).json({ error: "The user with the specified ID does not exist" })
     })
     //.then(data => res.json(data))
     .then(() => res.status(204).end())
     .catch(err => {
-        res.status(500).json ({ error: "The user could not be removed" })
+        return res.status(500).json ({ error: "The user could not be removed" })
     })
 })
 
