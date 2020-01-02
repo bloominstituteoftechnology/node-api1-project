@@ -1,8 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 let db = require('./data/db');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const hostname = '127.0.0.1';
 const port = 5001;
