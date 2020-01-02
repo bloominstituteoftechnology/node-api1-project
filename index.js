@@ -93,6 +93,31 @@ app.delete('/api/users/:id', (req, res) =>{
         })
 })
 
+app.put('/api/users/:id', (req, res) =>{
+    if(!req.body.name || !req.body.bio){
+        return res.status(400).json({ error: "Please provide name and bio for the user." })
+    }
+    const updateUser = {
+        name: req.body.name,
+        bio: req.body.bio
+    }
+    console.log('updating', req.params.id, updateUser )
+    db.update(req.params.id, updateUser)
+        .then(user => {
+            if (!user){
+                res.status(404).json({
+                    error: 'The specified ID does not exist.'
+                })
+            }else {
+                res.status(200).send(`User ${req.params.id} updated successfully`);
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'The user information could not be modified.'})
+        })
+
+})
+
 app.listen(port, hostname, ()=>{
     console.log(`Express Server running at http://${hostname}:${port}`);
 })
