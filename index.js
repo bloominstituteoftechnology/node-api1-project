@@ -41,6 +41,39 @@ app.get('/api/users/:id', (req, res) =>{
         })
 })
 
+app.post('/api/users', (req, res) => {
+    // console.log(req.body.name)
+    if(!req.body.name || !req.body.bio){
+        return res.status(400).json({ error: "Please provide name and bio for the user." })
+    }
+    const newUser = {
+        // id: String(db.length+1),
+        name: req.body.name,
+        bio: req.body.bio
+    }
+    db.insert(newUser)
+        .then(user =>{
+            console.log('finding user', user, user.id)
+            db.findById(user.id)
+            .then(user => {
+                if (!user){
+                    res.status(404).json({
+                        error: 'The specified ID does not exist.'
+                    })
+                }else {
+                    res.status(201).json(user);
+                }
+            })
+            .catch(() => {
+                res.status(500).json({ error: 'The user information could not be retrieved.'})
+            })
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'There was an error while saving the user to the database.'})
+        })
+        
+})
+
 app.listen(port, hostname, ()=>{
     console.log(`Express Server running at http://${hostname}:${port}`);
 })
