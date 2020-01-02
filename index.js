@@ -74,6 +74,25 @@ app.post('/api/users', (req, res) => {
         
 })
 
+app.delete('/api/users/:id', (req, res) =>{
+    if(!req.params.id){
+        return res.status(400).json({ error: 'User ID required'})
+    }
+    db.remove(req.params.id)
+        .then(user => {
+            if (!user){
+                res.status(404).json({
+                    error: 'The specified ID does not exist.'
+                })
+            }else {
+                res.status(202).send(`User ${req.params.id} deleted successfully.`);
+            }
+        })
+        .catch(() => {
+            res.status(500).json({ error: 'The user information could not be removed.'})
+        })
+})
+
 app.listen(port, hostname, ()=>{
     console.log(`Express Server running at http://${hostname}:${port}`);
 })
