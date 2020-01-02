@@ -11,21 +11,33 @@ app.get('/api/users', (req, res) =>{
     console.log('remote:', req.ip)
     db.find()
         .then(users => {
-            res.json(users);
+            if (!users){
+                res.status(404).json({
+                    error: 'The database does not exist.'
+                })
+            }else {
+                res.json(users);
+            }
         })
         .catch(err => {
-            res.status(500).json({ error: 'No data found'})
+            res.status(500).json({ error: 'The users information could not be retrieved.'})
         })
 })
 
 app.get('/api/users/:id', (req, res) =>{
     console.log('remote:', req.ip)
     db.findById(req.params.id)
-        .then(users => {
-            res.json(users);
+        .then(user => {
+            if (!user){
+                res.status(404).json({
+                    error: 'The specified ID does not exist.'
+                })
+            }else {
+                res.json(user);
+            }
         })
-        .catch(err => {
-            res.status(500).json({ error: 'No data found'})
+        .catch(() => {
+            res.status(500).json({ error: 'The user information could not be retrieved.'})
         })
 })
 
