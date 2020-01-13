@@ -47,12 +47,20 @@ app.post("/api/users", (req, res) => {
 
   insert(newUser)
     .then(user => {
-      res.status(201).json(user);
+      if (newUser.name && newUser.bio) {
+        console.log(user.name);
+        return res.status(201).json(user);
+      } else {
+        res.status(400).json({
+          message: "Please provide name and bio for the user."
+        });
+      }
     })
     .catch(error => {
-      res.status(500).json({
-        message: error.message
+      res.status(400).json({
+        message: "Please provide name and bio for the user."
       });
+      console.log(error);
     });
 });
 
