@@ -5,6 +5,8 @@ const Users = require("./data/db.js");
 
 const server = express();
 
+const PORT= process.env.PORT || 5000;
+
 //post
 server.post("/api/users", (req, res) => {
   const userInfo = req.body;
@@ -104,3 +106,5 @@ server.put("/api/users/:id", (req, res) => {
       });
   }
 });
+
+server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
