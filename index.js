@@ -56,6 +56,24 @@ app.post("/api/users", (req, res) => {
     });
 });
 
+app.delete("/api/users/:id", (req, res) => {
+  const { id } = req.params;
+
+  remove(id)
+    .then(user => {
+      if (user) {
+        res.status(202).json(user.id);
+      } else {
+        res.status(404).json({
+          message: `${user.id} does not exist`
+        });
+      }
+    })
+    .catch(error => {
+      console.log(error.message);
+    });
+});
+
 app.listen(8000, () => {
   console.log("listening on 8000");
 });
