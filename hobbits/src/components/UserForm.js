@@ -36,7 +36,6 @@ export default function UserForm({ setChangeMade, editing, userToEdit, setEditin
     <form onSubmit={onSubmit}>
       <label htmlFor="name">
         <input
-        defaultValue={userToEdit?userToEdit.name:""}
           value={state.name}
           onChange={e =>
             dispatch({
@@ -52,7 +51,6 @@ export default function UserForm({ setChangeMade, editing, userToEdit, setEditin
       </label>
       <label htmlFor="bio">
         <input
-        defaultValue={userToEdit?userToEdit.bio:""}
           value={state.bio}
           onChange={e =>
             dispatch({
