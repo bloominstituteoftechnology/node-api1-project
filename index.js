@@ -13,46 +13,60 @@ server.use(express.json()); //needed to parse JSON
 //routes/endpoints
 
 //GET to '/'
-server.get('/', function(request,response){
-    response.send({hello: 'web 25!, welcome to the Backend!'});
-})
+// server.get('/', function(request,response){
+//     response.send({hello: 'web 25!, welcome to the Backend!'});
+// })
 
-//list of Hubs
+//GET list of Users
 server.get('/api/users', (req, res) => {
-// read data from database(Hubs)
+// read data from database(Users)
 Users.find() //reutrn a promise
-.then(hubs => {
-    res.status(200).json(hubs);
+.then(users => {
+    res.status(200).json(users);
 })
 .catch(er => {
     console.log(er)
     //handle the error
-    res.status(500).json({errorMessage: 'sorry, error getting Hubs List'})
+    res.status(500).json({errorMessage: 'sorry, error getting Users List'})
   })
 })
 
-//create a Hub
+//Get user by ID
+server.get('/api/users/:id', (req, res) => {
+    Users.find() //reutrn a promise
+    .then(users => {
+        res.status(200).json(users);
+    })
+    .catch(er => {
+        console.log(er)
+        //handle the error
+        res.status(500).json({errorMessage: 'sorry, error getting Users List'})
+      })
+    })
+
+
+//create a USER
 server.post('/api/users', (req, res) => {
     const hubData = req.body;
     // never trust the client, validate the data. for now we trust the data for the demo
-    Hubs.add(hubData)
-      .then(hub => {
-        res.status(201).json(hub);
+    Users.add(hubData)
+      .then(user => {
+        res.status(201).json(user);
       })
       .catch(error => {
         console.log(error);
         // handle the error
         res.status(500).json({
-          errorMessage: 'sorry, we ran into an error creating the hub',
+          errorMessage: 'sorry, we ran into an error creating the user',
         });
       });
   });
   
-  //delete a Hub
+  //delete a User
 
   server.delete('/api/users/:id', (req,res)=> {
       const id = req.params.id;
-      Hubs.remove(id)
+      Users.remove(id)
       .then(deleted => {
     // res.status(204).end();
     res.status(200).json(deleted);
@@ -61,7 +75,7 @@ server.post('/api/users', (req, res) => {
         console.log(error);
         // handle the error
         res.status(500).json({
-          errorMessage: 'error removing the hub',
+          errorMessage: 'error removing the user',
         });
       });
   })
