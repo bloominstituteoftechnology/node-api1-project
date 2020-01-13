@@ -18,7 +18,7 @@ app.get("/api/users", (req, res) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: error.message,
+        message: "The users information could not be retrieved.",
         stack: error.stack
       });
     });
@@ -33,12 +33,16 @@ app.get("/api/users/:id", (req, res) => {
         res.status(200).json(data);
       } else {
         res.status(404).json({
-          message: "We cannot find this user"
+          message: "The user with the specified ID does not exist."
         });
       }
     })
     .catch(error => {
-      console.log(error);
+      res.status(500).json({
+        message: "The users information could not be retrieved.",
+        stack: error.stack
+      });
+      console.log(error.message);
     });
 });
 
@@ -57,8 +61,9 @@ app.post("/api/users", (req, res) => {
       }
     })
     .catch(error => {
-      res.status(400).json({
-        message: "Please provide name and bio for the user."
+      res.status(500).json({
+        message: "There was an error while saving the user to the database",
+        stack: error.stack
       });
       console.log(error);
     });
@@ -73,17 +78,17 @@ app.delete("/api/users/:id", (req, res) => {
         res.status(202).json(user.id);
       } else {
         res.status(404).json({
-          message: `${user.id} does not exist`
+          message: `The user with the specified ID does not exist.`
         });
       }
     })
     .catch(error => {
-      console.log(error.message);
+      res.status(500).json({
+        message: "The user could not be removed",
+        stack: error.stack
+      });
+      console.log(error);
     });
-});
-
-app.listen(8000, () => {
-  console.log("listening on 8000");
 });
 
 app.put("/api/users/:id", async (req, res) => {
@@ -92,12 +97,28 @@ app.put("/api/users/:id", async (req, res) => {
 
   try {
     const updatedUser = await update(id, modifiedUser);
-    if (updatedUser) {
+
+    if (modifiedUser.id) {
+      return res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({
+        message: "The user with the specified ID does not exist."
+      });
+    }
+    if (modifiedUser.name && modifiedUser.bio) {
       res.status(200).json(updatedUser);
     } else {
-      res.status(404).json({ message: `User with id ${id} does not exist` });
+      res
+        .status(400)
+        .json({ message: `The user with the specified ID does not exist.` });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res
+      .status(500)
+      .json({ message: "The user information could not be modified" });
   }
+});
+
+app.listen(8000, () => {
+  console.log("listening on 8000");
 });
