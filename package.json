@@ -17,10 +17,10 @@
   },
   "homepage": "https://github.com/LambdaSchool/node-api1-project#readme",
   "devDependencies": {
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.2"
   },
   "dependencies": {
-    "knex": "^0.20.3",
-    "sqlite3": "^4.1.0"
+    "knex": "^0.20.7",
+    "sqlite3": "^4.1.1"
   }
 }
