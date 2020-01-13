@@ -49,10 +49,10 @@ app.get("/api/users/:id", (req, res) => {
 app.post("/api/users", (req, res) => {
   const newUser = req.body;
 
-  insert(newUser)
+  const postUser = insert(newUser)
     .then(user => {
       if (newUser.name && newUser.bio) {
-        console.log(user.name);
+        // console.log(user.name);
         return res.status(201).json(user);
       } else {
         res.status(400).json({
@@ -98,10 +98,10 @@ app.put("/api/users/:id", async (req, res) => {
   try {
     const updatedUser = await update(id, modifiedUser);
 
-    if (modifiedUser.name && modifiedUser.bio && updatedUser) {
+    if (modifiedUser.bio && updatedUser && modifiedUser.name) {
       res.status(200).json(updatedUser);
     } else if (modifiedUser.name && modifiedUser.bio) {
-      res.status(404).json({
+      return res.status(404).json({
         message: "The user with the specified ID does not exist."
       });
     } else
