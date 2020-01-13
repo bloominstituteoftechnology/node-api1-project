@@ -24,6 +24,24 @@ app.get("/api/users", (req, res) => {
     });
 });
 
+app.get("/api/users/:id", (req, res) => {
+  const { id } = req.params;
+
+  findById(id)
+    .then(data => {
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).json({
+          message: "We cannot find this user"
+        });
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
 app.listen(8000, () => {
   console.log("listening on 8000");
 });
