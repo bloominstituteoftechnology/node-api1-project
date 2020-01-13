@@ -55,5 +55,20 @@ server.delete("/api/users/:id", (req, res) => {
     })
 });
 
+// returns a user with a specific ID
+server.get("/api/users/:id", (req, res) => {
+    const ID = req.params.id
+    Data.findById(ID)
+    .then(specific => {
+        res.status(200).json(specific);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(404).json({
+            errorMessage: "The user with the specific ID does not exist"
+        })
+    })
+})
+
 const port = 7000;
 server.listen(port, () => console.log(`server listening on port ${port}`));
