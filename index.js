@@ -17,13 +17,28 @@ server.get("/api/users", (req, res) => {
     .then(data => {
       res.status(200).json(data);
     })
-    .catch(error => {
-      console.log(error);
+    .catch(err => {
+      console.log(err);
       response.status(500).json({
         errorMessage: "The users information could not be retrieved"
       });
     });
 });
+
+// create a new user
+server.post("/api/users", (req, res) => {
+    const userData = req.body
+    Data.insert(userData) // passing in the request body
+    .then(newUser => {
+        res.status(201).json(newUser)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json({
+            errorMessage: "Please provide name and bio for the user."
+        })
+    })
+})
 
 const port = 7000;
 server.listen(port, () => console.log(`server listening on port ${port}`));
