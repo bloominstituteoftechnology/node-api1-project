@@ -50,7 +50,7 @@ server.post('/api/users', (req, res) => {
   
   //delete a Hub
 
-  server.delete('/api/hubs/:id', (req,res)=> {
+  server.delete('/api/users/:id', (req,res)=> {
       const id = req.params.id;
       Hubs.remove(id)
       .then(deleted => {
@@ -68,6 +68,22 @@ server.post('/api/users', (req, res) => {
 
   //update a Hub : extra exercise
 
+// .put
+server.put('/api/users/:id', (request, response) => {
+    const id = request.params.id;
+    const userData = request.body;
+    Users.update(id, userData)
+    .then(updated => {
+       response.status(204).json(updated)
+    })
+    .catch(error => {
+        console.log(error);
+        //handle the error
+        response.status(500).json({errorMessage: 'Sorry, we ran into an error updating the users.'})
+    })
+})
 
+
+//PORT 
 const port = 3000;
 server.listen(port, () => console.log(`\n ** api on port: ${port} **\n`));
