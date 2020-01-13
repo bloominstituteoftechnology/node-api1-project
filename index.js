@@ -24,6 +24,24 @@ app.get('/', (req, res) => {
     res.status(200).json( "App runs");
 });
 
+app.get('/api/users/:id', (req, res) => {
+    const { id } = req.params
+    console.log(req.params)
+    findById(id)
+    .then(data => {
+        if (data) {
+            res.status(200).json(data)
+          } else {
+            res.status(404).json({ message: `Error this user ${id} can not be found`})
+          }
+        })
+        .catch(error => {
+            // crashes and such
+            // res.json the error message and stack
+            console.log(error);
+          })
+})
+
 app.get('/api/users', (req, res) => {
     find()
         .then(users => {
@@ -77,4 +95,3 @@ app.post('/api/users', (req, res) => {
 app.listen(PORT, hostname, () => {
     console.log(`App running http://${hostname}:${PORT}`)
 })
-
