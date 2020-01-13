@@ -3,7 +3,7 @@
 //import express from 'express'
 const express = require('express');
 
-const Hubs = require('./data/hubs-model.js');
+const Users = require('./data/db.js');
 
 const server = express();
 
@@ -18,9 +18,9 @@ server.get('/', function(request,response){
 })
 
 //list of Hubs
-server.get('/api/hubs', (req, res) => {
+server.get('/api/users', (req, res) => {
 // read data from database(Hubs)
-Hubs.find() //reutrn a promise
+Users.find() //reutrn a promise
 .then(hubs => {
     res.status(200).json(hubs);
 })
@@ -32,7 +32,7 @@ Hubs.find() //reutrn a promise
 })
 
 //create a Hub
-server.post('/api/hubs', (req, res) => {
+server.post('/api/users', (req, res) => {
     const hubData = req.body;
     // never trust the client, validate the data. for now we trust the data for the demo
     Hubs.add(hubData)
@@ -69,5 +69,5 @@ server.post('/api/hubs', (req, res) => {
   //update a Hub : extra exercise
 
 
-const port = 8000;
+const port = 3000;
 server.listen(port, () => console.log(`\n ** api on port: ${port} **\n`));
