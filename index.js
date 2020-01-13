@@ -21,7 +21,7 @@ app.use(cors())
 
 
 app.get('/', (req, res) => {
-    res.status(200).json({"message": "App runs"});
+    res.status(200).json( "App runs");
 });
 
 app.get('/api/users', (req, res) => {
@@ -57,18 +57,19 @@ app.delete('/api/users/:id', (req, res) => {
 app.post('/api/users', (req, res) => {
     
     const {name, bio} = req.body;
+    console.log(req.body);
 
     if(!name || !bio) {
         res
             .status(400)
-            .json({errorMessage: "Please provide name and bio for the user."});
+            .json( "Please provide name and bio for the user.");
     } else {
-    insert(user)
+    insert(req.body)
         .then( users => {
             res.status(201).json(users)
     })
         .catch(error => {
-            res.status(500).json({errorMessage: "There was an error while saving the user to the database", error});
+            res.status(500).json("There was an error while saving the user to the database", error);
         })
 }
 });
