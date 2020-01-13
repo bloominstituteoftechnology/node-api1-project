@@ -98,20 +98,16 @@ app.put("/api/users/:id", async (req, res) => {
   try {
     const updatedUser = await update(id, modifiedUser);
 
-    if (modifiedUser.id) {
-      return res.status(200).json(updatedUser);
-    } else {
+    if (modifiedUser.name && modifiedUser.bio && updatedUser) {
+      res.status(200).json(updatedUser);
+    } else if (modifiedUser.name && modifiedUser.bio) {
       res.status(404).json({
         message: "The user with the specified ID does not exist."
       });
-    }
-    if (modifiedUser.name && modifiedUser.bio) {
-      res.status(200).json(updatedUser);
-    } else {
+    } else
       res
         .status(400)
-        .json({ message: `The user with the specified ID does not exist.` });
-    }
+        .json({ message: `Please provide name and bio for the user.` });
   } catch (error) {
     res
       .status(500)
