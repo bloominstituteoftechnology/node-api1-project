@@ -3,7 +3,7 @@
 const express = require("express");
 const cors = require("cors");
 
-const { findById, find, add, remove, update } = require("./data/db");
+const { findById, find, insert, remove, update } = require("./data/db");
 
 const app = express();
 
@@ -39,6 +39,20 @@ app.get("/api/users/:id", (req, res) => {
     })
     .catch(error => {
       console.log(error);
+    });
+});
+
+app.post("/api/users", (req, res) => {
+  const newUser = req.body;
+
+  insert(newUser)
+    .then(user => {
+      res.status(201).json(user);
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: error.message
+      });
     });
 });
 
