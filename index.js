@@ -24,6 +24,19 @@ app.get('/', (req, res) => {
     res.status(200).json({"message": "App runs"});
 });
 
+app.get('/api/users', (req, res) => {
+    find()
+        .then(users => {
+            res.status(200).json(users)
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: error.message,
+                stack: error.stack,
+            })
+        })
+});
+
 app.listen(PORT, hostname, () => {
     console.log(`App running http://${hostname}:${PORT}`)
 })
