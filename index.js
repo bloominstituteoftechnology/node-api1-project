@@ -32,7 +32,8 @@ Users.find() //reutrn a promise
 
 //Get user by ID
 server.get('/api/users/:id', (req, res) => {
-    Users.findById() //reutrn a promise
+    const id = req.params.id;
+    Users.findById(id) // put a number inside - () it works...//reutrn a promise
     .then(users => {
         res.status(200).json(users);
     })
