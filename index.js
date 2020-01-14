@@ -52,7 +52,7 @@ server.put('/apis/database/:id', (req,res) =>{
 
      .catch(error => {
          console.log(error);
-         res.status(500).json({ errorMessage: 'sorry, we ran into an error updating the data'})
+         res.status(500).json({ errorMessage: 'sorry, we ran into an error editing the data'})
      })
 })
 
