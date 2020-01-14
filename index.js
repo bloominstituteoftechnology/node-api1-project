@@ -63,15 +63,15 @@ server.get("/api/users/:id", function(request, response) {
 
 
 //DELETE user by id,  /api/users/:id    removes user by id and return deleted item/user
-server.delete('/api/hubs/:id', (req, res) => {
+server.delete('/api/users/:id', (req, res) => {
     const id = req.params.id;
     Users.remove(id)
-    .then((result) => {
+    .then(result => {
         
         res.status(200).json(result);
     })
     .catch(err => {
-        console.log(err.response)
+        console.log(err)
         res.status(500).json({ errorMessage: "The user could not be removed" })
     })
 })
