@@ -4,8 +4,8 @@ import "./App.css";
 
 function App() {
   const [formInput, setFormInput] = useState({
-    name: "",
-    bio: ""
+    name: null,
+    bio: null
   });
 
   const [data, setData] = useState([]);

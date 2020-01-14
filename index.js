@@ -49,17 +49,19 @@ app.get("/api/users/:id", (req, res) => {
 app.post("/api/users", (req, res) => {
   const newUser = req.body;
 
-  const postUser = insert(newUser)
+  insert(newUser)
     .then(user => {
-      if (newUser.name && newUser.bio) {
+      if (!user.name && !user.bio) {
         // console.log(user.name);
-        return res.status(201).json(user);
-      } else {
-        res.status(400).json({
+        return res.status(400).json({
           message: "Please provide name and bio for the user."
         });
       }
     })
+    .then(user => {
+      user && res.status(201).json(user);
+    })
+
     .catch(error => {
       res.status(500).json({
         message: "There was an error while saving the user to the database",
@@ -105,7 +107,7 @@ app.put("/api/users/:id", async (req, res) => {
         message: "The user with the specified ID does not exist."
       });
     } else
-      res
+      return res
         .status(400)
         .json({ message: `Please provide name and bio for the user.` });
   } catch (error) {
