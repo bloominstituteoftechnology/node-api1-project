@@ -81,7 +81,20 @@ server.delete('/api/users/:id', (req, res) => {
 
 //PUT /api/users/:id  To update the user's data  by specific id. Modified user is returned
 
-
+server.put('/api/users/:id', function(req, res) {
+    const id = req.params.id;
+    Users.update(id, req.body)
+      .then(update => {
+        res.status(200).json(update);
+      })
+      .catch( error => {
+        console.log(error);
+        response.status(500).json(
+          {
+            errorMessage: "The user information could not be modified."
+          });
+      });
+  });
 
 
 
