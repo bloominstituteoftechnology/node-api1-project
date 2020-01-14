@@ -20,6 +20,7 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "knex": "^0.20.7",
     "sqlite3": "^4.1.1"
   }
