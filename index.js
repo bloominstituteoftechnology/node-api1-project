@@ -47,6 +47,7 @@ server.post("/api/users", (req, res) => {
 // deletes a user
 server.delete("/api/users/:id", (req, res) => {
     const id = req.params.id;
+    // console.log(req.params)
     Data.remove(id)
     .then(deleted => {
         res.status(200).json(deleted);
