@@ -22,6 +22,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.20.7",
+    "server": "^1.0.22",
     "sqlite3": "^4.1.1"
   }
 }
