@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Metal+Mania&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Metal+Mania|Montserrat&display=swap');
 
 body{
   background: #1A3154;
@@ -20,15 +20,17 @@ h1{
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .user{
   border: 2px solid whitesmoke;
   border-radius: 5px;
   width: 400px;
-  height: 240px;
+  height: 260px;
   padding: 10px;
   margin: 10px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 button{
