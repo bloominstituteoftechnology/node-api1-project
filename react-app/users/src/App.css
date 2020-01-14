@@ -1,38 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Metal+Mania&display=swap');
+
+body{
+  background: #1A3154;
+  color: whitesmoke;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1{
+  font-family: 'Metal Mania', cursive;
+  font-size: 4rem;
+  letter-spacing: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.user-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.user{
+  border: 2px solid whitesmoke;
+  border-radius: 5px;
+  width: 400px;
+  height: 240px;
+  padding: 10px;
+  margin: 10px;
+}
+
+button{
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.update-form{
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
