@@ -24,7 +24,7 @@ const UpdateUser = props => {
     const submitForm = e => {
         e.preventDefault();
         axios
-            .put(`http://localhost:8000/api/users/${userToEdit}`, userToEdit)
+            .put(`http://localhost:8000/api/users/${userToEdit.id}`, userToEdit)
             .then(res => {
                 setUserToEdit(res.data)
                 props.history.push(`/users/${userToEdit.id}`)
@@ -35,13 +35,13 @@ const UpdateUser = props => {
     return (
         <div>
             <form>
-                <div className="update-form">
+                <div className="form">
                     <label>Name</label>
                     <input name="name" label="Name" onChange={handleChanges} value={userToEdit.name}/>
                     <label>Bio</label>
                     <textarea name="bio" label="Bio" onChange={handleChanges} value={userToEdit.bio}/>
+                    <button onClick={submitForm}>Save</button>
                 </div>
-                <button onClick={submitForm}>Save</button>
             </form>
         </div>
     )

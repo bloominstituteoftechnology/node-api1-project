@@ -4,6 +4,7 @@ import {Route} from "react-router-dom";
 import Users from './components/Users';
 import User from './components/User';
 import UpdateUser from './components/UpdateUser';
+import AddUser from './components/AddUser';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
       }} />
       <Route path="/update-user/:id" render={props => {
         return <UpdateUser {...props} />
+      }} />
+      <Route path="/add-user" render={props => {
+        return <AddUser {...props} />
       }} />
     </div>
   );

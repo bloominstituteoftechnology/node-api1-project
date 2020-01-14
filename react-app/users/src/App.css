@@ -37,11 +37,15 @@ button{
   cursor: pointer;
 }
 
-.update-form{
+.form{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 2px solid whitesmoke;
+  margin: 0 auto;
+  width: 250px;
+  border-radius: 5px;
 }
 
 
