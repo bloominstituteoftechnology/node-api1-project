@@ -7,6 +7,10 @@ const Data = require("./data/db.js");
 
 server.use(express.json());
 
+const cors = require("cors");
+
+server.use(cors());
+
 server.get("/", (req, res) => {
     res.send("Server Running!");
   });
