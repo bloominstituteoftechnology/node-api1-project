@@ -7,9 +7,9 @@ const Data = require("./data/db.js");
 
 server.use(express.json());
 
-const cors = require("cors");
+// const cors = require("cors");
 
-server.use(cors());
+// server.use(cors());
 
 server.get("/", (req, res) => {
     res.send("Server Running!");
@@ -77,32 +77,30 @@ server.get("/api/users/:id", (req, res) => {
 
 // updates a user 
 server.put("/api/users/:id", (req, res) => {
-    const updateData = req.body
-    const userId = req.params.id
-
+    const updateData = req.body;
+    const userId = req.params.id;
+  
     Data.update(userId, updateData)
-    .then(update => {
-        res.status(200).json(update);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(404).json({
-            errorMessage: "The user with the specific ID does not exist"
-        })
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(400).json({
+      .then(update => {
+        if (!userId) {
+          res.status(404).json({
+            message: "The user with the specific ID does not exist"
+          });
+        } else if (!updateData.name || !updateData.bio) {
+          res.status(400).json({
             errorMessage: "Please provide name and bio for the user"
-        })
-    })
-    .catch(err => {
+          });
+        } else {
+          res.status(200).json(update);
+        }
+      })
+      .catch(err => {
         console.log(err);
         res.status(500).json({
-            errorMessage: "The user information could not be modified"
-        })
-    })
-})
+          errorMessage: "The user information could not be modified"
+        });
+      });
+  });
 
-const port = 7000;
+const port = 8000;
 server.listen(port, () => console.log(`server listening on port ${port}`));
