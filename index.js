@@ -59,7 +59,9 @@ server.post('/api/users', (req, res) => {
 })
 // DELETE
 server.delete('/api/users/:id', (req, res) => {
-    db.remove(req.params.id)
+    const id = req.params.id;
+
+    db.remove(id)
     .then(deleteduser => {
         if (deleteduser) {
             res.status(204).end();
