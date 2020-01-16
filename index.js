@@ -92,14 +92,20 @@ server.get("/api/users/:id", (req, res) => {
   const ID = req.params.id;
   Data.findById(ID)
     .then(specific => {
-      res.status(200).json(specific);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(404).json({
-        errorMessage: "The user with the specific ID does not exist"
-      });
+      if (!specific) {
+          res.status(404).json({
+              message: "The user with the specific ID does not exist"
+          })
+      } else {
+          res.status(200).json(specific)
+      }
+})
+.catch(err => {
+    console.log(err);
+    res.status(500).json({
+        errorMessage: "The user information could not be retrieved"
     });
+  });
 });
 
 
