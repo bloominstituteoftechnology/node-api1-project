@@ -3,11 +3,13 @@ const express = require('express');
 const cors = require('cors')
 const server = express();
 const Db = require("./data/db")
+const helmet = require('helmet');
 
 //
 
 server.use(express.json());
 server.use(cors());
+server.use(helmet());
 
 server.get("/", function(request, response) {
     response.send({test:'This is a test'})
@@ -94,6 +96,6 @@ server.delete('/api/users/:id', (req, res) => {
 })
 
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 server.listen(port, () => console.log(`\n ** api on port: ${port} ** \n`))
