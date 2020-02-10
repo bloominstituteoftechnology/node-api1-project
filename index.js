@@ -24,9 +24,14 @@ server.get("/api/users", (req, res) => {
 server.get("/api/users/:id", (req, res) => {
   const { id } = req.params;
   Users.findById(id)
-    .then(user => {
-      res.status(200).json(user);
+    .then(id => {
+      if (!id) {
+        res.status(404).json({ errorMessage: "no Baggins here" });
+      } else {
+        res.status(200).json(user);
+      }
     })
+
     .catch(err => {
       console.log(err);
       res.status(404).json({ errorMessage: "gone on an adventure" });
@@ -69,8 +74,12 @@ server.delete("/api/users/:id", (req, res) => {
   const { id } = req.params;
 
   Users.remove(id)
-    .then(db => {
-      res.status(200).json(db);
+    .then(user => {
+      if (!user) {
+        res.status(404).json({ errorMessage: "no more hobbit" });
+      } else {
+        res.status(200).json(user);
+      }
     })
     .catch(err => {
       console.log(err);
