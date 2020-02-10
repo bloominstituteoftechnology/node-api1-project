@@ -42,14 +42,18 @@ server.get("/api/users/:id", (req, res) => {
 server.post("/api/users", (req, res) => {
   const userInfo = req.body;
 
-  Users.insert(userInfo)
-    .then(user => {
-      res.status(201).json(user);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "you shall not add" });
-    });
+  if (!req.body.name || !req.body.bio) {
+    res.status(400).json({ errorMessage: "you shall not add" });
+  } else {
+    Users.insert(userInfo)
+      .then(user => {
+        res.status(201).json(user);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ errorMessage: "you shall not add" });
+      });
+  }
 });
 
 // update a user
