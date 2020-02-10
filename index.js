@@ -15,7 +15,11 @@ server.get('/api/users', (req, res) => {
         .then(users => {
             res.status(200).json(users)
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ errorMessage: "The users information could not be retrieved." });
+        })
+        
 })
 
 server.get('/api/users/:id', (req, res) => {
@@ -24,7 +28,10 @@ server.get('/api/users/:id', (req, res) => {
         .then(user => {
             res.status(200).json(user);
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ errorMessage: "The users information could not be retrieved." });
+        })
 })
 
 server.post('/api/users', (req, res) => {
@@ -33,7 +40,10 @@ server.post('/api/users', (req, res) => {
         .then(user => {
             res.status(201).json(user);
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ errorMessage: "There was an error while saving the user to the database" });
+        })
 })
 
 server.delete('/api/users/:id', (req, res) => {
