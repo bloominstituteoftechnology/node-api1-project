@@ -1,58 +1,113 @@
-// import express from 'express'; // ES2015 modules
-const express = require("express"); //CommonJS Modules // <<<<<<<<npm i express
-
+const express = require('express');
+const port = 5001;
+const db = require('./data/db.js');
 const server = express();
-
-const Db = require("./data/db");
-
-server.use(express.json()); // needed for POST & PUT/PATCH
+server.use(express.json());
 
 server.get("/", (req, res) => {
-  res.json({ hello: "Web 26" });
+  res.send("You have arrived");
 });
-server.post("/api/hubs", (req, res) => {
-  const { name, bio } = req.body;
-  if (!name || !bio)
-    return res
-      .status(400)
-      .json({ errorMessage: "Name and bio required for user" });
-  Db.insert({ name, bio })
+
+// post user
+server.post('/api/users', (req, res) => {
+  const newUser = req.body;
+  if (newUser.name && newUser.bio) {
+    db.insert(newUser)
     .then(user => {
       res.status(201).json(user);
     })
-    .catch(error => {
-      console.log(error);
-      res.status(400).json({ errorMessage: "Name and bio required for user" });
+    .catch(err => {
+    res.status(500).json({
+      errorMessage: "There was an error while saving the user to the database"
     });
+  });
+} else {
+  res
+    .status(400)
+    .json({ errorMessage: "Please provide name and bio for the user." });
+  }
 });
 
-server.get("/api/users", (req, res) => {
-  Db.find()
-    .then(allUsers => {
-      console.log("All Users", allUsers);
-      res.status(200).json(allUsers);
+// get users
+server.get('/api/users', (req, res) => {
+  db.find()
+    .then(userList => {
+      res.status(200).json(userList);
     })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ errorMessage: "Could not retrieve user info." });
-    });
-});
-
-server.get("/api/users/:id", (req, res) => {
-  const id = req.params.id;
-  Db.findById(id)
-    .then(user => {
-      if (user) {
-        res.status(200).json(user);
-      } else {
-        res.status(404).json({ errorMessage: "No user exists with that ID" });
-      }
+    .catch(err => {
+      res
+        .status(500)
+        .json({errorMessage: "The users information could not be retrieved."});
     })
-    .catch(error => {
-      console.log(error);
-      res.status(404).json({ errorMessage: "No user exists with that ID" });
-    });
 });
 
-const port = 5001;
-server.listen(port, () => console.log(`n** API on port ${port} \n`));
+// get individual user
+server.get('/api/users/:id', (req, res) => {
+    const userId = req.params.id;
+    db.findById(userId)
+        .then(user => {
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({
+                    message: "The user with the specified ID does not exist."
+                });
+            }
+
+        })
+        .catch(err => {
+            res.status(404).json({
+                errorMessage: "The user information could not be retrieved."
+            });
+        });
+});
+
+server.delete('/api/users/:id', (req, res) => {
+    const userId = req.params.id;
+    db.remove(userId)
+        .then(user => {
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({
+                  message: "The user with the specified ID does not exist."
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+              errorMessage: "The user could not be removed"
+            });
+        })
+});
+
+server.put("/api/users/:id", (req, res) => {
+  const {id} = req.params;
+  const {name, bio} = req.body;
+  Users.update(id, {name, bio})
+  if (editUser.name && editUser.bio) {
+    db.update(editUser.id, editUser)
+      .then(user => {
+        if (user) {
+          res.status(201).json(user);
+        } else {
+          res.status(404).json({
+            message: "The user with the specified ID does not exist."
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).json({
+          errorMessage: "The user information could not be modified."
+        });
+      });
+  } else {
+    res
+      .status(400)
+      .json({ errorMessage: "Please provide name and bio for the user." });
+  }
+});
+
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
