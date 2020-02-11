@@ -62,8 +62,17 @@ server.put("/api/users/:id", (req, res) => {
   const user = req.body;
 
   Users.update(id, user)
-    .then(db => {
-      res.status(200).json(db);
+    .then(user => {
+      if (!user) {
+        res
+          .status(404)
+          .json({ errorMessage: "There is no hobbit with that id" });
+      } else if (!req.body.name || !req.body.bio) {
+        res.status(400).json({ errorMessage: "Please provide name and bio" });
+      } else {
+        res.status(200);
+        res.send(user);
+      }
     })
     .catch(err => {
       console.log(err);
