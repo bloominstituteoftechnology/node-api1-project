@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Node API 1 Project Starter Code",
   "main": "index.js",
+  "proxy": "http://0.0.0.0:5001",
   "scripts": {
     "server": "nodemon index.js"
   },
