@@ -7,7 +7,7 @@
     "server": "nodemon index.js"
   },
   "repository": {
-    "type": "git",
+    "type": "module",
     "url": "git+https://github.com/LambdaSchool/node-api1-project.git"
   },
   "keywords": [],
@@ -20,6 +20,7 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "knex": "^0.20.7",
     "sqlite3": "^4.1.1"
   }
