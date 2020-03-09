@@ -16,7 +16,7 @@ Use Node.js and Express to build an API that performs CRUD operations on users.
 - **CD into the folder** where you cloned the repository.
 - Type `npm install` to download all dependencies listed inside `package.json`.
 
-### Database access
+### Database access.
 
 Database access will be done using the `db.js` file included inside the `data` folder. This file publishes the following methods:
 
