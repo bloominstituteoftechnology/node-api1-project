@@ -23,6 +23,18 @@ server.get("/api/users", (req, res) => {
     res.status(200).json(users)
 })
 
+server.get("/api/users/:id", (req, res) => {
+    res.status(200).json(users)
+})
+
+server.patch("/api/users/:id", (req, res) => {
+    res.status(200).json(users)
+})
+
+server.delete("/api/users/:id", (req, res) => {
+    res.status(204);
+})
+
 server.listen(PORT, () =>
   console.log(`\n ** API on http://localhost:${PORT}  **\n`)
 );
