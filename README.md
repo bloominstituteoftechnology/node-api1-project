@@ -14,50 +14,33 @@ Use Node.js and Express to build an API that performs CRUD operations on users.
 
 - **Fork** and **Clone** this repository.
 - **CD into the folder** where you cloned the repository.
-- Type `npm install` to download all dependencies listed inside `package.json`.
+- Add a `.gitignore` file appropriate for `node.js` projects.
+- Add a new `package.json`.
+- Add a `server` script to `package.json` that runs the API using `nodemon`.
 
-### Database access
+### Write endpoints
 
-Database access will be done using the `db.js` file included inside the `data` folder. This file publishes the following methods:
+Add the code necessary to create a Web API and implement the following _endpoints_:
 
-- `find()`: calling find returns a promise that resolves to an array of all the users contained in the database.
-- `findById()`: this method expects an `id` as it's only parameter and returns the user corresponding to the `id` provided or an empty array if no user with that `id` is found.
-- `insert()`: calling insert passing it a user object will add it to the database and return an object with the `id` of the inserted user. The object looks like this: `{ id: 123 }`.
-- `update()`: accepts two arguments, the first is the `id` of the user to update and the second is an object with the `changes` to apply. It returns the count of updated records. If the count is 1 it means the record was updated correctly.
-- `remove()`: the remove method accepts an `id` as it's first parameter and upon successfully deleting the user from the database it returns the number of records deleted.
+| Method | URL            | Description                                                                                            |
+| ------ | -------------- | ------------------------------------------------------------------------------------------------------ |
+| POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
+| GET    | /api/users     | Returns an array users.                                                                                |
+| GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       |
+| DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
+| PATCH  | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
 
-Now that we have a way to add, update, remove and retrieve data from the provided database, it is time to work on the API.
+#### User Schema
 
-### Start the API and Implement Requirements
-
-- To start the server, type `npm run server` from the root folder (where the _package.json_ file is). The server is configured to restart automatically as you make changes.
-- Add the code necessary to implement the API requirements.
-- **Test the API using a REST Client like [insomnia](https://insomnia.rest/download/) or [Postman](https://www.getpostman.com/downloads/) as you work through the exercises.**
-
-### User Schema
-
-Users in the database conform to the following object structure:
+Each User _resource_ should conform to the following structure (AKA schema):
 
 ```js
 {
+  id: "a_unique_id", // hint: use the shortid npm package to generate it
   name: "Jane Doe", // String, required
   bio: "Not Tarzan's Wife, another Jane",  // String, required
-  created_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, defaults to current date
-  updated_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, defaults to current date
 }
 ```
-
-### Write endpoints to perform the following queries
-
-Inside `index.js` add the code necessary to implement the following _endpoints_:
-
-| Method | URL            | Description                                                                                                                       |
-| ------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                                              |
-| GET    | /api/users     | Returns an array of all the user objects contained in the database.                                                               |
-| GET    | /api/users/:id | Returns the user object with the specified `id`.                                                                                  |
-| DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                                            |
-| PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
 
 #### Endpoint Specifications
 
