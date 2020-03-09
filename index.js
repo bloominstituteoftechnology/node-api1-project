@@ -36,14 +36,14 @@ server.get("/api/users", (req, res) => {
 });
 
 server.get(`/api/users/:id`, (req, res) => {
-  const singleUser = users.find(id);
-  const id = req.params.id;
+  const userId = req.params.id;
+  const singleUser = users.find((el) => el.id === Number(userId));
 
   if (!singleUser)
     res
       .status(404)
       .json({ errorMessage: "The user with the specified ID does not exist" });
-  if (!id) {
+  if (!userId) {
     res
       .status(500)
       .json({ errorMessage: "The user information could not be retrieved" });
