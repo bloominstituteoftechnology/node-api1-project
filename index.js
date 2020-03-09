@@ -9,7 +9,7 @@ server.use(express.json());
 
 server.post("/api/users", (req, res) => {
   const userInfo = req.body;
-  userInfo.id = shortId.generate();
+  //userInfo.id = shortId.generate();
   users.push(userInfo);
 
   if (!userInfo.name || !userInfo.bio) {
@@ -33,6 +33,22 @@ server.get("/api/users", (req, res) => {
   } else {
     res.status(200).json(users);
   }
+});
+
+server.get(`/api/users/:id`, (req, res) => {
+  const singleUser = users.find(id);
+  const id = req.params.id;
+
+  if (!singleUser)
+    res
+      .status(404)
+      .json({ errorMessage: "The user with the specified ID does not exist" });
+  if (!id) {
+    res
+      .status(500)
+      .json({ errorMessage: "The user information could not be retrieved" });
+  }
+  res.status(200).json(singleUser);
 });
 
 const PORT = 5000;
