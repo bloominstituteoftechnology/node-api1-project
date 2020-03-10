@@ -4,7 +4,7 @@
   "description": "Node API 1 Project Starter Code",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,9 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "knex": "^0.20.7",
+    "shortid": "^2.2.15",
     "sqlite3": "^4.1.1"
   }
 }
