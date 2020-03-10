@@ -60,7 +60,8 @@ server.get("/api/users/:id", (req, res) => {
     return eachUser.id === id;
   });
 
-  if (!id) {
+  //not if id is true, but if
+  if (!user[0]) {
     res.status(400).json({
       message: "The user with the specified ID does not exist."
     });
@@ -69,7 +70,7 @@ server.get("/api/users/:id", (req, res) => {
   res.status(200).json(user);
 });
 
-const PORT = 5000;
+const PORT = 5001;
 server.listen(PORT, () =>
   console.log(`/n ** API on http://localhost:${PORT} **\n`)
 );
