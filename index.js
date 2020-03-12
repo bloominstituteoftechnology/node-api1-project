@@ -54,10 +54,25 @@ server.post("/api/users", (req, res) => {
 		res.status(201).json(user);
 	}
 
-	// If there's an error while saving the user we'll send an error back
+	// If there's an error while saving the user we'll send back the message below
 	else {
 		res.status(500).json({
 			errorMessage: "There was an error while saving the user."
 		});
+	}
+});
+
+// R - Read (CRUD)
+server.get("/api/users", (req, res) => {
+	//If we have users we'll send the requested data back
+	if (users) {
+		res.status(200).json(users);
+	}
+
+	//If there's an error in retrieving the users we'll send back the message below
+	else {
+		res
+			.status(500)
+			.json({ errorMessage: "The users information could not be retrieved." });
 	}
 });
