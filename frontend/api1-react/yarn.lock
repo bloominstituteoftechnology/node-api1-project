@@ -2476,6 +2476,7 @@ __metadata:
     "@testing-library/jest-dom": ^4.2.4
     "@testing-library/react": ^9.3.2
     "@testing-library/user-event": ^7.1.2
+    axios: ^0.19.2
     react: ^16.13.0
     react-dom: ^16.13.0
     react-scripts: 3.4.0
@@ -2770,6 +2771,15 @@ __metadata:
   version: 1.9.1
   resolution: "aws4@npm:1.9.1"
   checksum: dd43d697245d006ca50ae95c9d737f10efe687e7d422c48db3a382fa19aac546a0a5ca0b6ff6cf7f269631d34a03ddf9c650b0dcdca6dfa73c3751eff8276214
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.19.2":
+  version: 0.19.2
+  resolution: "axios@npm:0.19.2"
+  dependencies:
+    follow-redirects: 1.5.10
+  checksum: 28c860c203dc1e545a899eea83c95c51bb7de4a21ffef4781de11331207371c9cb1a680bcc7122dda936cd5e51f83f7b0a0eccc50801229b5e4914c8f2dd8907
   languageName: node
   linkType: hard
 
@@ -4497,6 +4507,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:=3.1.0":
+  version: 3.1.0
+  resolution: "debug@npm:3.1.0"
+  dependencies:
+    ms: 2.0.0
+  checksum: 31ac62be845b3e2bc49ea566665749e58030123e6d0b2960cb7c730037dc825f46d012e3f63f43fc9d60de3c52edbce705d22cb7e571e2822c81bc5d5ae09da9
+  languageName: node
+  linkType: hard
+
 "debug@npm:^3.0.0, debug@npm:^3.1.1, debug@npm:^3.2.5, debug@npm:^3.2.6":
   version: 3.2.6
   resolution: "debug@npm:3.2.6"
@@ -5875,6 +5894,15 @@ __metadata:
     inherits: ^2.0.3
     readable-stream: ^2.3.6
   checksum: aba85b2d01b9aa4b80f07d47658992454dd8b8ffb5045b09bc9b8e9e90631117570a8653c6c1394ea817c2159dfced6f1dd184e86cd0475876a9224f3120e647
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:1.5.10":
+  version: 1.5.10
+  resolution: "follow-redirects@npm:1.5.10"
+  dependencies:
+    debug: =3.1.0
+  checksum: 23c6333d60b73b899f9495d67b3dd5b2b99c26cd76278d03def3c39c715f0eed53cbfe1eb1e342a7281041961fe2c69c03daa97279df66a552ab6fb3d22059fc
   languageName: node
   linkType: hard
 
