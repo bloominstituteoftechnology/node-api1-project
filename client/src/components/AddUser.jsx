@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Form, Button, Input } from "antd";
 
 const AddUser = ({ users, setUsers }) => {
 	const [newUser, setNewUser] = useState({
@@ -29,25 +30,25 @@ const AddUser = ({ users, setUsers }) => {
 	};
 
 	return (
-		<>
-			<form onSubmit={handleSubmit}>
-				<input
+		<div className='add__user__form__container'>
+			<Form onSubmit={handleSubmit} className='add__user__form'>
+				<Input
 					type='text'
 					name='name'
 					value={newUser.name}
 					placeholder='name'
 					onChange={handleChange}
 				/>
-				<input
+				<Input
 					type='text'
 					name='bio'
 					value={newUser.bio}
 					placeholder='bio'
 					onChange={handleChange}
 				/>
-				<button>Add User</button>
-			</form>
-		</>
+				<Button>Add User</Button>
+			</Form>
+		</div>
 	);
 };
 

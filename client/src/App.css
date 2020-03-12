@@ -1,13 +1,32 @@
 .App {
-	text-align: center;
-	margin-top: 50px;
+	width: 100%;
+	max-width: 1000px;
+	margin: 100px auto;
+	padding: 20px;
+	height: 100vh;
 }
 
 .userList__container {
-	border: 1px solid rebeccapurple;
-	padding: 20px;
+	/* border: 1px solid rebeccapurple; */
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: flex-start;
 }
 
-.fetchUsers__button {
-	margin: 50px 0;
+.add__user__form__container {
+	margin-top: 100px;
+}
+
+.add__user__form {
+	display: flex;
+}
+
+.add__user__form input {
+	margin-right: 10px;
+}
+
+.fetch__users__btn__container {
+	display: flex;
+	justify-content: center;
 }

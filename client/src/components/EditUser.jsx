@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Form, Button, Input } from "antd";
 
 const EditUser = ({ users, setUsers, userToEdit }) => {
 	const [updatedUser, setUpdatedUser] = useState({
@@ -47,23 +48,23 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 	return (
 		<>
 			{userToEdit.id ? (
-				<form onSubmit={handleSubmit}>
-					<input
+				<Form onSubmit={handleSubmit}>
+					<Input
 						type='text'
 						name='name'
 						value={updatedUser.name}
 						placeholder='name'
 						onChange={handleChange}
 					/>
-					<input
+					<Input
 						type='text'
 						name='bio'
 						value={updatedUser.bio}
 						placeholder='bio'
 						onChange={handleChange}
 					/>
-					<button>Save Changes</button>
-				</form>
+					<Button>Save Changes</Button>
+				</Form>
 			) : null}
 		</>
 	);
