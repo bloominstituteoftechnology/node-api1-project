@@ -76,3 +76,26 @@ server.get("/api/users", (req, res) => {
 			.json({ errorMessage: "The users information could not be retrieved." });
 	}
 });
+
+// R - Read(id) (CRUD)
+server.get("/api/users/:id", (req, res) => {
+	const user = users.find(user => user.id === req.params.id);
+	//If we have the specified user we'll send it back
+	if (user) {
+		res.status(200).json(user);
+	}
+
+	// If we don't have the specified user we'll send back the message below
+	else if (!user) {
+		res
+			.status(404)
+			.json({ message: "The user with the specified ID does not exist." });
+	}
+
+	//If there's an error in retrieving the users we'll send back the message below
+	else {
+		res
+			.status(500)
+			.json({ errorMessage: "The users information could not be retrieved." });
+	}
+});
