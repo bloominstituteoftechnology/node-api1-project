@@ -3,7 +3,7 @@ const express = require("express");
 const shortid = require("shortid");
 const server = express();
 
-const users = [
+let users = [
 	{
 		id: shortid.generate(),
 		name: "Lucas Borden",
@@ -79,7 +79,8 @@ server.get("/api/users", (req, res) => {
 
 // R - Read(id) (CRUD)
 server.get("/api/users/:id", (req, res) => {
-	const user = users.find(user => user.id === req.params.id);
+	const { id } = req.params;
+	const user = users.find(user => user.id === id);
 	//If we have the specified user we'll send it back
 	if (user) {
 		res.status(200).json(user);
@@ -92,10 +93,34 @@ server.get("/api/users/:id", (req, res) => {
 			.json({ message: "The user with the specified ID does not exist." });
 	}
 
-	//If there's an error in retrieving the users we'll send back the message below
+	//If there's an error in retrieving the specified user we'll send back the message below
 	else {
 		res
 			.status(500)
-			.json({ errorMessage: "The users information could not be retrieved." });
+			.json({ errorMessage: "The user information could not be retrieved." });
+	}
+});
+
+// D - Delete (CRUD)
+server.delete("/api/users/:id", (req, res) => {
+	const { id } = req.params;
+	const deleted = users.find(user => user.id === id);
+
+	//If we have the specified user we'll remove it from the users array
+	if (deleted) {
+		users = users.filter(user => user.id !== id);
+		res.status(200).end();
+	}
+
+	// If we don't have the specified user we'll send back the message below
+	else if (!deleted) {
+		res
+			.status(404)
+			.json({ message: "The user with the specified ID does not exist." });
+	}
+
+	//If there's an error in removing the specified user we'll send back the message below
+	else {
+		res.status(500).json({ errorMessage: "The user could not be removed." });
 	}
 });
