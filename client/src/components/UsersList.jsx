@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import AddUser from "./AddUser";
 import User from "./User";
 
 const UsersList = () => {
@@ -19,7 +20,6 @@ const UsersList = () => {
 		axios
 			.delete(`http://localhost:4000/api/users/${id}`)
 			.then(res => {
-				console.log("DELETING", res);
 				setUsersList(usersList.filter(user => user.id !== id));
 				console.log(`User with ID ${id} has been deleted`);
 			})
@@ -30,7 +30,10 @@ const UsersList = () => {
 
 	return (
 		<>
-			<button onClick={fetchUsers}>Fetch Users</button>
+			<AddUser users={usersList} setUsers={setUsersList} />
+			<button onClick={fetchUsers} className='fetchUsers__button'>
+				Fetch Users
+			</button>
 			<User users={usersList} deleteUser={deleteUser} />
 		</>
 	);
