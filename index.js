@@ -124,3 +124,38 @@ server.delete("/api/users/:id", (req, res) => {
 		res.status(500).json({ errorMessage: "The user could not be removed." });
 	}
 });
+
+// U -Update (CRUD)
+server.patch("/api/users/:id", (req, res) => {
+	const { id } = req.params;
+	const changes = req.body;
+
+	let user = users.find(user => user.id === id);
+
+	// If the request body is missing the name or bio property we'll send an error back asking for those
+	if (!changes.name || !changes.bio) {
+		res
+			.status(400)
+			.json({ errorMessage: "Please provide name and bio for the user." });
+	}
+
+	// If we don't have the specified user we'll send back the message below
+	else if (!user) {
+		res
+			.status(404)
+			.json({ message: "The user with the specified ID does not exist." });
+	}
+
+	//If the user is found and the new information is valid we'll update the user and send it back
+	else if (user) {
+		Object.assign(user, changes);
+		res.status(200).json(user);
+	}
+
+	//If there's an error when updating the specified user we'll send back the message below
+	else {
+		res
+			.status(500)
+			.json({ errorMessage: "The user information could not be modified." });
+	}
+});
