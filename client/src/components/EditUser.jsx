@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Form, Button, Input } from "antd";
+import { Form, Button, Input, Modal } from "antd";
 
 const EditUser = ({ users, setUsers, userToEdit }) => {
 	const [updatedUser, setUpdatedUser] = useState({
 		name: "",
 		bio: ""
 	});
-	console.log(userToEdit);
+
+	const [visible, setVisible] = useState(false);
+
+	const showModal = () => {
+		setVisible(true);
+	};
+
+	const handleCancel = e => {
+		console.log(e);
+		setVisible(false);
+	};
+
 	useEffect(() => {
 		axios
 			.get(`http://localhost:4000/api/users/${userToEdit?.id}`)
@@ -19,6 +30,7 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 				});
 			})
 			.catch(err => console.log(err));
+		showModal();
 	}, [userToEdit.id]);
 
 	const handleChange = e => {
@@ -27,6 +39,7 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
+		setVisible(false);
 		axios
 			.put(`http://localhost:4000/api/users/${userToEdit?.id}`, updatedUser)
 			.then(res => {
@@ -48,23 +61,33 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 	return (
 		<>
 			{userToEdit.id ? (
-				<Form onSubmit={handleSubmit}>
-					<Input
-						type='text'
-						name='name'
-						value={updatedUser.name}
-						placeholder='name'
-						onChange={handleChange}
-					/>
-					<Input
-						type='text'
-						name='bio'
-						value={updatedUser.bio}
-						placeholder='bio'
-						onChange={handleChange}
-					/>
-					<Button>Save Changes</Button>
-				</Form>
+				<>
+					<Modal
+						title='Basic Modal'
+						visible={visible}
+						onOk={handleSubmit}
+						onCancel={handleCancel}
+					>
+						<Form onSubmit={handleSubmit} className='edit__user__form'>
+							<label>Name</label>
+							<Input
+								type='text'
+								name='name'
+								value={updatedUser.name}
+								placeholder='name'
+								onChange={handleChange}
+							/>
+							<label>Bio</label>
+							<Input
+								type='text'
+								name='bio'
+								value={updatedUser.bio}
+								placeholder='bio'
+								onChange={handleChange}
+							/>
+						</Form>
+					</Modal>
+				</>
 			) : null}
 		</>
 	);

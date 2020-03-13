@@ -1,9 +1,13 @@
 .App {
 	width: 100%;
 	max-width: 1000px;
-	margin: 100px auto;
+	margin: 20px auto;
 	padding: 20px;
 	height: 100vh;
+}
+
+h1 {
+	text-align: center;
 }
 
 .userList__container {
@@ -24,6 +28,15 @@
 
 .add__user__form input {
 	margin-right: 10px;
+}
+
+.edit__user__form {
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.edit__user__form input {
+	margin-bottom: 10px;
 }
 
 .fetch__users__btn__container {
