@@ -20,8 +20,13 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.20.7",
+    "react-router-dom": "^5.1.2",
+    "reactstrap": "^8.4.1",
     "shortid": "^2.2.15",
     "sqlite3": "^4.1.1"
   }

@@ -3,11 +3,16 @@ const express = require('express');
 
 const db = require('./data/db.js');
 
-const server = express();
-server.use(express.json());
+const cors = require('cors')
 
-server.listen(4000, () => {
-    console.log('server listening on port 4000...');
+const server = express();
+const port = process.env.SERVER_PORT || 4000;
+
+server.use(express.json());
+server.use(cors());
+
+server.listen(port, () => {
+console.log(`server listening on port ${port}`);
 });
 
 server.get('/', (req, res) => {
@@ -34,7 +39,7 @@ server.post('/api/users', (req,res) => {
 
     const userInfo = req.body;
 
-    if (userInfo.name === 'undefined' || userInfo.bio === 'undefined') {
+    if (  typeof userInfo.name === 'undefined' || typeof userInfo.bio === 'undefined') {
 		res.status(400).json({ errorMessage: 'Please provide name and bio for the user.' });
 	} else {
     db.insert(userInfo)
@@ -87,7 +92,7 @@ server.put('/api/users/:id', (req, res) => {
    const userInfo = req.body;
    const {id} = req.params;
 
-    if (userInfo.name === 'undefined' ||  userInfo.bio === 'undefined') {
+    if (typeof userInfo.name === 'undefined' ||  typeof userInfo.bio === 'undefined') {
 		res.status(400).json({ errorMessage: 'Please provide name and bio for the user.' });
 	} else {
         db.update(id, userInfo)
