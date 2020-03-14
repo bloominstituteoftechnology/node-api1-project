@@ -24,6 +24,16 @@ server.get('/users', (req, res) => {
         res.status(500).send({errorMessage: "The users information could not be retrieved." })
     })
 })
+
+server.get('/users/:id', (req, res) => {
+    db.find()
+    .then(users => {
+        res.status(201).json({users})
+    })
+    .catch(err => {
+        res.status(500).send({errorMessage: "The users information could not be retrieved." })
+    })
+})
 //C -Create in CRUD
 server.post('/users', (req, res) => {
     const userInfo = req.body;
