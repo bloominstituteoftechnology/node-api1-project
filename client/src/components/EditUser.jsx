@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Form, Button, Input, Modal } from "antd";
+import { Form, Input, Modal, message } from "antd";
 
 const EditUser = ({ users, setUsers, userToEdit }) => {
 	const [updatedUser, setUpdatedUser] = useState({
@@ -9,6 +9,10 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 	});
 
 	const [visible, setVisible] = useState(false);
+
+	const info = () => {
+		message.info(`User with id ${userToEdit.id} updated`);
+	};
 
 	const showModal = () => {
 		setVisible(true);
@@ -48,6 +52,7 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 						user.id === userToEdit.id ? { ...user, ...res.data } : user
 					)
 				);
+				info();
 			})
 			.catch(err => console.log(err))
 			.finally(

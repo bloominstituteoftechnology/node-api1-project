@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Card, Modal, Button } from "antd";
 
-const { confirm } = Modal;
+// const { confirm } = Modal;
 
 const User = props => {
 	const { users, deleteUser, setUserToEdit, isLoading, setIsLoading } = props;
