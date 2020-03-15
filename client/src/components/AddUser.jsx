@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Input, message } from "antd";
+import { UserAddOutlined } from "@ant-design/icons";
 
 const AddUser = ({ users, setUsers }) => {
 	const [newUser, setNewUser] = useState({
@@ -35,24 +36,47 @@ const AddUser = ({ users, setUsers }) => {
 
 	return (
 		<div className='add__user__form__container'>
-			<Form onFinish={handleSubmit} className='add__user__form'>
-				<Input
+			<h3>Join us</h3>
+			<Form onFinish={handleSubmit} className='add__user__form '>
+				<Form.Item
 					name='name'
-					value={newUser.name}
-					placeholder='name'
-					onChange={handleChange}
-					allowClear
-				/>
+					rules={[
+						{
+							required: true,
+							message: "Please input your name!"
+						}
+					]}
+				>
+					<Input
+						name='name'
+						value={newUser.name}
+						placeholder='name'
+						onChange={handleChange}
+						allowClear
+					/>
+				</Form.Item>
 
-				<Input
+				<Form.Item
 					name='bio'
-					value={newUser.bio}
-					placeholder='bio'
-					onChange={handleChange}
-					allowClear
-				/>
-
-				<Button htmlType='submit'> Add User</Button>
+					rules={[
+						{
+							required: true,
+							message: "Please input your bio!"
+						}
+					]}
+				>
+					<Input.TextArea
+						name='bio'
+						value={newUser.bio}
+						placeholder='bio'
+						onChange={handleChange}
+						allowClear
+					/>
+				</Form.Item>
+				<Button htmlType='submit' icon={<UserAddOutlined />}>
+					{" "}
+					Add User
+				</Button>
 			</Form>
 		</div>
 	);

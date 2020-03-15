@@ -81,14 +81,16 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 								value={updatedUser.name}
 								placeholder='name'
 								onChange={handleChange}
+								allowClear
 							/>
 							<label>Bio</label>
-							<Input
+							<Input.TextArea
 								type='text'
 								name='bio'
 								value={updatedUser.bio}
 								placeholder='bio'
 								onChange={handleChange}
+								allowClear
 							/>
 						</Form>
 					</Modal>

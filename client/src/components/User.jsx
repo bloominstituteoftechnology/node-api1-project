@@ -4,34 +4,17 @@ import {
 	UserDeleteOutlined,
 	ExclamationCircleOutlined
 } from "@ant-design/icons";
-import { Card, Modal, Button } from "antd";
-
-// const { confirm } = Modal;
+import { Card } from "antd";
 
 const User = props => {
-	const { users, deleteUser, setUserToEdit, isLoading, setIsLoading } = props;
-
-	// const showConfirm = e => {
-	// 	confirm({
-	// 		title: "Do you want to delete this user?",
-	// 		icon: <ExclamationCircleOutlined />,
-	// 		content: "You won't be able to undo this",
-	// 		onOk() {
-	// 			return new Promise((resolve, reject) => {
-	// 				setTimeout(Math.random() > 0.5 ? resolve : reject, 200);
-
-	// 				console.log("deleted", e.target);
-	// 			}).catch(() => console.log("Oops errors!"));
-	// 		},
-	// 		onCancel() {}
-	// 	});
-	// };
+	const { users, deleteUser, setUserToEdit } = props;
 
 	return (
 		<>
 			<div className='userList__container'>
 				{users.map((user, index) => (
 					<Card
+						className='userCard'
 						key={index}
 						size='small'
 						title={user.name}
@@ -39,10 +22,10 @@ const User = props => {
 							<>
 								<EditOutlined onClick={() => setUserToEdit(user)} />{" "}
 								<UserDeleteOutlined onClick={() => deleteUser(user.id)} />
-								{/* <UserDeleteOutlined onClick={showConfirm} /> */}
 							</>
 						}
-						style={{ width: 300, marginTop: 20 }}
+						style={{ marginTop: 20 }}
+						hoverable={true}
 					>
 						<p>{user.bio}</p>
 					</Card>

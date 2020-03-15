@@ -18,16 +18,32 @@ h1 {
 	align-items: flex-start;
 }
 
+.userCard {
+	width: 400px;
+}
+
 .add__user__form__container {
+	/* border: 1px solid rebeccapurple; */
+	display: flex;
+	flex-flow: column nowrap;
 	margin-top: 100px;
+	text-align: center;
+	align-items: center;
 }
 
 .add__user__form {
+	/* border: 1px solid rebeccapurple; */
 	display: flex;
+	flex-flow: column wrap;
+	width: 20%;
+	align-items: stretch;
+	min-width: 330px;
+	max-width: 480px;
 }
+.add__user__form button {
+	width: 100%;
 
-.add__user__form input {
-	margin-right: 10px;
+	margin: 0 auto;
 }
 
 .edit__user__form {
@@ -42,4 +58,22 @@ h1 {
 .fetch__users__btn__container {
 	display: flex;
 	justify-content: center;
+}
+
+@media only screen and (max-width: 860px) {
+	.userList__container {
+		flex-flow: column wrap;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.userCard {
+		width: 98%;
+	}
+}
+
+@media only screen and (max-width: 460px) {
+	.userCard {
+		width: 98%;
+	}
 }

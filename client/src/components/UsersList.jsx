@@ -9,7 +9,6 @@ import { DownloadOutlined } from "@ant-design/icons";
 const UsersList = () => {
 	const [usersList, setUsersList] = useState([]);
 	const [userToEdit, setUserToEdit] = useState({});
-	const [isLoading, setIsLoading] = useState(false);
 
 	const fetchUsers = () => {
 		axios
@@ -45,9 +44,7 @@ const UsersList = () => {
 				setUsers={setUsersList}
 				userToEdit={userToEdit}
 			/>
-			{/* <Button onClick={fetchUsers} className='fetchUsers__button'>
-				Fetch Users
-			</Button> */}
+
 			<div className='fetch__users__btn__container'>
 				<Button
 					type='primary'
@@ -63,8 +60,6 @@ const UsersList = () => {
 				users={usersList}
 				deleteUser={deleteUser}
 				setUserToEdit={setUserToEdit}
-				isLoading={isLoading}
-				setIsLoading={setIsLoading}
 			/>
 		</>
 	);
