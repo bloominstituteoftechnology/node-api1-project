@@ -35,18 +35,23 @@ server.get("/api/users/:id", (req, res) => {
   if (found) {
     res.status(200).json(found);
   } else {
-    res.status(404).json({ success: false, message: "user id not found" });
+    res.status(404).json({ success: false, message: "The user with the specified ID does not exist." });
   }
 });
 
 //Post new user
 server.post("/api/users", (req, res) => {
   const userInfo = req.body;
+  if(userInfo.name&&userInfo.bio){
+
   userInfo.id = shortid.generate();
 
   users.push(userInfo);
 
-  res.status(201).json(userInfo);
+  res.status(201).json(userInfo);}
+  else{
+    res.status(400).json({message: "Please provide name and bio for this user." });
+  }
 });
 
 //Delete by User ID
@@ -59,7 +64,7 @@ server.delete("/api/users/:id", (req, res) => {
 
     res.status(200).json(deleted);
   } else {
-    res.status(404).json({ success: false, message: "user id not found" });
+    res.status(404).json({ success: false, message: "The user with the specified ID does not exist." });
   }
 });
 
@@ -68,10 +73,14 @@ server.patch("/api/users/:id", (req, res) => {
   const changes = req.body;
   let found = users.find(user => user.id === id);
   if (found) {
-    Object.assign(found, changes);
-    res.status(200).json(found);
+    if (changes.name && changes.bio) {
+      Object.assign(found, changes);
+      res.status(200).json(found);
+    }
+    else { res.status(400).json({ success: false, message: "Please provide a name and bio for this user." });}
+
   } else {
-    res.status(404).json({ success: false, message: "user id not found" });
+    res.status(404).json({ success: false, message: "The user with the specified ID does not exist." });
   }
 });
 
