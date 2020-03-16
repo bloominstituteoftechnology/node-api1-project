@@ -10,6 +10,11 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "node": "^13.10.1"
+    "gitignore": "^0.6.0",
+    "node": "^13.10.1",
+    "shortid": "^2.2.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
