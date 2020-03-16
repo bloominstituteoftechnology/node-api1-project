@@ -39,7 +39,6 @@ const AddUser = ({ users, setUsers }) => {
 			<h3>Join us</h3>
 			<Form onFinish={handleSubmit} className='add__user__form '>
 				<Form.Item
-					name='name'
 					rules={[
 						{
 							required: true,
@@ -57,7 +56,6 @@ const AddUser = ({ users, setUsers }) => {
 				</Form.Item>
 
 				<Form.Item
-					name='bio'
 					rules={[
 						{
 							required: true,
