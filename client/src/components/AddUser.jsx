@@ -23,6 +23,7 @@ const AddUser = ({ users, setUsers }) => {
 			.then(res => {
 				setUsers([...users, res.data]);
 				// console.log("res", res);
+				form.resetFields();
 				info();
 			})
 			.catch(err => console.log(err))
@@ -34,11 +35,14 @@ const AddUser = ({ users, setUsers }) => {
 			);
 	};
 
+	const [form] = Form.useForm();
+
 	return (
 		<div className='add__user__form__container'>
 			<h3>Join us</h3>
-			<Form onFinish={handleSubmit} className='add__user__form '>
+			<Form form={form} onFinish={handleSubmit} className='add__user__form '>
 				<Form.Item
+					name='name'
 					rules={[
 						{
 							required: true,
@@ -56,6 +60,7 @@ const AddUser = ({ users, setUsers }) => {
 				</Form.Item>
 
 				<Form.Item
+					name='bio'
 					rules={[
 						{
 							required: true,

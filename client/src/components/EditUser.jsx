@@ -68,7 +68,7 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 			{userToEdit.id ? (
 				<>
 					<Modal
-						title='Basic Modal'
+						title='Edit user'
 						visible={visible}
 						onOk={handleSubmit}
 						onCancel={handleCancel}
