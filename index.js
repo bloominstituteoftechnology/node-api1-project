@@ -1,15 +1,10 @@
 const express = require('express');
 const shortid = require('shortid');
+const cors = require("cors");
 
 const server = express();
-
-let users = [
-    {
-        id: shortid.generate(),
-        name: "justin russell",
-        bio: "this is my first day doing backend"
-    },
-]
+server.use(cors());
+let users = [ ];
 
 // middleware
 server.use(express.json());
@@ -20,15 +15,32 @@ server.get('/', (req, res) => {
 });
 
 server.get("/api/users", (req, res) => {
-    res.json(users);
+  res.status(200).json(users);
 });
 
 server.post("/api/users", (req, res) => {
-    const userInfo = req.body;
-    users.push(userInfo);
-    res.status(201).json(users);
+    const user = { id: shortid.generate(), ...req.body };
+    users = [...users, user];
+
+    res.send(users);
 });
 
+server.get("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+  const user = users.find((u) => u.id == id);
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: "User not found." });
+  }
+});
+
+server.delete("/api/users/:id", (req, res) => {
+  const deleted = users.find((user) => user.id === req.params.id);
+  users = users.filter((user) => user.id !== req.params.id);
+
+  res.send(deleted);
+});
 
 
 const port = 5000;
