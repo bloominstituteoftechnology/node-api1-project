@@ -26,10 +26,10 @@ server.get("/", (req, res) => {
 
 server.get("/api/users", (req, res) => {
     res.json(users);
-    if (users) {
-        res.status(200).json(users);
+    if (!users) {
+        res.status(500).json({errorMessage: "The users information could not be retrieved."});
     } else {
-        res.status(500).json({errorMessage: "The users information could not be retrieved."})
+        res.status(200).json();
     }
 });
 
@@ -62,5 +62,27 @@ server.post("/api/users", (req, res) => {
         res.status(500).json({error:"ERROR cannot save user to DATABASE"})
     }
 });
+
+// DELETE
+
+server.delete('/api/users/:id', (req, res) => {
+    const {id} = req.params; //destructuring is prettier.
+    const deletes = users.find(user => user.id === id);
+
+    if (deletes) {
+        users = users.filter(user => user.id !== id);
+        res.status(200).json(deletes)
+    }
+    else if (!deletes) {
+        users = users.filter(user => user.id !== id);
+        res.status(404).json({message: "The user with the specified ID does not exist."});
+    }
+    else {
+        res.status(500).json({message: 'The user could not be removed'});
+    }
+})
+
+// PATCH
+
 
 
