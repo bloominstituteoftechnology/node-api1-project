@@ -1,10 +1,9 @@
 const express = require('express');
-const shortid = require('shortid');//genrate unique id's
-console.log(shortid.generate());
-
 const server = express();
+const shortid = require('shortid');
+// console.log(shortid.generate());
 
-//array for testing only-comment out
+// //array for testing only-comment out
 // let users = [
 //     {
 //       id: "xldctPk71",
@@ -18,49 +17,51 @@ const server = express();
 //     },
 //   ];
 
-//initalize users array
+// initalize users array
 const users = [];
 
-//middleware
+// middleware
 server.use(express.json());
 
-//endpoints
-//testin api is operating
-server.get('/', (req,res) => {
-    res.json({api: "is running..."});
+// users endpoints
+server.get('/', (req,res)=> {
+    res.status(200).json({message: 'users api is running...'});
 });
 
+server.post('/api/users', validatePost, (req,res)=>{
+    const user = req.body;
+    user.id = shortid.generate();
+    users.push(user);
+    res.status(201).json(user)
+});
 
-//GET - return users array
-server.get("api/users", (res,req) => {
-    res.status(200).json(users);
-})
+server.get('/api/users' , (req,res)=>{
 
-
-//POST
-
-// server.post("/api/users", (req,res) => {
-//     const {name, bio} = req.body
-
-
-//     if (!name || !bio){
-//         res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
-//         } else {
-
-//     users.push(usersInfo);
-
-//     res.status(201).json(users);
-//         }
-// });
-//GET
-// server.get("/api/users", (req, res) => {
-  
-//     if(!users){
-
-//     }
+    if(users){
+       return res.status(200).json(users);
+    }else{
+        return res.status(500).json({errorMessage: "The users information could not be retrieved."});
+    }
     
-// });
+});
 
+server.get('/api/users/:id', (req,res)=> {
+    const reqUser = users.find(user => user.id == req.params.id)
+    if(reqUser){
+        return res.status(200).json(reqUser)
+    }else{
+        return res.status(404).json({message:  "The user with the specified ID does not exist."})
+    }
+});
+
+//use next() js to validate 
+function validatePost  (req, res , next){
+    if(req.body.name == undefined || req.body.bio == undefined || req.body.bio === '' || req.body.name == ''){
+         return res.status(404).json({message: "Please provide name and bio for the user."})
+    }else{
+        return next();
+    }
+}
 
 
 const port = 5000;//run server on port 5000
