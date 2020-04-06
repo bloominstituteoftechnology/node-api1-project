@@ -6,6 +6,14 @@ const server = express();
 
 
 
+//middleware
+server.use(express.json());
+
+//endpoints
+server.get('/', (req,res) => {
+    res.json({api: "is running..."});
+});
+
 
 
 const port = 5000;//run server on port 5000
