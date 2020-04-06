@@ -83,6 +83,25 @@ server.delete('/api/users/:id', (req, res) => {
 })
 
 // PATCH
+//https://stackoverflow.com/questions/47944257/how-to-get-the-request-payload-from-a-patch-request-in-express
+server.patch('/api/users/:id', (req, res) => {
+    const {id} = req.params;
+    const patching = req.body;
 
+    let sorted = users.find(user => user.id == id);
+
+    if (sorted) {
+        Object.assign(sorted, patching);
+        res.status(200).json(sorted);
+    } else if (!sorted) {
+        res.status(404).json({message: 'USER ID does not exist'});
+    } else if (!patching) {
+        res.status(400).json({error: "Please Provide NAME and BIO for user"});
+    }
+    else {
+        res.status(500).json({message: 'USER cannot be modified'});
+    }
+
+})
 
 
