@@ -17,17 +17,14 @@ let users = [
 server.use(express.json());
 
 server.post('/api/users', (req, res) => {
-    const userInfo = req.body;
+    const {name, bio} = req.body;    
 
-    // userInfo.id = shortid.generate();
+    // req.body.id = shortid.generate();    
 
-    users.push(userInfo);
-
-    // const userName = users.find((userName) => userName.name == "");
-
-    if (users.name || users.bio === "") {
+    if (!name || !bio) {
         res.status(400).json({ message: "Please provide name and bio for the user."});
     } else {
+        users.push(req.body);
         res.status(201).json(users);
     }    
 })
