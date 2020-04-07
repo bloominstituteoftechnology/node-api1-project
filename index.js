@@ -68,8 +68,20 @@ server.post('/api/users', (req, res) => {
 });
 
 // DELETEs
-server.post('/api/users', (req, res) => {
-
+server.delete('/api/users/:id', (req, res) => {
+    const userID = req.params.id;
+    const foundUser = users.find((person) => person.id == userID);
+  
+    if (foundUser) {
+      users = users.filter((user) => user.id != userID);
+      res.status(200).json(users);
+    } else if (user) {
+      res.status(500).json({ message: "The user could not be removed" });
+    } else {
+      res
+        .status(404)
+        .json({ errorMessage: "The user with the specified ID does not exist." });
+    }
 });
 
 // PUTs
