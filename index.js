@@ -30,15 +30,24 @@ server.post('/api/users', (req, res)=>{
 
     // Add random ID to body
     body['id'] = shortid.generate();
-    
+
     // Add new user to the users variable and return 201 with the users variable
     try {
         users.push(body);
         res.status(201).json(users);
     } catch (error) {
-        res.status(500).json({ errorMessage: "The users information could not be retrieved." });
+        res.status(500).json({ errorMessage: "There was an error while saving the user to the database" });
     }
     
+})
+
+// GET all users
+server.get('/api/users', (req,res)=>{
+    try {
+        res.status(200).json(users);
+    }catch (error) {
+        res.status(500).json({ errorMessage: "The users information could not be retrieved." });
+    }
 })
 
 
