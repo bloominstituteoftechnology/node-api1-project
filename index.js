@@ -50,6 +50,33 @@ server.get('/api/users', (req,res)=>{
     }
 })
 
+// Get a single user
+server.get('/api/users/:id', (req,res)=>{
+    try {
+        const user = users.filter(function(user) { 
+            return user['id'] == req.params.id;
+        });
+        res.status(200).json(user);
+    }catch (error) {
+        res.status(500).json({ errorMessage: "The user information could not be retrieved." });
+    }
+})
+
+// Delete a user
+server.delete('/api/users/:id', (req,res)=>{
+    
+    try {
+        const index = users.map(e => e.id).indexOf(req.params.id);
+        if (!(index >= 0)) {
+            res.status(404).json({ message: "The user with the specified ID does not exist."});
+        } else {
+            users.splice(index, 1) // Delete user from list
+            res.sendStatus(200);
+        }
+    } catch (error) {
+        res.status(500).json({ errorMessage: "The user could not be removed" });
+    }
+})
 
 
 // Server Listener
