@@ -2,11 +2,13 @@
 // server setup
 
 const express = require('express')
+const cors = require('cors')
 const shortid = require('shortid')
 const server = express();
 const port = 5000;
 server.listen(port, () => console.log(`\n == api on port ${port} ==`))
 server.use(express.json());
+server.use(cors())
 
 // data
 let users = [
@@ -77,6 +79,6 @@ server.patch('/api/users/:id', (req,res) => {
     }else {
         user.name = req.body.name
         user.bio = req.body.bio
-        res.status(200).json(user);
+        res.status(200).json(users);
     }
 })

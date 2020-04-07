@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/McIntyre-R/node-api1-project#readme",
   "dependencies": {
+    "bootstrap": "^4.4.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "reactstrap": "^8.4.1",
     "shortid": "^2.2.15"
   },
   "devDependencies": {
