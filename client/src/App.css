@@ -1,0 +1,78 @@
+.App {
+	width: 100%;
+	max-width: 1000px;
+	margin: 30px auto;
+	padding: 20px;
+	height: 100vh;
+}
+
+h1 {
+	text-align: center;
+}
+
+.userList__container {
+	/* border: 1px solid rebeccapurple; */
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.userCard {
+	width: 400px;
+}
+
+.add__user__form__container {
+	/* border: 1px solid rebeccapurple; */
+	display: flex;
+	flex-flow: column nowrap;
+	margin-top: 100px;
+	text-align: center;
+	align-items: center;
+}
+
+.add__user__form {
+	/* border: 1px solid rebeccapurple; */
+	display: flex;
+	flex-flow: column wrap;
+	width: 20%;
+	align-items: stretch;
+	min-width: 330px;
+	max-width: 480px;
+}
+.add__user__form button {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.edit__user__form {
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.edit__user__form input {
+	margin-bottom: 10px;
+}
+
+.fetch__users__btn__container {
+	display: flex;
+	justify-content: center;
+}
+
+@media only screen and (max-width: 860px) {
+	.userList__container {
+		flex-flow: column wrap;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.userCard {
+		width: 98%;
+	}
+}
+
+@media only screen and (max-width: 460px) {
+	.userCard {
+		width: 98%;
+	}
+}
