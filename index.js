@@ -39,10 +39,6 @@ server.get("/", (req, res) => {
 	res.send("Hello Daniel");
 });
 
-server.get('*', (req, res) => {
-res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
-})
-
 // C - Create (CRUD)
 server.post("/api/users", (req, res) => {
 	const user = req.body;
@@ -201,3 +197,7 @@ server.put("/api/users/:id", (req, res) => {
 			.json({ errorMessage: "The user information could not be modified." });
 	}
 });
+
+server.get('*', (req, res) => {
+res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
+})
