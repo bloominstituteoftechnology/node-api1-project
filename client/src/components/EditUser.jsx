@@ -25,7 +25,7 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:4000/api/users/${userToEdit?.id}`)
+			.get(`/api/users/${userToEdit?.id}`)
 			.then(res => {
 				console.log(res);
 				setUpdatedUser({
@@ -45,7 +45,7 @@ const EditUser = ({ users, setUsers, userToEdit }) => {
 		e.preventDefault();
 		setVisible(false);
 		axios
-			.put(`http://localhost:4000/api/users/${userToEdit?.id}`, updatedUser)
+			.put(`/api/users/${userToEdit?.id}`, updatedUser)
 			.then(res => {
 				setUsers(
 					users.map(user =>

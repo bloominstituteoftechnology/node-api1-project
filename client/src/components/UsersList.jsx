@@ -12,7 +12,7 @@ const UsersList = () => {
 
 	const fetchUsers = () => {
 		axios
-			.get("http://localhost:4000/api/users")
+			.get("/api/users")
 			.then(res => {
 				console.log(res);
 				setUsersList(res.data);
@@ -26,7 +26,7 @@ const UsersList = () => {
 		};
 
 		axios
-			.delete(`http://localhost:4000/api/users/${id}`)
+			.delete(`/api/users/${id}`)
 			.then(res => {
 				setUsersList(usersList.filter(user => user.id !== id));
 				info();

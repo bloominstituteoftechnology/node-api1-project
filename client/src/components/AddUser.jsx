@@ -19,7 +19,7 @@ const AddUser = ({ users, setUsers }) => {
 
 	const handleSubmit = () => {
 		axios
-			.post("http://localhost:4000/api/users", newUser)
+			.post("/api/users", newUser)
 			.then(res => {
 				setUsers([...users, res.data]);
 				// console.log("res", res);
