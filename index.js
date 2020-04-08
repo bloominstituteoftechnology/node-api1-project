@@ -34,7 +34,7 @@ server.listen("4000", () => {
 
 server.use(express.json());
 server.use(cors());
-server.use(express.static(path.resolve(__dirname, '../client/build')))
+server.use(express.static(path.join(__dirname, '/client/build')))
 
 server.get("/", (req, res) => {
 	res.send("Hello Daniel");
@@ -200,5 +200,5 @@ server.put("/api/users/:id", (req, res) => {
 });
 
 server.get('*', (req, res) => {
-res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
+res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
