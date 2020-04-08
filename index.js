@@ -33,10 +33,15 @@ server.listen("4000", () => {
 
 server.use(express.json());
 server.use(cors());
+server.use(express.static(path.resolve(__dirname, '../client/build')))
 
 server.get("/", (req, res) => {
 	res.send("Hello Daniel");
 });
+
+server.get('*', (req, res) => {
+res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
+})
 
 // C - Create (CRUD)
 server.post("/api/users", (req, res) => {
