@@ -28,10 +28,6 @@ let users = [
 	}
 ];
 
-server.listen("4000", () => {
-	console.log("Listening on port 4000");
-});
-
 server.use(express.json());
 server.use(cors());
 server.use(express.static(path.resolve(__dirname, "/client/build")));
@@ -201,4 +197,9 @@ server.put("/api/users/:id", (req, res) => {
 
 server.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "/client/build/index.html"));
+});
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+	console.log(`Listening on port ${PORT}`);
 });
