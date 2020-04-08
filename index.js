@@ -32,9 +32,9 @@ server.use(express.json());
 server.use(cors());
 server.use(express.static(path.resolve(__dirname, "/client/build")));
 
-server.get("/", (req, res) => {
-	res.send("Hello Daniel");
-});
+// server.get("/", (req, res) => {
+// 	res.send("Hello Daniel");
+// });
 
 // C - Create (CRUD)
 server.post("/api/users", (req, res) => {
