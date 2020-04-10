@@ -38,6 +38,25 @@ server.get("/api/users/:id", (req, res) => {
   }
 });
 
+server.post("/api/users", (req, res) => {
+  if (!req.body.name || !req.body.bio) {
+    return res
+      .status(400)
+      .join({ errorMessage: "Please provide name and bio for the user." });
+  } else if (req.body.name || req.body.bio) {
+    const newUser = db.createUser({
+      name: req.body.name,
+      bio: req.body.bio,
+    });
+
+    res.status(201).json(newUser);
+  } else {
+    res.status(500).json({
+      errorMessage: "There was an error while saving the user to the database",
+    });
+  }
+});
+
 server.listen(5000, () => {
   console.log("Server initialized on port 5000");
 });
