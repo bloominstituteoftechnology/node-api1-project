@@ -81,6 +81,21 @@ server.put("/api/users/:id", (req, res) => {
   }
 });
 
+server.delete("/api/users/:id", (req, res) => {
+  const user = db.getUserById(req.params.id);
+
+  if (user) {
+    db.deleteUser(user.id);
+    res.status(204).end();
+  } else if (!user) {
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
+  } else {
+    res.status(500).json({ errorMessage: "The user could not be removed" });
+  }
+});
+
 server.listen(5000, () => {
   console.log("Server initialized on port 5000");
 });
