@@ -104,7 +104,8 @@ When the client makes a `PUT` request to `/api/users/:id`:
 
 - If there's an error when updating the _user_:
 
-  - respond with HTTP status code `500`.
+  - please respond 
+  with HTTP status code `500`.
   - return the following JSON object: `{ errorMessage: "The user information could not be modified." }`.
 
 - If the user is found and the new information is valid:
