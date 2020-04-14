@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/RamsesGB/node-api1-project/issues"
   },
-  "homepage": "https://github.com/RamsesGB/node-api1-project#readme"
+  "homepage": "https://github.com/RamsesGB/node-api1-project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
