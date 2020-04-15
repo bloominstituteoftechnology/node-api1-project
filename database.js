@@ -1,5 +1,3 @@
-const shortid = require("shortid")
-
 let users = [
 	{ id: "1", name: "Jane Doe", bio: "Not Tarzan's Wife, another Jane" },
 	{ id: "2", name: "John Doe", bio: "A man with no idea where he came from" },
