@@ -1,7 +1,11 @@
 {
 	"private": true,
 	"scripts": {},
-	"devDependencies": {},
+	"devDependencies": {
+		"cross-env": "^7.0.2",
+		"dotenv": "^8.2.0",
+		"dotenv-json": "^1.0.0"
+	},
 	"dependencies": {
 		"express": "^4.17.1",
 		"shortid": "^2.2.15"

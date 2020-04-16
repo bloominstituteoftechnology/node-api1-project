@@ -2,6 +2,7 @@ const express = require("express")
 const db = require("./database.js")
 
 const server = express()
+const port = process.env.PORT || 4080
 
 server.use(express.json())
 
@@ -102,6 +103,6 @@ server.put("/users/:id", (req, res) => {
     }
 })
 
-server.listen(8080, () => {
-    console.log("Server started at port 8080")
+server.listen(port, () => {
+    console.log(`Server started at port ${port}`)
 })
