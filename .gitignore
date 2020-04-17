@@ -4,3 +4,6 @@
 # node
 node_modules
 npm-*.log
+
+#environment variables
+.env
