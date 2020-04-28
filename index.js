@@ -1,36 +1,115 @@
-// implement your API here
-// require the express npm module, needs to be added to the project using "npm install express"
-const express = require('express');
 
-// creates an express application using the express module
-const server = express();
+const express = require('express')
+const db = require('./data/db')
+const server = express()
 
-// configures our server to execute a function for every GET request to "/"
-// the second argument passed to the .get() method is the "Route Handler Function"
-// the route handler function will run on every GET request to "/"
+server.use(express.json())
+
+// GET - root test
 server.get('/', (req, res) => {
-  // express will pass the request and response objects to this function
-  // the .send() on the response object can be used to send a response to the client
-  res.send('Hello World');
-});
-//API THAT CAN RETURN DATA IN JSON FORMAT
-server.get('/hobbits', (req, res) => {
-    // route handler code here
-    const hobbits = [
-        {
-          id: 1,
-          name: 'Samwise Gamgee',
-        },
-        {
-          id: 2,
-          name: 'Frodo Baggins',
-        },
-      ];
+  res.send('hello world')
+})
 
-      res.status(200).json(hobbits);
-  });
-  
+// GET - all users
+server.get('/api/users', (req, res) => {
+  db.find()
+    .then((users) => {
+      res.send(users)
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .send({ error: 'The users information could not be retrieved.' })
+    })
+})
 
-// once the server is fully configured we can have it "listen" for connections on a particular "port"
-// the callback function passed as the second argument will run once when the server starts
-server.listen(8000, () => console.log('API running on port 8000'));
+// GET - get a single user by id
+server.get('/api/users/:id', (req, res) => {
+  const id = req.params.id
+
+  db.findById(id)
+    .then((user) => {
+      if (!user) {
+        res
+          .status(404)
+          .send({ message: 'The user with the specified ID does not exist.' })
+      } else {
+        res.send(user)
+      }
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .send({ error: 'The user information could not be retrieved.' })
+    })
+})
+
+// POST - insert new user to db
+server.post('/api/users', (req, res) => {
+  const newuser = req.body
+
+  if (!newuser.name || !newuser.bio) {
+    // if req body obj is incorrect
+    res
+      .status(400)
+      .json({ errorMessage: 'Please provide name and bio for the user.' })
+  } else {
+    db.insert(newuser) // pass a user obj, returns json obj with id
+      .then((user) => {
+        res.status(201).json(user)
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error: 'There was an error while saving the user to the database'
+        })
+      })
+  }
+})
+
+// PUT - update a users info with an id
+server.put('/api/users/:id', (req, res) => {
+  const id = req.params.id
+  const changes = req.body
+
+  if (!changes.name || !changes.bio) {
+    res
+      .status(400)
+      .json({ errorMessage: 'Please provide name and bio for the user.' })
+  } else {
+    db.update(id, changes)
+      .then((user) => {
+        if (user === 0) {
+          res
+            .status(404)
+            .json({ message: 'The user with the specified ID does not exist.' })
+        } else {
+          res.status(200).json(changes)
+        }
+      })
+      .catch((error) => {
+        res.status(500).json({ error: 'The user information could not be modified.' })
+      })
+  }
+})
+
+// DELETE - delete a user by id
+server.delete('/api/users/:id', (req, res) => {
+  const id = req.params.id
+
+  db.remove(id)
+    .then((user) => {
+      if (!user) {
+        res
+          .status(404)
+          .json({ message: 'The user with the specified ID does not exist.' })
+      } else {
+        res.json(user)
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'The user could not be removed' })
+    })
+})
+
+const port = 8000
+server.listen(port, () => console.log(`\n** API on port ${port} ** \n`))
