@@ -49,7 +49,53 @@ app.get('/api/users', (req, res) => {
   }
 })
 
+app.get('/api/users/:id', function(req, res) {
+  const id = req.params.id;
+  const user = users.find((user) => user.id == id);
 
+  if(user) {
+      res.status(200).json(user)
+  } else {
+    res.status(404).json({errorMessage: '404 Specified User ID Not Found'})
+  }
+
+})
+
+// DELETE
+app.delete('/api/users/:id', (req, res) => {
+  const {id} = req.params; //destructuring is prettier.
+  const deletes = users.find(user => user.id == id);
+
+  if (deletes) {
+      users = users.filter(user => user.id != id);
+      res.status(200).json({message: 'user deleted!'})
+  }
+
+  else {
+      res.status(500).json({message: 'The user could not be removed'});
+  }
+})
+
+app.put('/api/users/:id', (req, res) => {
+  const id = req.params.id; 
+  const putting = users.find(f => f.id == id)
+  if(req.body.name && req.body.bio) {
+    if (putting) {
+      try {
+        putting.name = req.body.name
+        putting.bio = req.body.bio
+        res.status(200).json({message: 'PUT successful!'})
+      } catch (error) {
+        res.status(500).json({errorMessage: "User Info Could not be modified"})
+      }
+    } else {
+      res.status(404).json({errorMessage: "User does not exist"})
+    }
+  } else {
+    res.status(400).json({errorMessage: "Provide name and bio for user"})
+  }
+
+})
 // const http = require('http');
 // const fs = require('fs');
 
