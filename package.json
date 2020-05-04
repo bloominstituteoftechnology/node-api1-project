@@ -4,7 +4,8 @@
   "description": "- Building a RESTful API.\r - Performing CRUD operations.\r - Writing API endpoints.",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "shortid": "^2.2.15"
   },
   "devDependencies": {},
   "scripts": {
