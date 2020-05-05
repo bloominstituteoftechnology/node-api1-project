@@ -5,14 +5,14 @@ const server = express();
 
 server.use(express.json());
 
-// let users = [
-//   {
-//     // id: shortid.generate(),
-//     id: 1,
-//     name: "Jane Doe",
-//     bio: "Not Tarzan's Wife, another Jane",
-//   },
-// ];
+let users = [
+  {
+    // id: shortid.generate(),
+    id: 1,
+    name: "Jane Doe",
+    bio: "Not Tarzan's Wife, another Jane",
+  },
+];
 
 server.get("/api/users", (req, res) => {
   try {
@@ -39,6 +39,31 @@ server.get("/api/users/:id", (req, res) => {
     res.status(500).json({
       errorMessage: "The user information could not be retrieved",
     });
+  }
+});
+
+server.post("/api/users", (req, res) => {
+  try {
+    const userInfo = {
+      id: shortid.generate(),
+      name: req.body.name,
+      bio: req.body.bio,
+    };
+    if (req.body.name.value && req.body.bio.value) {
+      users.push(userInfo);
+      res.status(201).json(userInfo);
+    } else {
+      res.status(400).json({
+        errorMessage: "Please provide name and bio for the user.",
+      });
+    }
+  } catch (err) {
+    res
+      .status(500)
+      .json({
+        errorMessage:
+          "There was an error while saving the user to the database",
+      });
   }
 });
 
