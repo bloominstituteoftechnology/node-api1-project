@@ -12,6 +12,11 @@ let users = [
     name: "Jane Doe",
     bio: "Not Tarzan's Wife, another Jane",
   },
+  {
+    id: 2,
+    name: "Chad Simpson",
+    bio: "One big dude",
+  },
 ];
 
 server.get("/api/users", (req, res) => {
@@ -44,45 +49,24 @@ server.get("/api/users/:id", (req, res) => {
 
 server.post("/api/users", (req, res) => {
   try {
-    const userInfo = {
+    let userInfo = {
       id: shortid.generate(),
-      name: req.body.name,
-      bio: req.body.bio,
+      ...req.body,
     };
-    if (req.body.name.value && req.body.bio.value) {
+    if (userInfo.name && userInfo.bio) {
       users.push(userInfo);
       res.status(201).json(userInfo);
     } else {
-      res.status(400).json({
-        errorMessage: "Please provide name and bio for the user.",
-      });
+      res
+        .status(400)
+        .json({ errorMessage: "Please provide name and bio for the user." });
     }
   } catch (err) {
-    res
-      .status(500)
-      .json({
-        errorMessage:
-          "There was an error while saving the user to the database",
-      });
+    res.status(500).json({
+      errorMessage: "There was an error while saving the user to the database",
+    });
   }
 });
-
-// server.post("/api/users", (req, res) => {
-//   try {
-//     const userInfo = {
-//       id: shortid.generate(),
-//       name: req.body.name,
-//       bio: req.body.bio,
-//     };
-//     users.push(userInfo);
-//     res.status(201).json(userInfo);
-//   } catch (err) {
-//     console.error("\nERROR", err);
-//     res
-//       .status(400)
-//       .json({ errorMessage: "Please provide name and bio for the user." });
-//   }
-// });
 
 server.get("/", (req, res) => {
   res.json({ api: "Up and running!" });
