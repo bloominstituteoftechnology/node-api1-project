@@ -6,9 +6,9 @@ const bodyParser = require('body-parser')
 const server = express();
 server.use(bodyParser.json())
 
-server.listen(8001, () => console.log("API running on port 8001"))
 
-const users = []
+
+let users = []
 
 server.get('/', (req, res) => {
   res.json({ api: "Up and running!" });
@@ -61,9 +61,21 @@ server.delete('/api/users/:id', (req, res) => {
 
 });
 
-
 server.patch('/api/users/:id', (req, res) => {
-  res.json({ api: "Up and running!" });
+  const id = req.params.id;
+  const user = users.find(user => user.id === id)
+
+  if (!user){
+    return res.status(404).json({ message: "The user with the specified ID does not exist." })
+  }
+
+  if(req.body.name)
+    user.name = req.body.name
+
+  if(req.body.bio)
+    user.bio = req.body.bio
+
+  return res.status(200).json(user)
 });
 
 server.listen(8001, () => console.log("API running on port 8001"))
