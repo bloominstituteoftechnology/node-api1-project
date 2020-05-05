@@ -99,6 +99,38 @@ server.delete("/api/users/:id", (req, res) => {
   }
 });
 
+server.put("/api/users/:id", (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    let userToEdit = users.find((user) => user.id === id);
+    if (userToEdit.id === id) {
+      if (!req.body.name || !req.body.bio) {
+        res.status(400).json({
+          errorMessage: "Please provide name and bio for the user.",
+        });
+      } else {
+        let user = users.filter((user) => user.id !== id);
+        users = user;
+        newUser = {
+          id: userToEdit.id,
+          name: req.body.name,
+          bio: req.body.bio,
+        };
+        users.push(newUser);
+        res.status(200).json(newUser);
+      }
+    } else {
+      res.status(404).json({
+        message: "The user with the specified ID does not exist.",
+      });
+    }
+  } catch {
+    res.status(500).json({
+      errorMessage: "The user information could not be modified.",
+    });
+  }
+});
+
 // generic get request that returns the server is running
 server.get("/", (req, res) => {
   res.json({ api: "Up and running!" });
