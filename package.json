@@ -1,0 +1,29 @@
+
+{
+  "name": "node-api1-project",
+  "version": "1.0.0",
+  "description": "- Building a RESTful API.\r - Performing CRUD operations.\r - Writing API endpoints.",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MRLoweDev/node-api1-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MRLoweDev/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/MRLoweDev/node-api1-project#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "server": "^1.0.27"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
