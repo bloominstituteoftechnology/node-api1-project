@@ -76,7 +76,9 @@ server.put('/api/users/:id', (req, res) => {
     const found = users.findIndex(user => user.id === parseInt(req.params.id))
     if (found > -1) {
         for (const prop in req.body) {
-            users[found][prop] = req.body[prop]
+            if (req.body[prop]) {
+                users[found][prop] = req.body[prop]                
+            }
         }
         return res.status(201).json(users[found])
     }
