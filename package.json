@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/thomas-t-huynh/node-api1-project#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1"
   }
 }
