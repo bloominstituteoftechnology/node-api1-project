@@ -5,7 +5,10 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-let users = [{ id: 0, name: "thomas"}]
+let users = []
+for (var i = 1; i < 25; i++) {
+    users.push({ id: i, name: `thing ${i}`, bio: "full-stack developer" })
+}
 
 users.findUser = (id) => {
     const promise = new Promise((resolution, rejection) => {

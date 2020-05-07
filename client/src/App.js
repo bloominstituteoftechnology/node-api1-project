@@ -12,10 +12,12 @@ import {
   CardContent
 } from "@material-ui/core";
 
+const initData = { name: "", bio: "", id: "" };
 function App() {
+
   const [users, setUsers] = useState([]);
   const [verb, setVerb] = useState("post");
-  const [form, setForm] = useState({ name: "", bio: "", id: "" });
+  const [form, setForm] = useState(initData);
   const [title, setTitle] = useState("");
 
   const getUsers = () => {
@@ -28,9 +30,11 @@ function App() {
         console.log(err);
       });
   };
+
   useEffect(() => {
     const buttonText = document.getElementsByName(verb)[0].textContent;
     setTitle(buttonText);
+    setForm(initData)
     if (users.length === 0) {
       getUsers();
     }
@@ -42,17 +46,17 @@ function App() {
 
   const handleOnSubmit = e => {
     e.preventDefault();
-    console.log(form);
     axios[verb](`http://localhost:5000/api/users/${form.id}`, form)
       .then(res => {
+        setForm(initData)
         getUsers()
       })
       .catch(err => console.log(err));
   };
 
   return (
-    <div className="App">
-      <form onSubmit={handleOnSubmit}>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <form onSubmit={handleOnSubmit} style={{ display: "flex", flexDirection: "column", width: 200, padding: 20, height: 600, justifyContent: "space-between"}}>
         <Typography variant="h4">{title}</Typography>
         <label>Name</label>
         <Input
@@ -60,6 +64,7 @@ function App() {
           name="name"
           value={form.name}
           onChange={handleOnChange}
+          disabled={verb === "delete" || verb === "get" ? true : false}
         />
         <label>Bio</label>
         <Input
@@ -67,6 +72,7 @@ function App() {
           name="bio"
           value={form.bio}
           onChange={handleOnChange}
+          disabled={verb === "delete" || verb === "get" ? true : false}
         />
         <label>Id</label>
         <Input
@@ -116,10 +122,11 @@ function App() {
           Submit
         </Button>
       </form>
+    <div className="App" style={{ display: "flex", flexWrap: "wrap", width: 1500 }}>
       {users &&
         users.map(user => {
           return (
-            <Card key={user.id} style={{ width: 200, height: 200 }}>
+            <Card key={user.id} style={{ width: 200, height: 200, margin: 20 }}>
               <CardContent>
                 <Typography variant="h5">{user.name}</Typography>
                 <Typography>Bio: {user.bio}</Typography>
@@ -127,6 +134,7 @@ function App() {
             </Card>
           );
         })}
+    </div>
     </div>
   );
 }
