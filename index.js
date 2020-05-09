@@ -57,7 +57,7 @@ server.get('/api/users/:id', (req, res) => {
     users.findUser(req.params.id)
     .then(response => {
         if (response) {
-            return res.status(200).json(response)
+            return res.status(200).json([response])
         }
         return res.status(404).json({ errorMessage: "User not found" })
     })

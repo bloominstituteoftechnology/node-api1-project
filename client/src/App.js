@@ -20,9 +20,9 @@ function App() {
   const [form, setForm] = useState(initData);
   const [title, setTitle] = useState("");
 
-  const getUsers = () => {
+  const getUsers = (id="") => {
     axios
-      .get("http://localhost:5000/api/users")
+      .get(`http://localhost:5000/api/users/${id}`)
       .then(res => {
         setUsers(res.data);
       })
@@ -49,6 +49,9 @@ function App() {
     axios[verb](`http://localhost:5000/api/users/${form.id}`, form)
       .then(res => {
         setForm(initData)
+        if (verb === "get") {
+          return getUsers(form.id)
+        }
         getUsers()
       })
       .catch(err => console.log(err));
