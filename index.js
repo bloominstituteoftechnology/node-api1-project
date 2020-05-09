@@ -1,6 +1,14 @@
 const express = require("express");
 const server = express();
 
+server.post("/users", (req, res) => {
+    const newUser = createUser({
+        name: req.body.name,
+        bio: req.body.bio
+    });
+    res.status(200).json(newUser);
+})
+
 server.get("/", (req, res) => {
   res.send("Hello World");
 });
