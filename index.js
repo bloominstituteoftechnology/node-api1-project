@@ -5,7 +5,7 @@ server.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-server.get("/users", (req, res) => {
+server.get("/api/users", (req, res) => {
     const users = [
         { 
             id: 1, 
@@ -20,5 +20,7 @@ server.get("/users", (req, res) => {
     ]
     res.status(200).json(users);
 })
+
+server.use(express.json());
 
 server.listen(8000, () => console.log("API running on port 8000"));
