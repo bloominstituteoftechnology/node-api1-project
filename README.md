@@ -3,8 +3,8 @@
 ## Topics
 
 - Building a RESTful API.
-- Performing CRUD operations.
-- Writing API endpoints.
+- Performing CRUD operations
+- Writing API endpoints
 
 ### Grab Starter Code
 
