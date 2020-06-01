@@ -29,7 +29,7 @@ Add the code necessary to create a Web API and implement the following _endpoint
 | GET    | /api/users     | Returns an array users.                                                                                |
 | GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       |
 | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
-| PATCH  | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
+| PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
 
 #### User Schema
 
