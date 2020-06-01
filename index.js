@@ -10,7 +10,7 @@ const server = express();
 
 server.use(express.json());
 
-let codeServer = [
+let users = [
   {
     id: 1,
     name: "cody",
@@ -18,21 +18,32 @@ let codeServer = [
   },
 ];
 // a function to handle GET/ requests
-server.get("/codeServer", (req, res) => {
-  res.status(200).json(codeServer);
+server.get("/api/users/:id", (req, res) => {
+  let user = req.params.id;
+  if (user.id) {
+    res.status(200).json(user);
+  } else {
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
+  }
+});
+
+server.get("/api/users", (req, res) => {
+  res
+    .status(500)
+    .json({ errorMessage: "The users information could not be retrieved." });
 });
 
 // a function to handle POST/ requests
 server.post("/api/users", (req, res) => {
   const user = req.body;
-  codeServer.push(user);
-  if (codeServer) {
-    res.status(200).json(codeServer);
-  } else {
-    res.status(400).json({ errorMessage: "this is an error" });
-  }
-  // res.status(200).json(codeServer);
-  // res.status(400).json({ errorMessage: "this is an error" });
+  users.push(user);
+  user.id && user.name && user.bio
+    ? res.status(200).json(users)
+    : res
+        .status(400)
+        .json({ errorMessage: "Please provide name and bio for the user." });
 });
 
 // listen to server port
