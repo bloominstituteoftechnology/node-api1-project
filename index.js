@@ -22,18 +22,18 @@ let users = [
   },
 ];
 function getUserById(id) {
-    const user = users.find((user) => {
-        return user.id === String(id);
-      });
-    
-      if(user) {
-        return user
-      } else {
-        return false
-      }
-}
+  const user = users.find((user) => {
+    return user.id === String(id);
+  });
 
-//tester GET request
+  if (user) {
+    return user;
+  } else {
+    return false;
+  }
+}
+//************************************************************************* */
+//GET USERS
 server.get("/api/users", (req, res) => {
   const user = req.body;
 
@@ -45,7 +45,9 @@ server.get("/api/users", (req, res) => {
     });
   }
 });
+//************************************************************************* */
 
+// GET users by ID
 server.get("/api/users/:id", (req, res) => {
   const user = getUserById(req.params.id);
 
@@ -61,10 +63,10 @@ server.get("/api/users/:id", (req, res) => {
     });
   }
 });
-// Functions for our CRUD App
+
+//************************************************************************* */
 
 //POST Request
-
 function createUser(data) {
   const payload = {
     id: String(users.length + 1),
@@ -75,76 +77,69 @@ function createUser(data) {
 }
 
 server.post("/api/users", (req, res) => {
-  if (req.body.name === false || req.body.bio === false) {
+  if (!req.body.name || !req.body.bio) {
     return res.status(400).json({
       message: "Please include a name and bio.",
     });
   }
 
-  const newUser = createUser(req.body);
-
+  const newUser = createUser({
+    name: req.body.name,
+    bio: req.body.bio,
+  });
   res.status(201).json(newUser);
 });
+//************************************************************************* */
 
 // Delete Request
 server.delete("/api/users/:id", (req, res) => {
-  const userId = getUserById(req.params.id)
 
+  const userId = getUserById(req.params.id);
 
-  function testUser(id) {
-    const user = users.find((user) => {
-        return user.id === String(id);
-      });
-    
-      if(user) {
-        return users
-      } else {
-        return false
-      }
-}
-  let testForUser = (testUser(userId))
+  function deletedUser(id) {
+      users = users.filter(user => {
+          return user.id !== id
+      })
+  }
 
-  if(!testForUser) {
-      return res.status(404).json({
-        errorMessage: "The users information could not be retrieved." 
+  if (userId) {
+      deletedUser(userId.id)
+      res.status(200).json({
+          message:`${userId.name} has been deleted`
       })
   } else {
-    testForUser = usersForUser.filter((user) => {
-        return user.id !== Number(id);
-      });
+      res.status(404).json({
+          message: "User does not exist"
+      })
   }
-  
-  res.status(200).json(users);
 });
+//************************************************************************* */
 
-// PUT request
-
+// PUT Request
 function updateUser(id, data) {
-    const index = users.findIndex(user => {
-        return user.id === id
-    })
+    const index = users.findIndex(u => u.id === id)
     users[index] = {
         ...users[index],
-        ...data
+        ...data,
     }
-
     return users[index]
-}
+  }
 
-server.put("/api/users/:id", (req, res) => {
-    const user = getUserById(req.params.id)
-
+  server.put("/api/users/:id", (req, res) => {
+    const user = getUserById(req.params.id);
+  
     if(user) {
         const updatedUser = updateUser(user.id, {
-            name: req.body.name || user.name
+            name: req.body.name || user.name,
+            // bio: req.body.bio || user.bio
         })
         res.json(updatedUser)
     } else {
-        res.status(500).json({
-            errorMessage: "The users information could not be retrieved.",
-          })
+        res.status(404).json({
+            message: "User not Found"
+        })
     }
-})
+  });
 
 //listen to server traffic
 const port = 8000;
