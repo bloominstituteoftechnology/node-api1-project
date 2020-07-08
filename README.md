@@ -8,8 +8,8 @@
 
 ### Grab Starter Code
 
-- **Fork** and **Clone** this repository.
-- **CD into the folder** where you cloned the repository.
+"X" **Fork** and **Clone** this repository.
+"X" **CD into the folder** where you cloned the repository.
 
 ## Assignment
 
