@@ -7,7 +7,7 @@ server.use(express.json());
 
 
 
-const Port = 5000;
+const PORT = 5000;
 
 server.listen(PORT,() => {
     console.log(`listening on http://localhost:${PORT}`);
