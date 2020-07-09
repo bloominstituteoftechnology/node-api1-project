@@ -27,6 +27,16 @@ server.post('/api/users', (req, res) => {
     }
 })
 
+//GET - cRud
+server.get('/api/users', (req, res) => {
+    const userInfo = req.body;
+    if (!users) {
+        res.status(500).json({ errorMessage: "The users information could not be retrieved." })
+    } else {
+        res.status(201).json(users);
+    }
+})
+
 
 const PORT = 5000;
 

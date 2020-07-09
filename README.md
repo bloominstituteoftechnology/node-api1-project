@@ -25,8 +25,8 @@ Add the code necessary to create a Web API and implement the following _endpoint
 
 | Method | URL            | Description                                                                                            |
 | ------ | -------------- | ------------------------------------------------------------------------------------------------------ |
--[]| POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
--[]| GET    | /api/users     | Returns an array users.                                                                                |
+-[x]| POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
+-[x]| GET    | /api/users     | Returns an array users.                                                                                |
 -[]| GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       |
 -[]| DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
 -[]| PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
@@ -59,8 +59,8 @@ When the client makes a `POST` request to `/api/users`:
   -[x] return the newly created _user document_.
 
 - If there's an error while saving the _user_:
-  -[] respond with HTTP status code `500` (Server Error).
-  -[] return the following JSON object: `{ errorMessage: "There was an error while saving the user to the database" }`.
+  -[x] respond with HTTP status code `500` (Server Error).
+  -[x] return the following JSON object: `{ errorMessage: "There was an error while saving the user to the database" }`.
 
 When the client makes a `GET` request to `/api/users`:
 
