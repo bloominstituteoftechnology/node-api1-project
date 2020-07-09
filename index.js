@@ -46,6 +46,21 @@ server.get('/api/users/:id', (req, res) => {
     }
 })
 
+// DELETE - cruD
+server.delete('/api/users/:id', (req, res) => {
+    const { id } = req.params;
+    const change = req.body;
+
+    let remove = users.find(user => user.id === id)
+
+    if (!remove) {
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
+    } else if (remove) {
+        res.status(200).json(users = users.filter(user => user.id !== id))
+    } else  {
+        res.status(500).json({ errorMessage: "The user could not be removed" })
+    }
+})
 
 
 const PORT = 5000;
