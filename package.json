@@ -1,0 +1,30 @@
+{
+  "name": "node-api1-project",
+  "version": "1.0.0",
+  "description": "## Topics",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fadygouda/node-api1-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fadygouda/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/fadygouda/node-api1-project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "npm": "^6.14.6",
+    "shortid": "^2.2.15",
+    "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
