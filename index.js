@@ -29,13 +29,23 @@ server.post('/api/users', (req, res) => {
 
 //GET - cRud
 server.get('/api/users', (req, res) => {
-    const userInfo = req.body;
     if (!users) {
         res.status(500).json({ errorMessage: "The users information could not be retrieved." })
     } else {
         res.status(201).json(users);
     }
 })
+
+server.get('/api/users/:id', (req, res) => {
+    const { id } = req.params;
+    let found = users.find(user => user.id === id)
+    if (found) {
+        res.status(201).json(found);
+    } else {
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
+    }
+})
+
 
 
 const PORT = 5000;
