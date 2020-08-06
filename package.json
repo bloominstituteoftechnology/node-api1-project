@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "scripts": {
+        "start": "nodemon server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {},
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
