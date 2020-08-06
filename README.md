@@ -45,7 +45,7 @@ Each User _resource_ should conform to the following structure (AKA schema):
 
 #### Endpoint Specifications
 
-When the client makes a `POST` request to `/api/users`:
+<!-- When the client makes a `POST` request to `/api/users`:
 
 - If the request body is missing the `name` or `bio` property:
 
@@ -60,15 +60,15 @@ When the client makes a `POST` request to `/api/users`:
 
 - If there's an error while saving the _user_:
   - respond with HTTP status code `500` (Server Error).
-  - return the following JSON object: `{ errorMessage: "There was an error while saving the user to the database" }`.
+  - return the following JSON object: `{ errorMessage: "There was an error while saving the user to the database" }`. -->
 
-When the client makes a `GET` request to `/api/users`:
+<!-- When the client makes a `GET` request to `/api/users`:
 
 - If there's an error in retrieving the _users_ from the database:
   - respond with HTTP status code `500`.
-  - return the following JSON object: `{ errorMessage: "The users information could not be retrieved." }`.
+  - return the following JSON object: `{ errorMessage: "The users information could not be retrieved." }`. -->
 
-When the client makes a `GET` request to `/api/users/:id`:
+<!-- When the client makes a `GET` request to `/api/users/:id`:
 
 - If the _user_ with the specified `id` is not found:
 
@@ -77,7 +77,7 @@ When the client makes a `GET` request to `/api/users/:id`:
 
 - If there's an error in retrieving the _user_ from the database:
   - respond with HTTP status code `500`.
-  - return the following JSON object: `{ errorMessage: "The user information could not be retrieved." }`.
+  - return the following JSON object: `{ errorMessage: "The user information could not be retrieved." }`. -->
 
 When the client makes a `DELETE` request to `/api/users/:id`:
 
