@@ -44,6 +44,9 @@ function updateUser(id, data) {
 
 function deleteUser(id) {
   users = users.filter((u) => u.id !== id);
+  if(users.find(u => u.id === id)){
+    ret
+  })
 }
 
 module.exports = {getUsers, getUsersById, createUsers, updateUser, deleteUser}
