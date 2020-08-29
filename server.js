@@ -1,20 +1,23 @@
 const express = require("express"); // import the express package
-const db = require('./database')
+
 const server = express(); // creates the server
 
+const data = require("./database");
 
-const users = ['one', 'two', 'three']
+
 // handle requests to the root of the api, the / route
 server.get("/", (req, res) => {
   res.send("Hello from Express");
 });
 
 server.get("/api/users", (req, res, next) => {
-  res.send("Hello from users");
+const users = data.getUsers()
+res.json(users)
 });
 
 server.get("/api/users/:id", (req, res, next) => {
-  res.send(users[req.params.id])
+  const user = data.getUsersById(req.params.id)
+  res.json(user)
 });
 
 // watch for connections on port 5000

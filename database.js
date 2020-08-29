@@ -1,23 +1,23 @@
 let users = [
   {
-    id: "0", // hint: use the shortid npm package to generate it
+    id: "1", // hint: use the shortid npm package to generate it
     name: "Bob Doe", // String, required
     bio: "Not Tarzan's Wife, another Jane", // String, required
   },
   {
-    id: "1", // hint: use the shortid npm package to generate it
+    id: "2", // hint: use the shortid npm package to generate it
     name: "Jane Gorilla", // String, required
     bio: "Not Tarzan's Wife, another Jane", // String, required
   },
   {
-    id: "2", // hint: use the shortid npm package to generate it
+    id: "3", // hint: use the shortid npm package to generate it
     name: "Jane Doe", // String, required
     bio: "Tarzan's Wife, another Jane", // String, required
   },
 ];
 
 function getUsers() {
-  return users;
+  return users
 }
 
 function getUsersById(id) {
@@ -42,6 +42,8 @@ function updateUser(id, data) {
   return users[index];
 }
 
-function deleteUser(id){
-    users = users.filter(u => u.id !== id)
+function deleteUser(id) {
+  users = users.filter((u) => u.id !== id);
 }
+
+module.exports = {getUsers, getUsersById, createUsers, updateUser, deleteUser}
