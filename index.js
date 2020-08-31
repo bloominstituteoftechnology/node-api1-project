@@ -1,5 +1,6 @@
 const shortid = require('shortid')
 const express = require('express')
+const e = require('express')
 const server = express()
 
 server.use(express.json())
@@ -41,8 +42,10 @@ server.get('/api/users/:id', (req, res) => {
     if (users.find(user => user.id === id)) {
         const uniqUser = users.filter(user => user.id === id)
         res.status(200).json(uniqUser)
-    } else {
+    } else if (!users.find(user => user.id === id)) {
         res.status(404).json({message: "The user with the specified ID does not exist." })
+    } else {
+        res.status(500).json({ errorMessage: "The user information could not be retrieved." })
     }
 })
 
@@ -61,7 +64,33 @@ server.post('/api/users', (req, res) => {
 
 })
 // PUT REQUEST //
+server.put('/api/users/:id', (req, res) => {
+    const id = req.params.id
+    const editedUser = req.body
+
+    let user = users.find(userToEdit => userToEdit.id === id)
+   if (!editedUser.bio || !editedUser.name){
+       res.status(400).json({errorMessage: "Please provide name and bio for the user."})
+   } else if (user.id === id) {
+        Object.assign(user, editedUser)
+        res.status(200).json(user)
+    } else {
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
+    }
+})
 
 // DELETE REQUEST //
+server.delete('/api/users/:id', (req, res) => {
+    const id = req.params.id
+    if (users.find(user => user.id === id)) {
+        const newUsers = users.filter(user => user.id !== id)
+        res.status(200).json(newUsers)
+    } else if (!users.find(user => user.id === id)) {
+        res.status(404).json({message: "The user with the specified ID does not exist." })
+    } else {
+        res.status(500).json({ errorMessage: "The user could not be removed" })
+    }
+})
+
 const port = 8000
 server.listen(port, () => console.log("Server prime, online!"))

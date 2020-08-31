@@ -22,6 +22,7 @@
     "shortid": "^2.2.15"
   },
   "devDependencies": {
+    "eslint": "^7.7.0",
     "nodemon": "^2.0.4"
   }
 }
