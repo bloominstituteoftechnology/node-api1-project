@@ -56,6 +56,6 @@ server.put("/api/users/:id", (req, res) => {
         Object.assign(foundUser, changes);
         res.status(200).json(foundUser); 
     } else {
-        res.status(404).json({ message: "Item not found!" })
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
     }
 }); 
