@@ -1,5 +1,5 @@
 // libraries
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 
@@ -21,17 +21,8 @@ function App() {
   const { register, handleSubmit, errors } = useForm()
   //states
   const [allUsersData, setAllUsersData] = useState()
-  //helper functions
-  const getAllUsers = () => {
-    axios.get('http://localhost:8080/api/users')
-      .then(resp => {
-        setAllUsersData(resp.data)
-        debugger
-      })
-      .catch(err => {
-        debugger
-      })
-  }
+  //get all users
+ 
   const displayAllUsers = () => {
     return allUsersData.map(user => {
       return (
@@ -43,7 +34,16 @@ function App() {
       )
     })
   }
-
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/users')
+      .then(resp => {
+        setAllUsersData(resp.data)
+        debugger
+      })
+      .catch(err => {
+        debugger
+      })
+  }, [allUsersData])
   // get by id
   const [userByIdData, setUserByIdData] = useState()
 
@@ -92,11 +92,16 @@ function App() {
 
   //create a new user
   const [createNewUserData, setCreateNewUserData] = useState()
-  const onSubmitForCreateUser = (params) => {
-    axios.post('http://localhost:8080/api/users')
+  const onSubmitForCreateUser = (createNewUser) => {
+    axios.post('http://localhost:8080/api/users', createNewUser)
       .then(resp => {
+        debugger
         setCreateNewUserData(resp.data)
       })
+      .catch((err) => {
+        debugger
+      }
+      )
   }
   const displayConfirmation = () =>{
     return(
@@ -107,17 +112,7 @@ function App() {
     <div>
       <h1>User API test done in the front end instead of post man</h1>
       <section className="get-all-users">
-        <h2>Get all users <span>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            endIcon={<Icon>send</Icon>}
-            onClick={getAllUsers}
-          >
-            Send
-      </Button>
-        </span></h2>
+        <h2>Get all users <Icon>send</Icon></h2>
         {allUsersData && displayAllUsers()}
       </section>
       <section className="get-user-by-id">
@@ -133,22 +128,25 @@ function App() {
         {userByIdData && displayUserById(userByIdData)}
       </section>
       <section className="delete-user-by-id">
+        <h2>Delete user by id</h2>
         <form onSubmit={handleSubmit(onSubmitForDeleteById)}>
           <TextField id="standard-basic" label="ID" name='id'
             inputRef={register({ required: true })}
           />
           <Button variant="contained" color="secondary" type="submit">
-            Submit ID
+            Submit ID and delete
           </Button>
         </form>
         {deleteUserByIdData && displayDeletionMessage(deleteUserByIdData)}
       </section>
       <section className="create-new-user">
+        {/* after all of the previous data is delete then it work to be expected, Addes infinitly. After a refresh it resets the problem. It goes to the delete text input */}
+        <h2>Create New User</h2>
         <form onSubmit={handleSubmit(onSubmitForCreateUser)}>
-          <TextField id="standard-basic" label="Name" name='name'
-            inputRef={register({ required: true })}
+          <TextField id="standard-basic" label="Name" value = 'Royer' name='name'
+            inputRef={register({ required: true }) }
           />
-          <TextField id="standard-basic" label="Bio" name='bio'
+          <TextField id="standard-basic" label="Bio" value = 'The student' name='bio'
             inputRef={register({ required: true })}
           />
           <Button variant="contained" color="secondary" type="submit">
