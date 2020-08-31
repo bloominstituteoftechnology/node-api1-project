@@ -29,14 +29,33 @@ server.get("/", (req, res) => {
 }); 
 
 // GET users
-server.get("/users", (req, res) => {
+server.get("/api/users", (req, res) => {
     res.status(200).json({ data: users }); 
 }); 
 
 // POST new user
-server.post("/users", (req, res) => {
+server.post("/api/users", (req, res) => {
     const newUser = req.body; 
     users.push(newUser); 
     res.status(201).json({ data: users }); 
 }); 
 
+// DELETE a user 
+server.delete("/users/:id", (req, res) => {
+    const id = Number(req.params.id); 
+    let newUsers = users.filter(user => user.id !== id); 
+    res.status(200).json(newUsers); 
+}); 
+
+// Edit something about a user PUT 
+server.put("/api/users/:id", (req, res) => {
+    const changes = req.body; 
+    const id = Number(req.params.id); 
+    let foundUser = users.find(user => user.id === id); 
+    if(foundUser){
+        Object.assign(foundUser, changes);
+        res.status(200).json(foundUser); 
+    } else {
+        res.status(404).json({ message: "Item not found!" })
+    }
+}); 
