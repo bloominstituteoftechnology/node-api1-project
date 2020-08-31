@@ -2,6 +2,7 @@ const express = require("express"); // import the express package
 
 const server = express(); // creates the server
 server.use(express.json());
+server.use(cors())
 const db = require("./database");
 
 // handle requests to the root of the api, the / route
