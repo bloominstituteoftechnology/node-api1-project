@@ -22,6 +22,8 @@ let users = [
     },
 ]
 
+//GET REQUESTS//
+
 server.get('/', (req, res) => {
     res.status(200).json({ message: "Hey dude, server on." })
 })
@@ -34,6 +36,17 @@ server.get('/api/users', (req, res) => {
     }
 })
 
+server.get('/api/users/:id', (req, res) => {
+    const id = req.params.id
+    if (users.find(user => user.id === id)) {
+        const uniqUser = users.filter(user => user.id === id)
+        res.status(200).json(uniqUser)
+    } else {
+        res.status(404).json({message: "The user with the specified ID does not exist." })
+    }
+})
+
+// POST REQUEST //
 server.post('/api/users', (req, res) => {
     const user = req.body
     if (user.bio && user.name) {
@@ -47,6 +60,8 @@ server.post('/api/users', (req, res) => {
     }
 
 })
+// PUT REQUEST //
 
+// DELETE REQUEST //
 const port = 8000
 server.listen(port, () => console.log("Server prime, online!"))
