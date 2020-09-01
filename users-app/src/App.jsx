@@ -12,7 +12,7 @@ function App() {
         <Route exact path='/'>
           <Daskboard />
         </Route>
-        <Route route='/editform/:id'>
+        <Route path='/editform/:id'>
           <EditForm />
         </Route>
       </Switch>

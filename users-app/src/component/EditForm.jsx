@@ -14,10 +14,10 @@ const initialState = {
 export default function EditForm() {
     // hooks
     const { push } = useHistory()
-    const params = useParams()
+    // const params = useParams()
     const {id} = useParams()
     debugger
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
     // states
  
 
@@ -25,23 +25,23 @@ export default function EditForm() {
     const onSubmitEditForm = (data) => {
         axios.put(`http://localhost:8080/api/users/${id}`, data)
             .then(res => {
-                push('/dashboard')
+                push('/')
             })
             .catch(error => {
                 debugger
             })
     }
-    // useEffect(() => {
-    //     getUserById(id)
-    //         .then(resp => {
-    //             debugger
-            //     setValue('name', resp.data.name)
-            //     setValue('bio', resp.data.bio)
-    //         })
-    //         .catch(err => {
-    //             debugger
-    //         })
-    // }, [])
+    useEffect(() => {
+        getUserById(id)
+            .then(resp => {
+                debugger
+                setValue('name', resp.data.name)
+                setValue('bio', resp.data.bio)
+            })
+            .catch(err => {
+                debugger
+            })
+    }, [])
     return (
         <div className='container'>
 
