@@ -56,8 +56,10 @@ function App() {
 
   const onSubmitForGetById = (data) => {
     setReRun(!reRun)
+    debugger
     axios.get(`http://localhost:8080/api/users/${data.id}`)
       .then(resp => {
+        debugger
         setUserByIdData(resp.data)
       })
       .catch(err => {
@@ -103,6 +105,7 @@ function App() {
   const [createNewUserData, setCreateNewUserData] = useState()
   const onSubmitForCreateUser = (createNewUser) => {
     setReRun(!reRun)
+    debugger
     axios.post('http://localhost:8080/api/users', createNewUser)
       .then(resp => {
         debugger
@@ -137,84 +140,40 @@ function App() {
       </Button></span></h2>
         {allUsersData && displayAllUsers()}
       </section>
-      <section className="get-user-by-id">
-        <h2>Get user by id</h2>
-        <form onSubmit={handleSubmit(onSubmitForGetById)}>
-          <TextField id="Get user by id" label="ID" name='id'
-            inputRef={register({ required: true })}
-          />
-          <Button variant="contained" color="secondary" type="submit">
-            Submit ID
-          </Button>
-        </form>
-        {userByIdData && displayUserById(userByIdData)}
-      </section>
       <section className="delete-user-by-id">
-        <h2>Delete user by id</h2>
+        <h2>Delete or get user user by id</h2>
         <form onSubmit={handleSubmit(onSubmitForDeleteById)}>
           <TextField id="Delete user by id" label="ID" name='id'
-            inputRef={register({ required: true })}
+            inputRef={register()}
           />
           <Button variant="contained" color="secondary" type="submit">
             Submit ID and delete
           </Button>
+          <Button variant="contained" color="secondary" type="submit">
+            Submit Id and get user
+          </Button>
         </form>
         {deleteUserByIdData && displayDeletionMessage(deleteUserByIdData)}
+        {userByIdData && displayUserById(userByIdData)}
+
       </section>
       <section className="create-new-user">
         {/* after all of the previous data is delete then it work to be expected, Addes infinitly. After a refresh it resets the problem. It goes to the delete text input */}
         <h2>Create New User</h2>
-        <form onSubmit={handleSubmit(onSubmitForCreateUser)}>
+        <form >
           <TextField id="new user name" label="Name" value='Royer' name='name'
-            inputRef={register({ required: true })}
+            inputRef={register()}
           />
           <TextField id="new user bio" label="Bio" value='The student' name='bio'
-            inputRef={register({ required: true })}
+            inputRef={register()}
           />
-          <Button variant="contained" color="secondary" type="submit">
+          <Button variant="contained" color="secondary" type="submit" onClick={handleSubmit(onSubmitForCreateUser)}>
             Create New User
           </Button>
 
         </form>
         {createNewUserData && displayConfirmation(createNewUserData)}
       </section>
-      <section className="update-user">
-        {/* after all of the previous data is delete then it work to be expected, Addes infinitly. After a refresh it resets the problem. It goes to the delete text input */}
-        <h2>Update User</h2>
-        <h3>Select user</h3>
-        <form >
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={''}
-              onChange={''}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </form>
-        <h3>Update the user</h3>
-        <form >
-          <FormControl onSubmit={handleSubmit('')}>
-            <TextField id="standard-basic" label="Name" value='Royer' name='name'
-              inputRef={register({ required: true })}
-            />
-            <TextField id="standard-basic" label="Bio" value='The student' name='bio'
-              inputRef={register({ required: true })}
-            />
-            <Button variant="contained" color="secondary" type="submit">
-              Create New User
-            </Button>
-            {createNewUserData && displayConfirmation(createNewUserData)}
-  
-          </FormControl>
-        </form>
-      </section>
-
     </div>
   )
 }

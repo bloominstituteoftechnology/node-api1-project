@@ -17,7 +17,7 @@ function createUser(data) {
 		id: String(users.length + 1),
 		...data,
 	}
-
+	console.log(data)
 	users.push(payload)
 	return payload
 }
