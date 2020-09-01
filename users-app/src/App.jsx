@@ -36,6 +36,16 @@ function App() {
           <p>id: {user.id}</p>
           <p>name: {user.name}</p>
           <p>bio: {user.bio}</p>
+
+          <Button variant="contained" color="primary" type="submit">
+            Edit
+          </Button>
+          <Button variant="contained" color="secondary" type="submit" onClick={() => {
+            onSubmitForDeleteById(user)
+          }
+          }>
+            Delete
+          </Button>
         </section>
       )
     })
@@ -122,41 +132,10 @@ function App() {
     )
   }
 
-  // update user
-
 
   return (
-    <div>
+    <div className='container'>
       <h1>User API test done in the front end instead of post man</h1>
-      <section className="get-all-users">
-        <h2>Get all users <span><Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          endIcon={<Icon>send</Icon>}
-          onClick={() => setReRun(!reRun)}
-        >
-          Send
-      </Button></span></h2>
-        {allUsersData && displayAllUsers()}
-      </section>
-      <section className="delete-user-by-id">
-        <h2>Delete or get user user by id</h2>
-        <form onSubmit={handleSubmit(onSubmitForDeleteById)}>
-          <TextField id="Delete user by id" label="ID" name='id'
-            inputRef={register()}
-          />
-          <Button variant="contained" color="secondary" type="submit">
-            Submit ID and delete
-          </Button>
-          <Button variant="contained" color="secondary" type="submit">
-            Submit Id and get user
-          </Button>
-        </form>
-        {deleteUserByIdData && displayDeletionMessage(deleteUserByIdData)}
-        {userByIdData && displayUserById(userByIdData)}
-
-      </section>
       <section className="create-new-user">
         {/* after all of the previous data is delete then it work to be expected, Addes infinitly. After a refresh it resets the problem. It goes to the delete text input */}
         <h2>Create New User</h2>
@@ -173,6 +152,34 @@ function App() {
 
         </form>
         {createNewUserData && displayConfirmation(createNewUserData)}
+      </section>
+      <section className="get-all-users">
+        <h2>Get all users <span><Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          endIcon={<Icon>send</Icon>}
+          onClick={() => setReRun(!reRun)}
+        >
+          Get users now
+      </Button></span></h2>
+        {allUsersData && displayAllUsers()}
+      </section>
+      <section className="get-user-by-id">
+        <h2>Delete or get user user by id</h2>
+        <form onSubmit={handleSubmit(onSubmitForGetById)}>
+          <TextField
+            id="get-user"
+            label="ID"
+            name='id'
+            inputRef={register()}
+            type='number'
+          />
+          <Button variant="contained" color="secondary" type="submit">
+            Submit Id and get user
+          </Button>
+        </form>
+        {userByIdData && displayUserById(userByIdData)}
       </section>
     </div>
   )
