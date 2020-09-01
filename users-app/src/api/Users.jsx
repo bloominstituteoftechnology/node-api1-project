@@ -11,4 +11,4 @@ export const getUserById = (id) => {
       .catch(err => {
         return err
       })
-  }
+  }  
