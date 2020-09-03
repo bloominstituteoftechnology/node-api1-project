@@ -5,7 +5,7 @@ var cors = require('cors')
 // using './' imports a local file rather than a third-party dependency 
 const db = require('./database')
 const { isString } = require('util')
-
+const port = process.env.PORT || 8080
 //creates a new express server
 const server = express()
 
@@ -132,6 +132,6 @@ try {
 }
 
 })
-server.listen(8080, () => {//8080 is a standard to write local services
-    console.log('Server started on port 8080')
+server.listen(port, () => {//8080 is a standard to write local services
+    console.log(`Server started on port ${port}`)
 })
