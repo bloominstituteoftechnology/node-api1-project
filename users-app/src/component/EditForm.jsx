@@ -6,10 +6,7 @@ import Button from '@material-ui/core/Button'
 import { TextField } from '@material-ui/core'
 //api
 import { getUserById } from '../api/Users'
-const initialState = {
-    name: 'Royer',
-    bio: 'Lambda student',
-}
+
 
 export default function EditForm() {
     // hooks
@@ -23,7 +20,7 @@ export default function EditForm() {
 
     //helperfunctions
     const onSubmitEditForm = (data) => {
-        axios.put(`http://localhost:8080/api/users/${id}`, data)
+        axios.put(`${process.env.APIURL || 'http://localhost:8080'}/api/users/${id}`, data)
             .then(res => {
                 push('/')
             })
