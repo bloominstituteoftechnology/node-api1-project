@@ -8,12 +8,13 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon --require dotenv/config server.js"
   },
   "repository": {
     "type": "git",

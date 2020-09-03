@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const getUserById = (id) => {
     debugger
-    return axios.get(`http://localhost:8080/api/users/${id}`)
+    return axios.get(`${process.env.APIURL || 'http://localhost:8080'}/api/users/${id}`)
       .then(resp => {
         debugger
         return resp
@@ -12,3 +12,4 @@ export const getUserById = (id) => {
         return err
       })
   }  
+
