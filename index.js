@@ -11,6 +11,8 @@ let users = [
     }
 ]
 
+// START !!
+
 server.get("/api/users", (req, res) => {
     res.status(200).json(users);
 });
