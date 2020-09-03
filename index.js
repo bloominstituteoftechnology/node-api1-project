@@ -1,8 +1,10 @@
 const express = require('express');
 const shortid = require('shortid');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 const port = 8000;
 
 let users = [
@@ -23,16 +25,16 @@ let users = [
 	},
 ];
 
-const updateUser = (id, req) => {
-	users = users.map((user) => {
-		if (id === user.id) {
+const updateUser = (user) => {
+	users = users.map((u) => {
+		if (user.id === u.id) {
 			return {
 				id: user.id,
-				name: req.body.name,
-				bio: req.body.bio,
+				name: user.name,
+				bio: user.bio,
 			};
 		} else {
-			return user;
+			return u;
 		}
 	});
 };
@@ -68,23 +70,29 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 app.post('/api/users', (req, res) => {
-	if (!req.body.name || !req.body.bio) {
+	const body = req.body;
+	if (!body.name || !body.bio) {
 		res
 			.status(400)
 			.json({ errorMessage: 'Please provide name and bio for the user.' });
 	} else {
-		users.push({
+		const newUser = {
 			id: shortid.generate(),
 			name: req.body.name,
 			bio: req.body.bio,
-		});
-		res.status(200).json(users);
+		};
+		users.push(newUser);
+		res.status(200).json(newUser);
 	}
 });
 
 app.put('/api/users/:id', (req, res) => {
 	const { id } = req.params;
-	if (!users.some((u) => u.id !== id)) {
+	const user = req.body;
+	user.id = id;
+
+	const index = users.findIndex((u) => u.id === id);
+	if (index === -1) {
 		res
 			.status(404)
 			.json({ message: 'The user with the specified ID does not exist.' });
@@ -92,20 +100,20 @@ app.put('/api/users/:id', (req, res) => {
 		res
 			.status(500)
 			.json({ errorMessage: 'The user information could not be modified.' });
-	} else if (!req.body.name || !req.body.bio) {
+	} else if (!user.name || !user.bio) {
 		res
 			.status(400)
 			.json({ errorMessage: 'Please provide name and bio for the user.' });
 	} else {
-		updateUser(id, req);
-		res.status(200).json(users);
+		updateUser(user);
+		res.status(200).json(users[index]);
 	}
 });
 
 app.delete('/api/users/:id', (req, res) => {
 	const { id } = req.params;
-
-	if (!users.some((u) => u.id !== id)) {
+	const deleted = users.find((user) => user.id === id);
+	if (!deleted) {
 		res
 			.status(404)
 			.json({ message: 'The user with the specified ID does not exist.' });
@@ -113,7 +121,7 @@ app.delete('/api/users/:id', (req, res) => {
 		res.status(500).json({ errorMessage: 'The user could not be removed' });
 	} else {
 		deleteUser(id);
-		res.status(200).json(users);
+		res.status(200).json(deleted);
 	}
 });
 
