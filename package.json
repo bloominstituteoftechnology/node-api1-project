@@ -1,0 +1,27 @@
+{
+  "name": "node-api1-project",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "gitignore": "^0.6.0",
+    "shortid": "^2.2.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JEGJ93/node-api1-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JEGJ93/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/JEGJ93/node-api1-project#readme"
+}
