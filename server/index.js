@@ -68,6 +68,19 @@ server.put('/users/:id', (req, res) => {
     }
 });
 
+server.delete('/users/:id', (req, res) => {
+    const found = users.some(idFilter(req));
+
+    if (found) {
+        res.json({
+            msg: 'User deleted',
+            users: users.filter(user => !idFilter(req)(user))
+        });
+    } else {
+        res.status(400).json({ msg: `No user with the id of ${req.params.id}` });
+    }
+});
+
 server.listen(5000, () =>
     console.log('Server running on http://localhost:5000')
 );
