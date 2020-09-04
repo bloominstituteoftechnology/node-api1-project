@@ -12,6 +12,8 @@ const sendUserError = (msg, res) => {
     return res.status(400).send({ Error: msg });
 };
 
+const idFilter = req => user => user.id === req.params.id;
+
 const users = [
     {
         name: 'Matt',
@@ -39,9 +41,15 @@ server.post('/users', (req,res) => {
     res.status(201).json(users);
 })
 
+server.get('/users/:id', (req, res) => {
+    const found = users.some(idFilter(req));
 
-
-
+    if (found) {
+        res.json(users.filter(idFilter(req)));
+    } else {
+        res.status(400).json({ msg: `No user with the id of ${req.params.id}` });
+    }
+});
 
 server.listen(5000, () =>
     console.log('Server running on http://localhost:5000')
