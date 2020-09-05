@@ -1,0 +1,28 @@
+{
+  "name": "node-api1-project",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.jsn"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bendennett/node-api1-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bendennett/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/bendennett/node-api1-project#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "shortid": "^2.2.15"
+  }
+}
