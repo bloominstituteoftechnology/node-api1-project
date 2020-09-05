@@ -10,16 +10,16 @@
 
 ### Task 1: Project Setup
 
-- **Fork** and **Clone** this repository.
-- **CD into the folder** where you cloned the repository.
+x **Fork** and **Clone** this repository.
+x **CD into the folder** where you cloned the repository.
 
 ### Task 2a: MVP
 
 Use Node.js and Express to build an API that performs CRUD operations on users.
 
-- Add a `.gitignore` file appropriate for `node.js` projects.
-- Add a new `package.json`.
-- Add a `server` script to `package.json` that runs the API using `nodemon`.
+x Add a `.gitignore` file appropriate for `node.js` projects.
+x Add a new `package.json`.
+x Add a `server` script to `package.json` that runs the API using `nodemon`.
 
 ### Write endpoints
 
@@ -28,8 +28,8 @@ Add the code necessary to create a Web API and implement the following _endpoint
 | Method | URL            | Description                                                                                            |
 | ------ | -------------- | ------------------------------------------------------------------------------------------------------ |
 | POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
-| GET    | /api/users     | Returns an array users.                                                                                |
-| GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       |
+| GET    | /api/users  x   | Returns an array users.                                                                                |
+| GET    | /api/users/:id x | Returns the user object with the specified `id`.                                                       |
 | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
 | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
 
