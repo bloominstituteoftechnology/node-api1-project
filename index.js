@@ -48,4 +48,25 @@ app.delete("/api/users/:id", (req, res)=>{
     res.status(200).json(user);
 });
 
+app.put("/api/users/:id", (req, res)=>{
+    const {id: userId} = req.params;
+    let user = users.find(user=> user.id === userId);
+    const {name, bio} = req.body;
+
+    if(!user){
+        res.status(404).json({message: "The user with the specified ID does not exist."});
+    }
+    if(!name || !bio){
+        res.status(400).json({errorMessage: "Please provide name and bio for the user.s"})
+    }
+
+    const newUser = {
+        ...user,
+        name: name,
+        bio: bio
+    }
+    users.splice(users.indexOf(user), 1, newUser);
+    res.status(200).json(newUser);
+});
+
 app.listen(5000, ()=> console.log("App is running on port 5000"));
