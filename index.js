@@ -1,10 +1,12 @@
 const express = require('express');
 const shortid = require('shortid');
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
 
 const users = [];
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/api/users", (req, res)=>{
