@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 
-const users = [];
+const users = [{id: "1", name:"bob", bio: "Hi, I'm bob."}];
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -42,7 +42,7 @@ app.get("/api/users/:id", (req, res)=>{
 app.delete("/api/users/:id", (req, res)=>{
     const {id: userId} = req.params;
     const user = users.find(user=> user.id === userId);
-    
+
     if(!user){
         res.status(404).json({message: "The user with the specified ID does not exist."});
     }
