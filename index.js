@@ -43,6 +43,7 @@ server.get("/api/users", (req, res) => {
 
 server.get("/api/users/:id", (req, res) => {
     const id = req.params.id;
+
     let fetch = users.find(user => id === user.id);
 
     if (fetch) {
@@ -54,10 +55,9 @@ server.get("/api/users/:id", (req, res) => {
     }
 });
 
-// --
-
 server.delete("/api/users/:id", (req, res) => {
     const id = req.params.id;
+
     let removed = users.find(user => user.id === id);
 
     if (removed) {
@@ -71,7 +71,23 @@ server.delete("/api/users/:id", (req, res) => {
 });
 
 server.put("/api/users/:id", (req, res) => {
+    const id = req.params.id;
+    const update = req.body;
+    update.id = id;
 
-    //  { message: "The user with the specified ID does not exist." }
-    // { errorMessage: "Please provide name and bio for the user." }
+    let array = users.find(user => id === user.id);
+
+    if(update.name || update.bio) {
+        if(array !== -1) {
+            users[array] = update;
+            res.status(200).json({ user : array });
+        } else {
+            res.status(500).json({ errorMessage: "The user information could not be modified." });
+        }
+    } else if (update === undefined) {
+        res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
+        
+    } else {
+        res.status(404).json({ message: "The user with the specified ID does not exist." });
+    }
 });
