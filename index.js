@@ -31,7 +31,7 @@ server.get("/api/users", (req, res) => {
 server.post("/api/users", (req, res) => {
     const user = req.body;
 
-    if(!username || !user.bio) {
+    if(!users || !user.bio) {
         res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
     } else {
         users.push(user);
@@ -68,4 +68,4 @@ server.put("/api/users/:id", (req, res) => {
 
     //  { message: "The user with the specified ID does not exist." }
     // { errorMessage: "Please provide name and bio for the user." }
-})
+});
