@@ -15,7 +15,7 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon index.js",
-    "heroku-postbuild": "cd client && npm run build"
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
