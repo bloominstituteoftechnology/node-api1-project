@@ -3,6 +3,7 @@ const shortid = require('shortid');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+require("dotenv").config();
 
 const users = [{id: "1", name:"bob", bio: "Hi, I'm bob."}];
 
@@ -71,4 +72,4 @@ app.put("/api/users/:id", (req, res)=>{
     res.status(200).json(newUser);
 });
 
-app.listen(5000, ()=> console.log("App is running on port 5000"));
+app.listen(process.env.PORT, ()=> console.log(`App is running on port ${process.env.PORT}`));

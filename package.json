@@ -9,7 +9,9 @@
     "express": "^4.17.1",
     "shortid": "^2.2.15"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon index.js"
