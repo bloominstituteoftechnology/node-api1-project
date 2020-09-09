@@ -9,13 +9,13 @@ require("dotenv").config();
 const users = [{id: "1", name:"bob", bio: "Hi, I'm bob."}];
 
 app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
 });
 
 app.get("/api/users", (req, res)=>{
