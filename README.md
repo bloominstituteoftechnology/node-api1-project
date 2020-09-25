@@ -13,7 +13,7 @@
 - **Fork** and **Clone** this repository.
 - **CD into the folder** where you cloned the repository.
 
-### Task 2a: MVP
+### Task 2: Minimum Viable Product
 
 Use Node.js and Express to build an API that performs CRUD operations on users.
 
@@ -114,12 +114,6 @@ When the client makes a `PUT` request to `/api/users/:id`:
   - update the user document in the database using the new information sent in the `request body`.
   - respond with HTTP status code `200` (OK).
   - return the newly updated _user document_.
-  
-### Task 2b: Exit Ticket
-
-Once you begin, you will have 15 minutes to answer the questions [here](https://app.codesignal.com/public-test/Enw3XXyb7poZ6WTpy/pXE64R7ExgXbto).
-
-The completion of these questions is mandatory for MVP. However, passing the quiz doesn't affect your standing as a Lambda School student whatsoever. This is Lambda School testing itself! Please answer honestly and to the best of your ability without using external references.
 
 ### Task 3: Stretch Problems
 
