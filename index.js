@@ -48,17 +48,22 @@ server.put("/users/:id", (req, res) => {
     const match = users.find(user => user.id === id)
     if (match) {
         Object.assign(match, update)
-        res.status(200).json(users)
+        res.status(200).json(match)
     } else {
-        res.status(404).json({message: "not found"})
+        res.status(500).json({message: `user with the id:${id} could not be found`})
     }
 })
 server.delete("/users/:id", (req, res) => {
     const id = req.params.id;
-
+    const match = users.find(user => user.id === id)
     const usersList = users.filter(user => user.id !== id);
-
-    res.status(200).json( usersList );
+    if (match) {
+        const usersList = users.filter(user => user.id !== id); 
+        res.status(200).json( usersList ); 
+    } else {
+        res.status(404).json({message: `user with id:${id} could not be deleted`})
+    }
+    
 });
 
 
