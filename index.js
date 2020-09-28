@@ -48,7 +48,7 @@ server.put("/users/:id", (req, res) => {
     const match = users.find(user => user.id === id)
     if (match) {
         Object.assign(match, update)
-        res.status(200).json(match)
+        res.status(200).json(update)
     } else {
         res.status(500).json({message: `user with the id:${id} could not be found`})
     }
