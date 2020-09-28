@@ -6,6 +6,7 @@ const server = express();
 const port = 5000;
 
 server.use(express.json());
+server.use(cors());
 server.listen(port, () => console.log("running"));
 
 //test
@@ -23,6 +24,9 @@ let users = [
 //getting all the users
 server.get("/users", (req, res) => {
   res.status(200).json({ data: users });
+  res
+    .status(500)
+    .json({ errorMessage: "The users information could not be retrieved." });
 });
 // Sending a user to the server
 server.post("/users", (req, res) => {
@@ -35,6 +39,9 @@ server.post("/users", (req, res) => {
       .status(400)
       .json({ errorMessage: "Please provide name and bio for the user." });
   }
+  res.status(500).json({
+    errorMessage: "There was an error while saving the user to the database",
+  });
 });
 
 //Getting each user by their ID
@@ -44,7 +51,9 @@ server.get("/users/:id", (req, res) => {
   if (found) {
     res.status(200).json({ data: found });
   } else {
-    res.status(404).json({ Message: "no user with this ID" });
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
   }
 });
 
@@ -53,12 +62,17 @@ server.put("/users/:id", (req, res) => {
   const id = req.params.id;
   const changes = req.body;
   const found = users.find((u) => u.id === id);
-  if (found) {
+  if (found && req.body.name && req.body.bio) {
     Object.assign(found, changes);
     res.status(200).json({ data: users });
   } else {
-    res.status(404).json({ Message: "Update Failed Please Try Again" });
+    res
+      .status(400)
+      .json({ errorMessage: "Please provide name and bio for the user." });
   }
+  res
+    .status(500)
+    .json({ errorMessage: "The user information could not be modified." });
 });
 
 // Deleteing a user
@@ -67,4 +81,7 @@ server.delete("/users/:id", (req, res) => {
   const id = req.params.id;
   users = users.filter((u) => u.id !== id);
   res.status(200).json({ data: users });
+  res
+    .status(404)
+    .json({ message: "The user with the specified ID does not exist." });
 });
