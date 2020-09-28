@@ -18,6 +18,11 @@ let users = [
         id: 3,
         name: 'Tristan',
         bio: 'Son'
+    },
+    {
+        id: 4,
+        name: 'Bruno',
+        bio: 'Uncle'
     }
 ]
 
