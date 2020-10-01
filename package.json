@@ -1,0 +1,28 @@
+
+{
+  "name": "webapi-i-challenge",
+  "version": "1.0.0",
+  "description": "WEB API I Challenge",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LambdaSchool/webapi-i-challenge.git"
+  },
+  "keywords": [],
+  "author": "Lambda School",
+  "bugs": {
+    "url": "https://github.com/LambdaSchool/webapi-i-challenge/issues"
+  },
+  "homepage": "https://github.com/LambdaSchool/webapi-i-challenge#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "knex": "^0.19.3",
+    "sqlite3": "^4.1.0",
+    "express": "^4.17.1"
+  }
+}
