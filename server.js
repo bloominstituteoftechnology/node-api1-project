@@ -22,7 +22,7 @@ const server = express();
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    res.json({ message: 'This is my homework assignment'})
+    res.json({ message: 'Homework assignment'})
 })
 
 server.get('/api/users', (req, res) => {
