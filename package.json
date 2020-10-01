@@ -1,0 +1,27 @@
+{
+  "name": "api1-project",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "shortid": "^2.2.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js",
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noahbibb21/node-api1-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noahbibb21/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/noahbibb21/node-api1-project#readme"
+}
