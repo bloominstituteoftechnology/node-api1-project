@@ -19,7 +19,13 @@ server.post("/api/users", (req, res) => {
 });
 
 server.get("/api/users/:id", (req, res) => {
-  res.status(200).json(users);
+  const user = db.getUserById(req.params.id);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ message: "User does not exist" });
+  }
 });
 
 server.delete("/api/users/:id", (req, res) => {

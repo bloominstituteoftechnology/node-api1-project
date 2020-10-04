@@ -18,7 +18,7 @@ function getUsers() {
 }
 
 function getUserById(id) {
-  return users.find((u) => u.id === id);
+  return users.find((u) => u.id === parseInt(id));
 }
 
 function createUser(data) {
