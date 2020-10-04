@@ -1,21 +1,21 @@
 const express = require("express");
-
+const db = require("./database");
 const server = express();
 
-server.get("/api/users", (req, res) => {
-  const users = [
-    {
-      id: "a_unique_id", // hint: use the shortid npm package to generate it
-      name: "Jane Doe", // String, required
-      bio: "Not Tarzan's Wife, another Jane", // String, required
-    },
-  ];
+server.use(express.json());
 
-  res.status(200).json(users);
+server.get("/api/users", (req, res) => {
+  const users = db.getUsers();
+  res.json(users);
 });
 
 server.post("/api/users", (req, res) => {
-  res.status(200).json(users);
+  const user = db.createUser({
+    name: req.body.name,
+    bio: req.body.bio,
+  });
+
+  res.status(201).json(user);
 });
 
 server.get("/api/users/:id", (req, res) => {
@@ -28,4 +28,8 @@ server.delete("/api/users/:id", (req, res) => {
 
 server.put("/api/users/:id", (req, res) => {
   res.status(200).json(users);
+});
+
+server.listen(8080, () => {
+  console.log("server started");
 });

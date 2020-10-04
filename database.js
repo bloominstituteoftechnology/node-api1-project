@@ -1,7 +1,16 @@
+const shortid = require("shortid");
+
 let users = [
-  { id: "1", name: "Jane Doe" },
-  { id: "2", name: "John Doe" },
-  { id: "3", name: "Jack Doe" },
+  {
+    id: 1, // hint: use the shortid npm package to generate it
+    name: "Mitchell Wright", // String, required
+    bio: "Just a guy", // String, required
+  },
+  {
+    id: 2, // hint: use the shortid npm package to generate it
+    name: "Darrian Wright", // String, required
+    bio: "Just a girl", // String, required
+  },
 ];
 
 function getUsers() {
@@ -14,7 +23,7 @@ function getUserById(id) {
 
 function createUser(data) {
   const payload = {
-    id: String(users.length + 1),
+    id: shortid.generate(),
     ...data,
   };
 
@@ -23,6 +32,7 @@ function createUser(data) {
 }
 
 function updateUser(id, data) {
+  //TODO update so that we find the user by ID
   const index = users.findIndex((u) => u.id === id);
   users[index] = {
     ...users[index],
