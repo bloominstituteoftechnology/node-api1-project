@@ -32,11 +32,11 @@ function createUser(data) {
 }
 
 function updateUser(id, data) {
-  //TODO update so that we find the user by ID
-  const index = users.findIndex((u) => u.id === id);
+  const index = users.findIndex((u) => u.id === parseInt(id));
   users[index] = {
-    ...users[index],
-    ...data,
+    id: users[index].id,
+    name: data.name,
+    bio: data.bio,
   };
 
   return users[index];

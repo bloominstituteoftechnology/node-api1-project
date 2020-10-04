@@ -40,7 +40,13 @@ server.delete("/api/users/:id", (req, res) => {
 });
 
 server.put("/api/users/:id", (req, res) => {
-  res.status(200).json(users);
+  const user = db.updateUser(req.params.id, req.body);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ message: "User does not exist" });
+  }
 });
 
 server.listen(8080, () => {
