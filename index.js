@@ -10,12 +10,18 @@ server.get("/api/users", (req, res) => {
 });
 
 server.post("/api/users", (req, res) => {
-  const user = db.createUser({
-    name: req.body.name,
-    bio: req.body.bio,
-  });
+  if (req.body.name && req.body.bio) {
+    const user = db.createUser({
+      name: req.body.name,
+      bio: req.body.bio,
+    });
 
-  res.status(201).json(user);
+    res.status(201).json(user);
+  } else {
+    res
+      .status(404)
+      .json({ errorMessage: "Please provide name and bio for the user." });
+  }
 });
 
 server.get("/api/users/:id", (req, res) => {
@@ -24,7 +30,9 @@ server.get("/api/users/:id", (req, res) => {
   if (user) {
     res.json(user);
   } else {
-    res.status(404).json({ message: "User does not exist" });
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
   }
 });
 
@@ -35,17 +43,27 @@ server.delete("/api/users/:id", (req, res) => {
     db.deleteUser(req.params.id);
     res.status(204).end();
   } else {
-    res.status(404).json({ message: "User does not exist" });
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
   }
 });
 
 server.put("/api/users/:id", (req, res) => {
+  if (!req.body.name || !req.body.bio) {
+    res
+      .status(400)
+      .json({ errorMessage: "Please provide name and bio for the user." });
+  }
+
   const user = db.updateUser(req.params.id, req.body);
 
   if (user) {
     res.json(user);
   } else {
-    res.status(404).json({ message: "User does not exist" });
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
   }
 });
 
