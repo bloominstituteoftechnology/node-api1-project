@@ -29,7 +29,14 @@ server.get("/api/users/:id", (req, res) => {
 });
 
 server.delete("/api/users/:id", (req, res) => {
-  res.status(200).json(users);
+  const user = db.getUserById(req.params.id);
+
+  if (user) {
+    db.deleteUser(req.params.id);
+    res.status(204).end();
+  } else {
+    res.status(404).json({ message: "User does not exist" });
+  }
 });
 
 server.put("/api/users/:id", (req, res) => {
