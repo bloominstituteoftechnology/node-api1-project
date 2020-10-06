@@ -20,5 +20,9 @@
   "homepage": "https://github.com/ShirleyLe3/node-api1-project#readme",
   "devDependencies": {
     "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "server": "^1.0.30"
   }
 }
