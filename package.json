@@ -1,0 +1,14 @@
+{
+  "name": "node-api1-project",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "shortid": "^2.2.16"
+  }
+}
