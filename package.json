@@ -12,16 +12,5 @@
   },
   "scripts": {
     "server": "nodemon index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sjsussman/node-api1-project.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sjsussman/node-api1-project/issues"
-  },
-  "homepage": "https://github.com/sjsussman/node-api1-project#readme"
+  }
 }
