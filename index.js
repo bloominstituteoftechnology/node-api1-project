@@ -49,6 +49,20 @@ app.put('/users/:id', (req, res) => {
 
 
 })
+//adds new User
+app.post('/users', (req, res) => {
+    const { name, bio } = req.body
+    if (!name || !bio) {
+      res.status(401).json({
+          errorMessage: "Please provide name and bio for the user."
+      })
+    } else {
+      const newUser = { id: generate(), name, bio }
+      users.push(newUser)
+      res.status(201).json(newUser)
+    }
+  })
+  
 
 //deleting user
 app.delete('/users/:id', (req, res) => {
