@@ -1,0 +1,16 @@
+{
+  "name": "node-api1-project",
+  "version": "1.0.0",
+  "description": "- Building a RESTful API.\r - Performing CRUD operations.\r - Writing API endpoints.",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "shortid": "^2.2.16"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
