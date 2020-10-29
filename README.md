@@ -4,7 +4,7 @@
 
 - Building a RESTful API.
 - Performing CRUD operations.
-- Writing API endpoints.
+- Writing API endpoints..
 
 ## Instructions
 
