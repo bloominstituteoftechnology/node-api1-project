@@ -16,7 +16,7 @@ let hubs = [
 ];
 
 server.get("/", (req, res) => {
-  res.send(Date.now());
+  res.send("testing apis");
 });
 
 //C - CREATE POST
@@ -52,7 +52,7 @@ server.get("api/hubs/:id", (req, res) => {
     }
   } catch (err) {
     res.status(500).json({
-      errormessage: "user not found",
+      errormessage: "user not  found",
       message: err.message,
     });
   }
