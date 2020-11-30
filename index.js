@@ -5,7 +5,7 @@ const server = express()
 
 server.use(express.json())  // configure the server. Lets you read the body of the request as JSON
 
-const users = []
+let users = []
 
 const User = {
   createNew(user) {
@@ -18,6 +18,16 @@ const User = {
   },
   getById(id) {
     return users.find(user => user.id === id)
+  },
+  delete(id) {
+    const user = users.find(user => user.id === id)
+    if (user) {
+      users = users.filter(d => d.id !== id)
+    }
+    return user
+  },
+  update(id, change) {
+    
   }
 }
 
@@ -37,8 +47,8 @@ server.post('/api/users', (req, res) => {
   }
 })
 server.get('/api/users', (req, res) => {
-  const users = User.getAll()  
   try{
+    const users = User.getAll()
     if (users) {
     res.status(200).json(users)
   }
@@ -48,9 +58,9 @@ server.get('/api/users', (req, res) => {
   }
 })
 server.get('/api/users/:id', (req, res) => {
-  const { id } = req.params
-  const user = User.getById(id)
   try{
+    const { id } = req.params
+    const user = User.getById(id)
     if(user){
       res.status(200).json(user)
     }else {
@@ -61,6 +71,21 @@ server.get('/api/users/:id', (req, res) => {
     res.status(500).json({ errorMessage: "The user information could not be retrieved." })
   }
 })
+server.delete('/api/users/:id', (req, res) => {
+  try{
+    const { id } = req.params
+    const deleted = User.delete(id)
+    if (deleted) {
+      res.status(200).json(deleted)
+    } else {
+      res.status(404).json({ message: "The user with the specified ID does not exist." })
+    }
+  }catch(error){
+    console.trace("CREATE ERROR: ", error)
+    res.status(500).json({ errorMessage: "The user could not be removed" })
+  }
+})
+
 
 // catch-all endpoint
 server.use('*', (req,res) => {
