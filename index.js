@@ -33,6 +33,21 @@ const User = {
         if(user){
             users = users.filter(u => u.id !== id)
         }
+    },
+
+    update(id, changes){
+        const user = users.find(u => u.id === id)
+        if(!user) {
+            return null
+        }
+
+        else {
+            users = users.map(u => {
+                if(u.id === id) return { id, ...changes }
+                return u
+            })
+            return { id, ...changes }
+        }
     }
 }
 
@@ -78,7 +93,17 @@ server.delete('/api/users/:id', (req, res) => {
     }
 })
 
-
+server.put('/api/users/:id', (req, res) => {
+    const { id } = req.params
+    const changes = req.body
+    const updatedUser = User.update(id, changes)
+    if (updatedUser) {
+        res.status(200).json(updatedUser)
+    }
+    else{
+        res.status(404).json({ errorMessage: "error :( " })
+    }
+})
 
 
 // catch-all endpoint
