@@ -40,6 +40,19 @@ const User = {
             userData = userData.filter(user => user.id !== id)
         }
         return user
+    },
+    update(id, changes){
+        const user = userData.find(user => user.id === id)
+        if (!user){
+            return null
+        } else {
+            const newUser = {id, ...changes}
+            userData = userData.map( user => {
+                if(user.id === id) return newUser
+                return user
+            })
+            return newUser
+        }
     }
 }
 
@@ -76,6 +89,17 @@ server.delete('/api/users/:id', (req, res) => {
         res.status(200).json(deleted)
     } else {
         res.status(404).json({ message: "The user with the specified ID does not exist." })
+    }
+})
+
+server.put('/api/users/:id', (req, res) => {
+    const changes = req.body
+    const { id } = req.params
+    const updatedUser = User.update(id, changes)
+    if(updatedUser){
+        res.status(200).json(updatedUser)
+    } else {
+        res.status(404).json({ errorMessage: "Please provide name and bio for the user." })
     }
 })
 
