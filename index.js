@@ -1,9 +1,11 @@
 const express = require('express')  // import express as express
 const shortid = require('shortid')  // import shortid as shortid
+const cors = require('cors')
 
 const server = express()
 
 server.use(express.json())  // configure the server. Lets you read the body of the request as JSON
+server.use(cors())
 
 let users = []
 
