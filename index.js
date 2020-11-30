@@ -30,6 +30,9 @@ const User = {
         const newUser = { id: shortid.generate(), ...user}
         userData.push(newUser)
         return(newUser)
+    },
+    getById(id){
+        return userData.find(user => user.id === id)
     }
 }
 
@@ -46,6 +49,16 @@ server.post('/api/users', (req, res) => {
     }else{
         const newlyCreatedUser = User.createNew(newUser)
         res.status(201).json(newlyCreatedUser)
+    }
+})
+
+server.get('/api/users/:id', (req, res) => {
+    const { id } = req.params
+    const user = User.getById(id)
+    if(user){
+        res.status(200).json(user)
+    }else{
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
     }
 })
 
