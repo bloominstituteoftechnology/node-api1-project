@@ -33,6 +33,13 @@ const User = {
     },
     getById(id){
         return userData.find(user => user.id === id)
+    },
+    delete(id){
+        const user = userData.find(user => user.id === id)
+        if(user){
+            userData = userData.filter(user => user.id !== id)
+        }
+        return user
     }
 }
 
@@ -58,6 +65,16 @@ server.get('/api/users/:id', (req, res) => {
     if(user){
         res.status(200).json(user)
     }else{
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
+    }
+})
+
+server.delete('/api/users/:id', (req, res) => {
+    const { id } = req.params
+    const deleted = User.delete(id)
+    if(deleted){
+        res.status(200).json(deleted)
+    } else {
         res.status(404).json({ message: "The user with the specified ID does not exist." })
     }
 })
