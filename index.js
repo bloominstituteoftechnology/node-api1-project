@@ -12,6 +12,12 @@ const User = {
     const newUser = { id:shortid.generate(), ...user}
     users.push(newUser)
     return newUser
+  },
+  getAll() {
+    return users
+  },
+  getById(id) {
+    return users.find(user => user.id === id)
   }
 }
 
@@ -28,6 +34,31 @@ server.post('/api/users', (req, res) => {
   }catch(error){
     console.trace("CREATE ERROR: ", error)
     res.status(500).json({ errorMessage: "There was an error while saving the user to the database" })
+  }
+})
+server.get('/api/users', (req, res) => {
+  const users = User.getAll()  
+  try{
+    if (users) {
+    res.status(200).json(users)
+  }
+  }catch(error){
+    console.trace("CREATE ERROR: ", error)
+    res.status(500).json({ errorMessage: "The users information could not be retrieved." })
+  }
+})
+server.get('/api/users/:id', (req, res) => {
+  const { id } = req.params
+  const user = User.getById(id)
+  try{
+    if(user){
+      res.status(200).json(user)
+    }else {
+      res.status(404).json({ message: "The user with the specified ID does not exist." })
+    }
+  }catch(error){
+    console.trace("CREATE ERROR: ", error)
+    res.status(500).json({ errorMessage: "The user information could not be retrieved." })
   }
 })
 
