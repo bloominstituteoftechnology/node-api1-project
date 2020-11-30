@@ -25,6 +25,11 @@ let userData = [
 const User = {
     getAll(){
         return userData
+    },
+    createNew(user){
+        const newUser = { id: shortid.generate(), ...user}
+        userData.push(newUser)
+        return(newUser)
     }
 }
 
@@ -32,6 +37,16 @@ const User = {
 server.get('/api/users', (req, res) => {
     const users = User.getAll()
     res.status(200).json(users)
+})
+
+server.post('/api/users', (req, res) => {
+    const newUser = req.body
+    if (!newUser.name || !newUser.bio){
+        res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
+    }else{
+        const newlyCreatedUser = User.createNew(newUser)
+        res.status(201).json(newlyCreatedUser)
+    }
 })
 
 //catch all endpoint
