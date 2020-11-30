@@ -26,8 +26,18 @@ const User = {
     }
     return user
   },
-  update(id, change) {
-    
+  update(id, changes) {
+    const user = users.find(user => user.id === id)
+    if(!user) {
+      return null
+    }else {
+      const updateUser = {id, ...changes}
+      users = users.map(u => {
+        if(u.id === id) return updateUser
+        return u
+      })
+      return updateUser
+    }
   }
 }
 
@@ -85,7 +95,25 @@ server.delete('/api/users/:id', (req, res) => {
     res.status(500).json({ errorMessage: "The user could not be removed" })
   }
 })
-
+server.put('/api/users/:id', (req, res) => {
+  try{
+    const changes = req.body
+    const { id } = req.params
+    if(!changes.name || !changes.bio){
+      res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
+    }else{
+      const updatedUser = User.update(id, changes)
+      if(updatedUser){
+        res.status(200).json(updatedUser)
+      }else{
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
+      }
+    }
+  }catch(error){
+    console.trace("CREATE ERROR: ", error)
+    res.status(500).json({ errorMessage: "The user information could not be modified." })
+  }
+})
 
 // catch-all endpoint
 server.use('*', (req,res) => {
