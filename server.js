@@ -31,6 +31,20 @@ server.get('/api/users/:id', (req,res) => {
  const users = db.getUserById(userId)
  res.status(200).json(users)
 })
+
+server.put('/api/users/:id', (req,res) => {
+   const user = db.updateUser(req.params.id, req.body)
+   
+    if(!req.body.name) {
+       return res.status(400).json({
+           message: "Missing Name"
+       })
+   }
+
+   res.json(user)
+ 
+})
+
 server.listen(4000, () => {
     console.log('running on port 4000')
 })
