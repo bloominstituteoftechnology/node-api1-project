@@ -1,7 +1,7 @@
 const express = require('express')
 const shortid = require('shortid')
-const dotenv = require('dotenv')
-
+const dotenv = require('dotenv').config()
+const cors = require()
 const server = express()
 const port = process.env.PORT 
 server.use(express.json())
