@@ -1,8 +1,9 @@
 const express = require('express')
 const shortid = require('shortid')
+const dotenv = require('dotenv')
 
 const server = express()
-
+const port = process.env.PORT 
 server.use(express.json())
 
 let users = [
@@ -108,6 +109,6 @@ server.use('*', (req, res) => {
     res.status(404).json({ message: 'not found' })
 })
 
-server.listen(5000, () => {
+server.listen(port, () => {
     console.log('listening on port 5000')
 })
