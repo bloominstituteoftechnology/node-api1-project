@@ -26,6 +26,11 @@ server.post('/api/users', (req,res) => {
     res.json(user)
 })
 
+server.get('/api/users/:id', (req,res) => {
+ const userId = req.params.id
+ const users = db.getUserById(userId)
+ res.status(200).json(users)
+})
 server.listen(4000, () => {
     console.log('running on port 4000')
 })
