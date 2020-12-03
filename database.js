@@ -1,7 +1,3 @@
- const express = require('express');
-
-
-
 let users = [
   { id: '1', name: 'Eric Anderson', bio: 'FullStack Dev in Training' },
   {
@@ -52,5 +48,3 @@ module.exports = {
   updateUser,
   deleteUser,
 };
-
-
