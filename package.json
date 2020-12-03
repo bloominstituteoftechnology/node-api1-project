@@ -1,0 +1,23 @@
+{
+  "name": "api1-project",
+  "version": "1.0.0",
+  "description": "- Building a RESTful API.\r - Performing CRUD operations.\r - Writing API endpoints.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sathyaganesan/node-api1-project.git"
+  },
+  "author": "sathya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sathyaganesan/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/sathyaganesan/node-api1-project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
