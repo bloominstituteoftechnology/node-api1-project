@@ -7,6 +7,9 @@ const shortid = require('shortid');
 //Connected server = express
 const server = express();
 
+//Middleware
+server.use(express.json()); //Teaches express how to read JSON from the request.body
+
 //Created port
 const PORT = 5000;
 
@@ -46,7 +49,7 @@ let users = [
 
 // CRUD operations
 server.post('/api/users', (req, res) => {
-    const newUser = req.body; //Reading from the body property(information about the user).
+    const newUser = req.body; //Reading from the body property(information about the user). Side note this needs middleware to read json from the request.body.
 
     newUser.id = shortid.generate(); //Adding id
 
