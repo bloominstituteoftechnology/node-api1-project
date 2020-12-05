@@ -48,6 +48,8 @@ let users = [
 ]
 
 // CRUD operations
+
+//POST
 server.post('/api/users', (req, res) => {
     const newUser = req.body; //Reading from the body property(information about the user). Side note this needs middleware to read json from the request.body.
 
@@ -56,4 +58,10 @@ server.post('/api/users', (req, res) => {
     users.push(newUser); //Pushing new user to our array of objects(users).
 
     res.status(201).json(newUser); //If we add a user, return the new user.
+})
+
+
+//GET
+server.get('/api/users', (req, res) => {
+    res.json(users);
 })
