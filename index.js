@@ -1,5 +1,7 @@
-//Imported express
+//Import express
 const express = require('express');
+
+//Import shortid
 const shortid = require('shortid');
 
 //Connected server = express
@@ -18,7 +20,7 @@ server.get('/', (req, res) => {
     res.json('<h1>Hello, World</h1>');
 })
 
-//Users
+//Users(array of onjects)
 let users = [
     {
         "id": shortid.generate(),
@@ -41,3 +43,14 @@ let users = [
         "bio": "Surf's up DUDE!!!"
     }
 ]
+
+// CRUD operations
+server.post('/api/users', (req, res) => {
+    const newUser = req.body; //Reading from the body property(information about the user).
+
+    newUser.id = shortid.generate(); //Adding id
+
+    users.push(newUser); //Pushing new user to our array of objects(users).
+
+    res.status(201).json(newUser); //If we add a user, return the new user.
+})
