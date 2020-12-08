@@ -39,7 +39,7 @@ async function addUserBio(userId, bio) {
     { id: 2, name: "course2", bio: "Very Interesting" },
     { id: 3, name: "course3", bio: "Super duper interesting" },
   ];
-  const data = { user_id: userId, ...bio };
+  //   const data = { user_id: userId, ...bio };
   const [id] = await db("bio").insert(data);
 
   return findUserPostById(userId, id);

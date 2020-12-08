@@ -22,6 +22,7 @@ const users = require("./data.js");
 //   Endpoint Specifications
 app.get("/", (req, res) => {
   res.json({ Api: "Hello World. I am an API" });
+  console.log(req);
 });
 
 // //--------------------------------------------------------------------------
