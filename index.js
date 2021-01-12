@@ -13,12 +13,22 @@ let users = [
 
 // test message
 server.get('/', (req, res) => {
-    res.status(200).json({ message: 'Server is running.' });
+    try {
+        res.status(200).json({ message: 'Server is running.' });
+    } catch (err) {
+        res.status(500).json({ errorMessage: 'The user info couldn\'t be retrieved.' })
+    }
+    
 });
 
 // get all users
 server.get('/users', (req, res) => {
-    res.status(200).json(users);
+    try {
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json({ errorMessage: 'The user info couldn\'t be retrieved.' });
+    };
+    
 })
 
 // get user with id 
@@ -28,7 +38,12 @@ server.get('/users/:id', (req, res) => {
     if(!user){
         res.status(404).json({ message: `user with id ${id} not found.` })
     } else {
-        res.status(200).json(user);
+        try {
+            res.status(200).json(user);
+        } catch (err) {
+            res.status(500).json({ errorMessage: 'The user info couldn\'t be retrieved.' });
+        };
+        
     };
 });
 
@@ -50,11 +65,16 @@ server.put('/users/:id', (req, res) => {
 server.post('/users', (req, res) => {
     const { name, bio } = req.body;
     if (!name || !bio) {
-        res.status(401).json({ message: 'Please provide name and bio for user.' })
+        res.status(400).json({ errorMessage: 'Please provide name and bio for user.' })
     } else {
-        const newUser = { id: shortid.generate(), name, bio }
-        users.push(newUser);
-        res.status(201).json(newUser);
+        try {
+            const newUser = { id: shortid.generate(), name, bio }
+            users.push(newUser);
+            res.status(201).json(newUser);
+        } catch (err) {
+            res.status(500).json({ errorMessage: 'The user info couldn\'t be retrieved.' })
+        }
+
     };
 });
 
@@ -64,8 +84,13 @@ server.delete('/users/:id', (req, res) => {
     if (!users.find(user => user.id === id)) {
         res.status(404).json({ message: 'User with that ID not found.'});
     } else {
-        users = users.filter(user => user.id !== id)
-        res.status(200).json({ message: `iser ${id} was deleted.`})
+        try {
+            users = users.filter(user => user.id !== id)
+            res.status(200).json({ message: `iser ${id} was deleted.`})
+        } catch (err) {
+            res.status(500).json({ errorMessage: 'The user info couldn\'t be retrieved.' })
+        }
+
     }
 })
 
