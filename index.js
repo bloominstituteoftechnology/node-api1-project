@@ -46,7 +46,7 @@ server.put('/users/:id', (req, res) => {
     };
 });
 
-// add new uer
+// add new user
 server.post('/users', (req, res) => {
     const { name, bio } = req.body;
     if (!name || !bio) {
@@ -57,6 +57,17 @@ server.post('/users', (req, res) => {
         res.status(201).json(newUser);
     };
 });
+
+// delete user
+server.delete('/users/:id', (req, res) => {
+    const { id } = req.params;
+    if (!users.find(user => user.id === id)) {
+        res.status(404).json({ message: 'User with that ID not found.'});
+    } else {
+        users = users.filter(user => user.id !== id)
+        res.status(200).json({ message: `iser ${id} was deleted.`})
+    }
+})
 
 server.listen(3000, () => {
     console.log('Listening on port 3000...');
