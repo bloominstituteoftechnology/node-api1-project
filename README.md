@@ -1,5 +1,5 @@
 # Node API 1 Project Starter Code
-
+git clone -b <branchname> <remote-repo-url>
 ## Topics
 
 - Building a RESTful API.
