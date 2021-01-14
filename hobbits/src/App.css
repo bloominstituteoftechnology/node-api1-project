@@ -1,0 +1,58 @@
+.App  {
+  text-align: center;
+}
+ 
+
+
+h1{
+  font-size: 2rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-variant: small-caps;
+}
+
+
+body {
+  background-image: url("https://images.unsplash.com/photo-1600003251514-239257fb4c53?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzF8fGhvYmJpdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60");
+  overflow-x: hidden;
+  background-color: #2BAE66FF;
+  color:#FCF6F5FF;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 0rem;
+}
+ 
+.banner{
+  background-color: #FCF6F5FF;
+  color:#2BAE66FF;
+  padding:5% 0% 
+}
+
+.hobbits{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 40%;
+  margin: 5% 4%;
+  padding: 2rem 10rem;
+  background-color: rgba(207, 226, 216,0.8);
+  /* background-color: rgba(245, 241, 241, 0.8); */
+  border-radius: 6px;
+}
+ 
+.hobbitlist{
+  background-color: #2BAE66FF;
+  color:#FCF6F5FF;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.hobbitCards{
+  background-color: #2BAE66FF;
+  color:#FCF6F5FF;
+  font-size: 1.2rem;
+  font-style: italic;
+ padding: 1rem 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
