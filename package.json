@@ -1,20 +1,19 @@
 {
-    "name": "nodeapi-proj1",
-    "version": "1.0.0",
-    "scripts": {
-      "start": "nodemon index.js",
-      "publishit": "git push origin Nicholas-Lacapria"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/LambdaSchool/node-api1-guided.git"
-    },
-    "dependencies": {
-      "express": "4.17.1",
-      "shortid": "^2.2.16"
-    },
-    "devDependencies": {
-      "nodemon": "^2.0.7"
-    }
+  "name": "nodeapi-proj1",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "nodemon index.js",
+    "publishit": "git push origin Nicholas-Lacapria"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LambdaSchool/node-api1-guided.git"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "shortid": "^2.2.16"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
-  
+}
