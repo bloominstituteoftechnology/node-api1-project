@@ -1,63 +1,54 @@
 # Node API 1 Project Starter Code
+<<<<<<< HEAD
 git clone -b <branchname> <remote-repo-url>
 ## Topics
+=======
+
+## Introduction
+>>>>>>> main
 
 - Building a RESTful API.
 - Performing CRUD operations.
 - Writing API endpoints.
 
-## Assignment
+## Instructions
 
-Use Node.js and Express to build an API that performs CRUD operations on users.
-
-### Download Project Files and Install Dependencies
+### Task 1: Project Setup
 
 - **Fork** and **Clone** this repository.
 - **CD into the folder** where you cloned the repository.
-- Type `npm install` to download all dependencies listed inside `package.json`.
 
-### Database access
+### Task 2: Minimum Viable Product
 
-Database access will be done using the `db.js` file included inside the `data` folder. This file publishes the following methods:
+Use Node.js and Express to build an API that performs CRUD operations on users.
 
-- `find()`: calling find returns a promise that resolves to an array of all the users contained in the database.
-- `findById()`: this method expects an `id` as it's only parameter and returns the user corresponding to the `id` provided or an empty array if no user with that `id` is found.
-- `insert()`: calling insert passing it a user object will add it to the database and return an object with the `id` of the inserted user. The object looks like this: `{ id: 123 }`.
-- `update()`: accepts two arguments, the first is the `id` of the user to update and the second is an object with the `changes` to apply. It returns the count of updated records. If the count is 1 it means the record was updated correctly.
-- `remove()`: the remove method accepts an `id` as it's first parameter and upon successfully deleting the user from the database it returns the number of records deleted.
+- Add a `.gitignore` file appropriate for `node.js` projects.
+- Add a new `package.json`.
+- Add a `server` script to `package.json` that runs the API using `nodemon`.
 
-Now that we have a way to add, update, remove and retrieve data from the provided database, it is time to work on the API.
+### Write endpoints
 
-### Start the API and Implement Requirements
+Add the code necessary to create a Web API and implement the following _endpoints_:
 
-- To start the server, type `npm run server` from the root folder (where the _package.json_ file is). The server is configured to restart automatically as you make changes.
-- Add the code necessary to implement the API requirements.
-- **Test the API using a REST Client like [insomnia](https://insomnia.rest/download/) or [Postman](https://www.getpostman.com/downloads/) as you work through the exercises.**
+| Method | URL            | Description                                                                                            |
+| ------ | -------------- | ------------------------------------------------------------------------------------------------------ |
+| POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
+| GET    | /api/users     | Returns an array users.                                                                                |
+| GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       |
+| DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
+| PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
 
-### User Schema
+#### User Schema
 
-Users in the database conform to the following object structure:
+Each User _resource_ should conform to the following structure (AKA schema):
 
 ```js
 {
+  id: "a_unique_id", // hint: use the shortid npm package to generate it
   name: "Jane Doe", // String, required
   bio: "Not Tarzan's Wife, another Jane",  // String, required
-  created_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, defaults to current date
-  updated_at: Mon Aug 14 2017 12:50:16 GMT-0700 (PDT) // Date, defaults to current date
 }
 ```
-
-### Write endpoints to perform the following queries
-
-Inside `index.js` add the code necessary to implement the following _endpoints_:
-
-| Method | URL            | Description                                                                                                                       |
-| ------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                                              |
-| GET    | /api/users     | Returns an array of all the user objects contained in the database.                                                               |
-| GET    | /api/users/:id | Returns the user object with the specified `id`.                                                                                  |
-| DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                                            |
-| PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
 
 #### Endpoint Specifications
 
@@ -129,7 +120,7 @@ When the client makes a `PUT` request to `/api/users/:id`:
   - respond with HTTP status code `200` (OK).
   - return the newly updated _user document_.
 
-## Stretch Problems
+### Task 3: Stretch Problems
 
 To work on the stretch problems you'll need to enable the `cors` middleware. Follow these steps:
 
@@ -143,3 +134,6 @@ Create a new React application and connect it to your server:
 - add a delete button to each displayed user that will remove it from the server.
 - add forms to add and update data.
 - Style the list of users however you see fit.
+
+## Submission Format
+* [ ] Submit a Pull-Request to merge `<firstName-lastName>` Branch into `main` (student's  Repo). **Please don't merge your own pull request**
