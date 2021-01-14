@@ -10,6 +10,7 @@
     "url": "git+https://github.com/LambdaSchool/node-api1-guided.git"
   },
   "dependencies": {
+    "add-gitignore": "^1.1.1",
     "express": "4.17.1",
     "shortid": "^2.2.16"
   },
