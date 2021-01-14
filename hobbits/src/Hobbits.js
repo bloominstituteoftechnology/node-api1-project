@@ -1,23 +1,31 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import {Button} from 'reactstrap'
 import HobbitCard from './HobbitCard';
 import {connect} from 'react-redux';
-import {getUsers} from './actions';
+import {getUsers,addUsers,deleteUsers,updateUsers} from './actions';
 
 
 function Hobbits(props){
-const {getUsers} = props;
-const {userInfo} = props;
+const history=useHistory();
+const {getUsers,addUsers,updateUsers} = props;
 
-const handleClick=()=>{
-getUsers();
+useEffect(()=>{
+    getUsers()
+},[getUsers,addUsers,updateUsers])
+
+  
+const addHobbits=()=>{
+    history.push('./addhobbits')
 }
 
 return(
     <div>
         <Button className="hobbitlist"
-        onClick={handleClick}>
-            List me the Hobbits!
+        outline color="success"
+        size="lg"
+        onClick={addHobbits}>
+            <b>Add new Hobbits!</b>
         </Button>
         <div> 
         {props.isLoading ? "Please wait..." :
@@ -40,4 +48,4 @@ const mapStateToProps =(state)=>{
     }
 }
 
-export default connect(mapStateToProps,{getUsers})(Hobbits);
+export default connect(mapStateToProps,{getUsers,addUsers,deleteUsers,updateUsers})(Hobbits);
