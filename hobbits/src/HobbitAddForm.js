@@ -7,7 +7,8 @@ import {getUsers,addUsers} from './actions';
 function HobbitAddForm(props){
     const history=useHistory();
     console.log('in add form')
-    const {getUsers,addUsers}= props
+    const {addUsers}= props
+    const [added,setAdded]=useState(false)
     const [newHobbit,setNewHobbit]=useState({
         name:'',
         bio:''
@@ -20,11 +21,17 @@ function HobbitAddForm(props){
             [e.target.name]:e.target.value})
     }
 
+    // useEffect(()=>{
+    //     console.log('im here')
+    //     getUsers();
+    // },[added])
+
     const handleSubmit=(e)=>{
         e.preventDefault();
         console.log('submit',newHobbit)
         addUsers(newHobbit);
-        getUsers();
+        // setAdded(true);
+        // getUsers();
         history.push('/');
         setNewHobbit({
             name:'',
@@ -65,4 +72,4 @@ const mapStateToProps =(state)=>{
     }
 }
 
-export default connect(mapStateToProps,{getUsers,addUsers})(HobbitAddForm);
+export default connect(mapStateToProps,{addUsers})(HobbitAddForm);

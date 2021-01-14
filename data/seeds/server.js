@@ -1,5 +1,5 @@
 //create instance of server and export 
-const usersModel=require('.././db');
+const usersModel=require('../db');
 const express=require('express');
  
 var cors = require('cors')

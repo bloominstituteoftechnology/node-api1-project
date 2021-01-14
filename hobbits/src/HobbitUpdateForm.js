@@ -34,7 +34,7 @@ function HobbitUpdateForm(props){
         e.preventDefault();
         console.log('submit',updateHobbit)
         updateUsers(params.id,updateHobbit);
-        getUsers();
+        // getUsers();
         history.push('/');
         setUpdateHobbit({
             name:'',

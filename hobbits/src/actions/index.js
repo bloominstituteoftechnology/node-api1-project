@@ -18,8 +18,7 @@ export const UPDATE_USERS_FAILURE= "UPDATE_USERS_FAILURE";
 //get user .get
 export const getUsers=()=>(dispatch)=>{
     dispatch({type: FETCH_USERS_START});
-    axios
-    .get('http://localhost:5000/api/users')
+    axios.get('http://localhost:5000/api/users')
     .then(res=>{
         console.log('res in get',res)
         dispatch({type:FETCH_USERS_SUCCESS,
@@ -32,17 +31,16 @@ export const getUsers=()=>(dispatch)=>{
     })
 }
 //add user
-export const addUsers=(payload)=>(dispatch)=>{
+export const addUsers=(newuser)=>(dispatch)=>{
     dispatch({type: ADD_USERS_START});
-    axios
-    .post(`http://localhost:5000/api/users`,payload)
+    axios.post('http://localhost:5000/api/users',newuser)
     .then(res=>{
-        console.log('res in get',res)
+        console.log('res in post',res)
         dispatch({type:ADD_USERS_SUCCESS,
-        payload:res.data})
+        payload:newuser})
     })
     .catch(err=>{
-        console.log('err in get=',err)
+        console.log('err in post=',err)
         dispatch({type:ADD_USERS_FAILURE,
         payload:err.data})
     })
@@ -50,15 +48,14 @@ export const addUsers=(payload)=>(dispatch)=>{
 //delete user
 export const deleteUsers=(id)=>(dispatch)=>{
     dispatch({type: DELETE_USERS_START});
-    axios
-    .delete(`http://localhost:5000/api/users/${id}`)
+    axios.delete(`http://localhost:5000/api/users/${id}`)
     .then(res=>{
-        console.log('res in get',res)
+        console.log('res in del',res)
         dispatch({type:DELETE_USERS_SUCCESS,
         payload:id})
     })
     .catch(err=>{
-        console.log('err in get=',err)
+        console.log('err in del=',err)
         dispatch({type:DELETE_USERS_FAILURE,
         payload:err.data})
     })
@@ -68,15 +65,14 @@ export const deleteUsers=(id)=>(dispatch)=>{
 // user
 export const updateUsers=(id,user)=>(dispatch)=>{
     dispatch({type: UPDATE_USERS_START});
-    axios
-    .put(`http://localhost:5000/api/users/${id}`,user)
+    axios.put(`http://localhost:5000/api/users/${id}`,user)
     .then(res=>{
-        console.log('res in get',res)
+        console.log('res in put',res)
         dispatch({type:UPDATE_USERS_SUCCESS,
-        payload:res.data})
+        payload:id})
     })
     .catch(err=>{
-        console.log('err in get=',err)
+        console.log('err in put=',err)
         dispatch({type:UPDATE_USERS_FAILURE,
         payload:err.data})
     })

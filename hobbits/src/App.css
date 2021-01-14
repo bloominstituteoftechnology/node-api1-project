@@ -29,14 +29,9 @@ body{
 }
 .hobbits{
   display:flex;
-  flex-wrap: wrap;
-  /* flex-direction: column; */
-  justify-content: space-around;
-  align-items: space-evenly; 
-  margin: 6% 18%;
-  padding: 2rem 20rem; 
+  justify-content: space-evenly;
+  margin:5% 2%;
   background-color: rgba(191, 241, 207, 0.8);
-  /* background-color: rgba(245, 241, 241, 0.8); */
   box-shadow: 4px 3px rgba(74, 75, 74, 0.8);
   border-radius: 6px;
 }
@@ -49,6 +44,22 @@ body{
 }
 
 .hobbitCards{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem 3rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  background-color: rgb(196, 202, 198);
+  color:#FCF6F5FF;
+  font-size: 1.2rem;
+  font-style: italic;
+  box-shadow: 4px 3px rgba(74, 75, 74, 0.8);
+}
+.hobbitCard{
+  display:flex;
+  /* justify-content:center; */
   background-color: #2BAE66FF;
   color:#FCF6F5FF;
   font-size: 1.2rem;

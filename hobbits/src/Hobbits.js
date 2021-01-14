@@ -8,14 +8,16 @@ import {getUsers,addUsers,deleteUsers,updateUsers} from './actions';
 
 function Hobbits(props){
 const history=useHistory();
-const {getUsers,addUsers,updateUsers} = props;
+const {getUsers}=props;
+const {addUsers}= props;
 
 useEffect(()=>{
     getUsers()
-},[getUsers,addUsers,updateUsers])
+},[getUsers,history.action,addUsers])
 
   
 const addHobbits=()=>{
+    console.log(history)
     history.push('./addhobbits')
 }
 
@@ -30,7 +32,7 @@ return(
         <div> 
         {props.isLoading ? "Please wait..." :
         props.userInfo.map(item=>{
-            return <HobbitCard key={item.id} item={item}/>
+            return <HobbitCard   key={item.id} item={item}/>
             // console.log('item in userinfo=',item)
             
         })
@@ -44,7 +46,7 @@ const mapStateToProps =(state)=>{
     return{
         isLoading:state.isLoading,
         userInfo:state.userInfo,
-        error:state.error
+        error:state.error,
     }
 }
 

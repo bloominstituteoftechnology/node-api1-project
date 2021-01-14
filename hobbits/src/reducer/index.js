@@ -1,19 +1,16 @@
 import {FETCH_USERS_START,
      FETCH_USERS_SUCCESS,
-     FETCH_USERS_FAILURE} from '../actions';
-
-import {ADD_USERS_START,
-        ADD_USERS_SUCCESS,
-        ADD_USERS_FAILURE} from '../actions';
-
-import {DELETE_USERS_START,
-        DELETE_USERS_SUCCESS,
-        DELETE_USERS_FAILURE} from '../actions';
-
-import {UPDATE_USERS_START,
-        UPDATE_USERS_SUCCESS,
-        UPDATE_USERS_FAILURE} from '../actions';
-
+     FETCH_USERS_FAILURE,
+     ADD_USERS_START,
+     ADD_USERS_SUCCESS,
+     ADD_USERS_FAILURE,
+     DELETE_USERS_START,
+     DELETE_USERS_SUCCESS,
+     DELETE_USERS_FAILURE,
+     UPDATE_USERS_START,
+     UPDATE_USERS_SUCCESS,
+     UPDATE_USERS_FAILURE} from '../actions';
+ 
 const initialState={
     isLoading: false,
     userInfo: [],
@@ -44,20 +41,20 @@ export const reducer=(state=initialState,action)=>{
                 isLoading:false,
             }
             //add users
-            case ADD_USERS_START:
+        case ADD_USERS_START:
                 return {
                     ...state,
                     error:'',
                     isLoading:true,
                 }
-            case ADD_USERS_SUCCESS:
+        case ADD_USERS_SUCCESS:
                 return{
                     ...state,
                     error:'',
                     isLoading:false,
-                    // userInfo: [...state.userInfo,...action.payload]
+                     userInfo: state.userInfo
                     }
-            case ADD_USERS_FAILURE:
+        case ADD_USERS_FAILURE:
                 return{
                     ...state,
                     error:action.payload,
@@ -73,11 +70,12 @@ export const reducer=(state=initialState,action)=>{
         case DELETE_USERS_SUCCESS:
             //payload is id
             console.log('userinfo in delete',state.userInfo)
+            const newInfo = state.userInfo.filter(item=> item.id !== Number(action.payload))
             return{
                 ...state,
                 error:'',
                 isLoading:false,
-                userInfo: state.userInfo.filter(item=> item.id !== Number(action.payload)),
+                userInfo: newInfo
             }
         
         case DELETE_USERS_FAILURE:
@@ -88,26 +86,27 @@ export const reducer=(state=initialState,action)=>{
             }
         
             //update users
-            case UPDATE_USERS_START:
+        case UPDATE_USERS_START:
                 return {
                     ...state,
                     error:'',
                     isLoading:true,
                 }
-            case UPDATE_USERS_SUCCESS:
+        case UPDATE_USERS_SUCCESS:
+                console.log('action.payload',action.payload)
+                console.log('userInfo:',state.userInfo)
                 return{
                     ...state,
                     error:'',
                     isLoading:false,
-                    // userInfo: action.payload
+                    userInfo: action.payload
                     }
-            case UPDATE_USERS_FAILURE:
+        case UPDATE_USERS_FAILURE:
                 return{
                     ...state,
                     error:action.payload,
                     isLoading:false,
-                }
-
+               }
         default:
             return state;
     }
