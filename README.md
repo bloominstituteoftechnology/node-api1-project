@@ -1,5 +1,9 @@
 # Node API 1 Project Starter Code
 
+# Automatic ignoreer Npm install add-gitignore 
+run with npx add-gitignore 
+
+
 ## Introduction
 
 - Building a RESTful API.

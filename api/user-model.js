@@ -1,4 +1,4 @@
-const userID  = require('shortid')
+const userID  = require('shortid') 
 
 let users = [
     {
@@ -15,5 +15,13 @@ module.exports = {
     findAll(){
         // SELECT * FROM users
         return Promise.resolve(users)
+    },
+
+
+    create({ name,bio }){
+        const newUser = {id:userID.generate(),name:name,bio:bio,
+            created_at:Date(),updated_at:null};
+
+        return Promise.resolve(newUser);
     }
 }
