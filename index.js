@@ -11,15 +11,15 @@ let hubs = [
   {
     id: 1,
     name: "rigo",
-    location: "chicago",
+    bio: "",
   },
 ];
 
 server.get("/", (req, res) => {
-  res.send("testing apis");
+  res.send(Date.now());
 });
 
-//C - CREATE POST
+//C -- CREATE POST
 //R - READ GET
 //U - UPDATE PUT
 //D - DELETE DELETE
@@ -35,43 +35,27 @@ server.post("/api/hubs", (req, res) => {
 
 // read
 server.get("/api/hubs", (req, res) => {
-  res.status(200).json(hubs);
-});
-
-//read by ID
-server.get("api/hubs/:id", (req, res) => {
-  const id = req.params.id;
-  const found = hubs.find((item) => item.id === id);
-
-  try {
-    if (found) {
-      // hubs = hubs.filter((item) => item.id !== id);
-      res.status(200).json(found);
-    } else {
-      res.status(404).json({ message: "id not found" });
-    }
-  } catch (err) {
-    res.status(500).json({
-      errormessage: "user not  found",
-      message: err.message,
-    });
+  if (hubs) {
+    res.status(200).json(hubs);
+  } else {
+    res
+      .status(500)
+      .json({ errorMessage: "the user is not found / could not be retrieved" });
   }
 });
 
-// try {
-//   if (foundUser) {
-//     res.status(200).json(foundUser);
-//   } else {
-//     res
-//       .status(404)
-//       .json({ message: "The user with the specified ID does not exist." });
-//   }
-// } catch (err) {
-//   res.status(500).json({
-//     errorMessage: "The user information could not be retrieved",
-//     message: err.message,
-//   });
-// }
+//read by ID
+server.get("/api/hubs/:id", (req, res) => {
+  const id = req.params.id;
+
+  const found = hubs.find((item) => item.id === id);
+  if (found) {
+    // hubs = hubs.filter((item) => item.id !== id);
+    res.status(200).json(found);
+  } else {
+    res.status(404).json({ message: "user with ID not found" });
+  }
+});
 
 //delete
 server.delete("/api/hubs/:id", (req, res) => {
