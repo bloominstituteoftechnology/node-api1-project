@@ -7,16 +7,13 @@ import {Card} from 'reactstrap';
 
 function HobbitCard(props){
     const history=useHistory();
-    const {getUsers,deleteUsers} = props
+    const {deleteUsers} = props
     
     const handleDelete=()=>{
-     console.log('to delete')
      deleteUsers(props.item.id);
-    //  getUsers(); 
     }
 
     const handleUpdate=()=>{
-       
         history.push(`/updatehobbits/${props.item.id}`)
        }
 
@@ -32,6 +29,7 @@ return(
 
            <Button color="danger"
              className= "m-3"
+             outline="border"
              onClick={handleDelete}>Delete</Button>
        </Card>
        </div>

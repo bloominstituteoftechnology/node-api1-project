@@ -1,14 +1,12 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {Form,Button, Label,Input} from 'reactstrap'
 import {connect} from 'react-redux';
-import {getUsers,addUsers} from './actions';
+import {addUsers} from './actions';
 
 function HobbitAddForm(props){
     const history=useHistory();
-    console.log('in add form')
     const {addUsers}= props
-    const [added,setAdded]=useState(false)
     const [newHobbit,setNewHobbit]=useState({
         name:'',
         bio:''
@@ -21,23 +19,14 @@ function HobbitAddForm(props){
             [e.target.name]:e.target.value})
     }
 
-    // useEffect(()=>{
-    //     console.log('im here')
-    //     getUsers();
-    // },[added])
-
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log('submit',newHobbit)
         addUsers(newHobbit);
-        // setAdded(true);
-        // getUsers();
         history.push('/');
         setNewHobbit({
             name:'',
             bio:''
         })
-
     }
 
 return(

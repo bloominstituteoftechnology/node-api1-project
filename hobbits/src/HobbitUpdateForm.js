@@ -7,11 +7,9 @@ import {getUsers,updateUsers} from './actions';
 function HobbitUpdateForm(props){
     const history=useHistory();
     const params=useParams();
-    console.log('in update form')
-    const {getUsers,updateUsers}= props
+    const {updateUsers}= props
     //update data
     const updateData= props.userInfo.filter(item=> item.id === Number(params.id))
-    console.log('update=',updateData)
     const setData=[{
         name:updateData[0].name,
         bio:updateData[0].bio
@@ -32,15 +30,12 @@ function HobbitUpdateForm(props){
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log('submit',updateHobbit)
         updateUsers(params.id,updateHobbit);
-        // getUsers();
-        history.push('/');
         setUpdateHobbit({
             name:'',
             bio:''
         })
-
+        history.push('/');
     }
 
 return(

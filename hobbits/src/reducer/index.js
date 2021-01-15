@@ -13,6 +13,7 @@ import {FETCH_USERS_START,
  
 const initialState={
     isLoading: false,
+    changed:false,
     userInfo: [],
     error:'',
 }
@@ -44,6 +45,7 @@ export const reducer=(state=initialState,action)=>{
         case ADD_USERS_START:
                 return {
                     ...state,
+                    changed:false,
                     error:'',
                     isLoading:true,
                 }
@@ -52,11 +54,13 @@ export const reducer=(state=initialState,action)=>{
                     ...state,
                     error:'',
                     isLoading:false,
-                     userInfo: state.userInfo
+                    changed:true,
+                    userInfo: state.userInfo
                     }
         case ADD_USERS_FAILURE:
                 return{
                     ...state,
+                    changed:false,
                     error:action.payload,
                     isLoading:false,
                 }
@@ -91,6 +95,7 @@ export const reducer=(state=initialState,action)=>{
                     ...state,
                     error:'',
                     isLoading:true,
+                    changed:false,
                 }
         case UPDATE_USERS_SUCCESS:
                 console.log('action.payload',action.payload)
@@ -99,13 +104,15 @@ export const reducer=(state=initialState,action)=>{
                     ...state,
                     error:'',
                     isLoading:false,
-                    userInfo: action.payload
+                    changed:true,
+                    // userInfo: action.payload
                     }
         case UPDATE_USERS_FAILURE:
                 return{
                     ...state,
                     error:action.payload,
                     isLoading:false,
+                    changed:false
                }
         default:
             return state;
