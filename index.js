@@ -19,7 +19,7 @@ server.get("/", (req, res) => {
   res.send(Date.now());
 });
 
-//C - CREATE POST
+//C -- CREATE POST
 //R - READ GET
 //U - UPDATE PUT
 //D - DELETE DELETE
