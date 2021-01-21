@@ -4,6 +4,7 @@
   "description": "Node API 1 Project Starter Code",
   "main": "index.js",
   "scripts": {
+    "start" : "node index.js",
     "server": "nodemon index.js"
   },
   "repository": {
