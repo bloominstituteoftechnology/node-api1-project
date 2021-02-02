@@ -10,7 +10,7 @@
 
 ### Task 1: Project Setup
 
-#### Option A - Codegrade
+#### Option A - Codegrade **NEW - might not be available yet**
 
 - [ ] Fork and clone the repository.
 - [ ] Open the assignment in Canvas and click on the "Set up git" option.
