@@ -9,8 +9,6 @@ const initializeUsers = () => ([
 ])
 
 // FAKE IN-MEMORY USERS "TABLE"
-// FAKE IN-MEMORY USERS "TABLE"
-// FAKE IN-MEMORY USERS "TABLE"
 let users = initializeUsers()
 
 // DATABASE ACCESS FUNCTIONS
