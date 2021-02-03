@@ -83,7 +83,7 @@ describe('server.js', () => {
         expect(res.body.message).toMatch(/does not exist/)
       }, 500)
     })
-    describe('[DELETE] /api/users/id', () => {
+    describe('[DELETE] /api/users/:id', () => {
       it('responds with deleted user', async () => {
         let [{ id }] = await User.find()
         const choppingBlock = await User.findById(id)
@@ -104,7 +104,7 @@ describe('server.js', () => {
         expect(res.body.message).toMatch(/does not exist/)
       }, 500)
     })
-    describe('[PUT] /api/users/id', () => {
+    describe('[PUT] /api/users/:id', () => {
       it('responds with updated user', async () => {
         let [{ id }] = await User.find()
         const updates = { name: 'xxx', bio: 'yyy' }
