@@ -51,11 +51,21 @@ Each User _resource_ should conform to the following structure (AKA schema):
 
 ```js
 {
-  id: "a_unique_id", // hint: use the shortid npm package to generate it
+  id: "a_unique_id", // String, hint: use the `shortid` npm package to generate it
   name: "Jane Doe",  // String, required
   bio: "Having fun", // String, required
 }
 ```
+
+#### Database Access Functions
+
+You can find them inside `api/users/model.js`. All of these functions return Promises.
+
+- `find` Resolves to the list of users (or empty array).
+- `findById` Takes an `id` and resolves to the user with that id (or null if the id does not exist).
+- `insert` Takes a new user `{ name, bio }` and resolves to the the newly created user `{ id, name, bio }`.
+- `update` Takes an `id` and an existing user `{ name, bio }` and resolves the updated user `{ id, name, bio}` (or null if the id does not exist).
+- `remove` Takes an `id`  and resolves to the deleted user `{ id, name, bio }`.
 
 #### Endpoint Specifications
 
@@ -130,14 +140,16 @@ When the client makes a `PUT` request to `/api/users/:id`:
 #### Notes
 
 - You are welcome to create additional files but **do not move or rename existing files** or folders.
-- Do not alter your `package.json` file except to install extra libraries.
+- Do not alter your `package.json` file except to install additional libraries or add additional scripts.
 - In your solution, it is essential that you follow best practices and produce clean and professional results.
 - Schedule time to review, refine, and assess your work.
 - Perform basic professional polishing including spell-checking and grammar-checking on your work.
 
 ### Task 3: Stretch Problems
 
-To work on the stretch problems you'll need to enable the `cors` middleware. Follow these steps:
+Be careful not to _break MVP_ while working on these Stretch goals! If in doubt create a new branch.
+
+You'll need to enable the `cors` middleware:
 
 - add the `cors` npm module: `npm i cors`.
 - add `server.use(cors())` after `server.use(express.json())`.
