@@ -2,11 +2,11 @@
 const Person = require('./users/model');
 const express = require("express");
 const server = express();
-
+const CORS = require('cors')
 
 server.use(express.json());
 
-
+server.use(CORS())
 server.post("/api/users", async (req, res) => {
   const person = req.body;
   if (!person.name || !person.bio) {
