@@ -11,11 +11,26 @@ server.post("/server/user", async (req,res)=>{
     }else {
         try {
             const newUser = await User.create(user)
-            res.status(201).json(user)
+            res.status(201).json(newUser)
         } catch (error){
             res.status(500).json({message: "There was an error while saving the user to the database"})
         }
     }
+})
+
+server.get("/server/user/:id", (req,res)=>{
+    const id = req.params
+    User.findById(id)
+    .then(user => {
+      user ? res.status(200).json(user) : res.status(404).json({message: `The user with the specifiec ${id} does not exist`})
+    })
+    .catch(error => {
+        res.status(500).json({message: "The user information could not be retrieved"})
+    })
+})
+
+server.get("/server/user", (req,res)=>{
+    res.status(500).json({message: "The users infomation could not be retrieved"})
 })
 
 module.exports = {server}; // EXPORT YOUR SERVER instead of {}
