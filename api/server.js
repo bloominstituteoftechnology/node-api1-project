@@ -32,8 +32,16 @@ app.post('/users', async (req, res) =>{
     if(!name || !bio){
         res.status(400).json({message: 'Name and bio are required'})
     } else{
-        const newUser = {id: generate(), name, bio}
-        res.status(200).json(newUser)
+        dbFunctions.insert({name, bio})
+        .then((newUser) =>{
+            res.status(200).json(newUser)
+        })
+        .catch(() =>{
+            res.status(500).json({message: 'Could not add user'})
+
+        })
+        
+        
     }
 })
 
