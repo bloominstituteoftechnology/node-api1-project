@@ -56,7 +56,7 @@ app.put('/users/:id', async(req, res) =>{
             } else{
                 try{
                     dbFunctions.update(id, {name, bio})
-                    const updatedUser = await dbFunctions.update(id, {name, bio})
+                    const updatedUser = await dbFunctions.update({name, bio}, id )
                     if(updatedUser) {
                         res.status(200).json(updatedUser)
                     } else{
