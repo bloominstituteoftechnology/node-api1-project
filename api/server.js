@@ -1,5 +1,6 @@
 // BUILD YOUR SERVER HERE
 const express = require('express');
+const { generate } = require('shortid');
 const dbFunctions = require('./users/model')
 
 const app = express();
@@ -26,7 +27,15 @@ app.get('/users/:id', (req, res) =>{
     )
 })
 
-app.post
+app.post('/users', async (req, res) =>{
+    const {name, bio} = req.body
+    if(!name || !bio){
+        res.status(400).json({message: 'Name and bio are required'})
+    } else{
+        const newUser = {id: generate(), name, bio}
+        res.status(200).json(newUser)
+    }
+})
 
 
 
