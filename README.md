@@ -22,10 +22,10 @@ There are two possible ways to submit your project. Your instructor should have 
 
 #### Option B - Pull Request
 
-- [ ] Fork and clone the repository.
-- [ ] Implement your project in a `firstname-lastname` branch.
-- [ ] Create a pull request of `firstname-lastname` against your `main` branch.
-- [ ] Open the assignment in Canvas and submit your pull request.
+- [x] Fork and clone the repository.
+- [x] Implement your project in a `firstname-lastname` branch.
+- [x] Create a pull request of `firstname-lastname` against your `main` branch.
+- [x] Open the assignment in Canvas and submit your pull request.
 
 ### Task 2: Minimum Viable Product
 
@@ -65,7 +65,7 @@ You can find them inside `api/users/model.js`. All of these functions return Pro
 - `findById` Takes an `id` and resolves to the user with that id (or null if the id does not exist).
 - `insert` Takes a new user `{ name, bio }` and resolves to the the newly created user `{ id, name, bio }`.
 - `update` Takes an `id` and an existing user `{ name, bio }` and resolves the updated user `{ id, name, bio}` (or null if the id does not exist).
-- `remove` Takes an `id`  and resolves to the deleted user `{ id, name, bio }`.
+- `remove` Takes an `id` and resolves to the deleted user `{ id, name, bio }`.
 
 #### Endpoint Specifications
 
