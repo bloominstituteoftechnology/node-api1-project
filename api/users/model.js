@@ -29,7 +29,7 @@ const insert = ({ name, bio }) => {
   // INSERT INTO users (name, bio) VALUES ('foo', 'bar');
   const newUser = { id: shortid.generate(), name, bio }
   users.push(newUser)
-  return Promise.resolve(newUser)
+  Promise.resolve(newUser)
 }
 
 const update = (id, changes) => {
