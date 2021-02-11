@@ -1,6 +1,7 @@
 // DO NOT MAKE CHANGES TO THIS FILE
 // DO NOT MAKE CHANGES TO THIS FILE
 // DO NOT MAKE CHANGES TO THIS FILE
+
 const shortid = require('shortid')
 
 const initializeUsers = () => ([
