@@ -14,6 +14,9 @@ server.post("/users",(req, res)=>{
         name:req.body.name,
         bio:req.body.bio,
     })
+    if(!req.body.name || !req.body.bio){
+        res.status(400).json({message:"Please provide name and bio for the user"})
+    }
     res.status(201).json(newUser)
 })
 server.get ("/users", (req, res)=>{
@@ -34,6 +37,27 @@ server.get ("/users/:id", (req, res)=>{
     })
     .catch(()=>{
         res.status(500).json({message:"The user information could not be retrieved"})
+        
+    })
+})
+server.delete("/users/:id", (req, res)=>{
+    const users = db.remove(req.params.id)
+    users.then((user)=>{
+        if(req.params.id){res.json(user)}
+        else{res.status(404).json({message:"The user with the specified id does not exist"})}
+    })
+    .catch(()=>{
+        res.status(500).json({message:"The user could not be removed"})
+        
+    })
+})
+server.put("/users/:id", (req, res)=>{
+    const users = db.update(req.params.id,req.body)
+    users.then((user)=>{
+        
+    })
+    .catch(()=>{
+        res.status(500).json({message:"The user could not be removed"})
         
     })
 })
