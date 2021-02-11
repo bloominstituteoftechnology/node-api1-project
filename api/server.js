@@ -15,7 +15,16 @@ server.get('/', (req,res)=>{
 
 server.route('/api/users')
 .get( (req,res)=>{
- res.json(db.find())
+    
+db.find()
+//.exec()
+.then((result)=>{
+    if(result){
+        res.json(result)
+    }else{
+        res.status(404).json({msg:"no user found"})
+    }
+})
 })
 .post((req,res)=>{
 if(req.body.name || req.body.bio){
