@@ -101,7 +101,7 @@ When the client makes a `GET` request to `/api/users/:id`:
 
 - If there's an error in retrieving the _user_ from the database:
   - respond with HTTP status code `500`.
-  - return the following JSON object: `{ message: "The user information could not be retrieved" }`.
+  - return the following JSON object: `{ message: "The user information could not be retrieved" }`.req.body.name, req
 
 When the client makes a `DELETE` request to `/api/users/:id`:
 
