@@ -29,9 +29,8 @@ There are two possible ways to submit your project. Your instructor should have 
 
 ### Task 2: Minimum Viable Product
 
-Use Node.js and Express to build an API that performs CRUD operations on users.
-
-- Add a `server` script to the `package.json` that runs the API using `nodemon`.
+- [x] Use Node.js and Express to build an API that performs CRUD operations on users.
+- [x] Add a `server` script to the `package.json` that runs the API using `nodemon`.
 
 ### Write endpoints
 
