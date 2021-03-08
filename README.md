@@ -21,7 +21,7 @@ There are two possible ways to submit your project. Your instructor should have 
 - [ ] Check to see that Codegrade has accepted your git submssion.
 
 #### Option B - Pull Request
-
+Small change to submit initial.
 - [ ] Fork and clone the repository.
 - [ ] Implement your project in a `firstname-lastname` branch.
 - [ ] Create a pull request of `firstname-lastname` against your `main` branch.
