@@ -60,7 +60,20 @@ server.get("/api/users/:id", async (req, res) => {
 
 // DELETE	/api/users/:id	Removes the user with the specified id and
 // returns the deleted user.
-
+server.delete("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.remove(id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: "bad id" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: err });
+  }
+});
 // PUT	/api/users/:id	Updates the user with the specified id using data from the request body. Returns the modified user
 
 // Each User resource should conform to the following structure (AKA schema):
