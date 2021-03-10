@@ -22,10 +22,10 @@ There are two possible ways to submit your project. Your instructor should have 
 
 #### Option B - Pull Request
 
-- [ ] Fork and clone the repository.
-- [ ] Implement your project in a `firstname-lastname` branch.
-- [ ] Create a pull request of `firstname-lastname` against your `main` branch.
-- [ ] Open the assignment in Canvas and submit your pull request.
+- [Done] Fork and clone the repository.
+- [Done] Implement your project in a `firstname-lastname` branch.
+- [Done] Create a pull request of `firstname-lastname` against your `main` branch.
+- [Done] Open the assignment in Canvas and submit your pull request.
 
 ### Task 2: Minimum Viable Product
 
