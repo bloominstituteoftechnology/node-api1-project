@@ -43,6 +43,21 @@ server.get("/api/users", async (req, res) => {
 
 // GET	/api/users/:id	Returns the user object with the specified id.
 
+server.get("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: "bad id" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: err });
+  }
+});
+
 // DELETE	/api/users/:id	Removes the user with the specified id and
 // returns the deleted user.
 
