@@ -16,7 +16,7 @@ server.get("/", (req, res) => {
 // POST	/api/users	Creates a user using the information sent inside the request body.
 server.post("/api/users", async (req, res) => {
   const user = req.body;
-  console.log("USER CONSOLE", user);
+  //   console.log("USER CONSOLE", user);
   if (!user.name || !user.bio) {
     res.status(400).json({ message: "name and bio required" });
   } else {
@@ -31,7 +31,15 @@ server.post("/api/users", async (req, res) => {
 });
 
 // GET	/api/users	Returns an array users.
-server.get("/api/users", (req, res) => {});
+server.get("/api/users", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err });
+  }
+});
 
 // GET	/api/users/:id	Returns the user object with the specified id.
 
