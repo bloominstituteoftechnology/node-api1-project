@@ -18,14 +18,18 @@ server.post("/api/users", async (req, res) => {
   const user = req.body;
   //   console.log("USER CONSOLE", user);
   if (!user.name || !user.bio) {
-    res.status(400).json({ message: "name and bio required" });
+    res
+      .status(400)
+      .json({ message: "Please provide name and bio for the user" });
   } else {
     try {
       const newUser = await User.insert(user);
-      res.status(200).json(newUser);
+      res.status(201).json(newUser);
     } catch (err) {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        message: "There was an error while saving the user to the database",
+      });
     }
   }
 });
@@ -37,7 +41,9 @@ server.get("/api/users", async (req, res) => {
     res.json(users);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: err });
+    res
+      .status(500)
+      .json({ message: "The users information could not be retrieved" });
   }
 });
 
@@ -50,11 +56,15 @@ server.get("/api/users/:id", async (req, res) => {
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ message: "bad id" });
+      res
+        .status(404)
+        .json({ message: "The user with the specified ID does not exist" });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: err });
+    res
+      .status(500)
+      .json({ message: "The user information could not be retrieved" });
   }
 });
 
@@ -67,11 +77,13 @@ server.delete("/api/users/:id", async (req, res) => {
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ message: "bad id" });
+      res
+        .status(404)
+        .json({ message: "The user with the specified ID does not exist" });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: err });
+    res.status(500).json({ message: "The user could not be removed" });
   }
 });
 // PUT	/api/users/:id	Updates the user with the specified id using data from the request body. Returns the modified user
@@ -80,16 +92,26 @@ server.put("/api/users/:id", async (req, res) => {
   const { id } = req.params;
   const user = req.body;
 
-  try {
-    const updatedUser = await User.update(id, user);
-    if (updatedUser) {
-      res.json(updatedUser);
-    } else {
-      res.status(404).json({ message: "bad id" });
+  if (!user.name || !user.bio) {
+    res
+      .status(400)
+      .json({ message: "Please provide name and bio for the user" });
+  } else {
+    try {
+      const updatedUser = await User.update(id, user);
+      if (updatedUser) {
+        res.status(200).json(updatedUser);
+      } else {
+        res
+          .status(404)
+          .json({ message: "The user with the specified ID does not exist" });
+      }
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ message: "The user information could not be modified" });
     }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: err });
   }
 });
 // Each User resource should conform to the following structure (AKA schema):
