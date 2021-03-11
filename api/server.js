@@ -7,7 +7,7 @@ const express = require('express');
 
 // INSTANCE OF EXPRESS APP
 const server = express();
-const Dog = require('./dog-model.js')
+const User = require('./users/model')
 
 // GLOBAL MIDDLEWARE// request goes through this function before anything else
 server.use(express.json());
@@ -25,104 +25,104 @@ server.get('/',(req,res) =>{
     res.json({hello:'world'});
 })
 
-// [GET] /api/dogs/:id (R of CRUD, fetch dog by :id)
-server.get('/api/dogs/:id', async (req,res) =>{
+// [GET] /api/users/:id (R of CRUD, fetch user by :id)
+server.get('/api/user/:id', async (req,res) =>{
     const {id} =req.params;
     try {
-        const dog = await Dog.findById(id)
-        if (dog) {
-            res.json(dog)
+        const user = await User.findById(id)
+        if (user) {
+            res.json(user)
         }
         else{
             res.status(404).json({messsage: 'bad id'})
         }
-        res.json(dog)
+        res.json(user)
     } catch (err) {
         console.log(err)
         res.status(500).json({error:err})
     }
 })
 
-// [GET] /api/dogs (R of CRUD, fetch all dogs)
+// [GET] /api/users (R of CRUD, fetch all users)
 
-server.get('/api/dogs', async(req,res) =>{
+server.get('/api/user', async(req,res) =>{
     try {
-        const dogs = await Dog.findAll()
-        res.json(dogs);
+        const users = await User.find()
+        res.json(users);
     } catch (err) {
         console.log(err)
-        res.status(500).json({error:err})
+        res.status(500).json({ message: "The users information could not be retrieved" })
     }
 })
 
-// [POST] /api/dogs (C of CRUD, create new dog from JSON payload)
-server.post('/api/dogs', async (req,res) =>{
-    const dog =req.body;
-    // console.log(dog)
-    if(!dog.name || !dog.weight){ //validation 
-        res.status(400).json({message:'name and weight required'})
+// [POST] /api/users (C of CRUD, create new user from JSON payload)
+server.post('/api/user', async (req,res) =>{
+    const user =req.body;
+    // console.log(user)
+    if(!user.name || !user.bio){ //validation 
+        res.status(400).json({message:'name and bio required'})
     } else{
         try {
-            const newDog = await Dog.create(dog);//this returns a promise and we await that and the result is the newDog object
-            res.status(200).json(newDog)
+            const newUser = await User.insert(user);//this returns a promise and we await that and the result is the newUser object
+            res.status(201).json(newUser)
         } catch (err) {
             console.log(err,'error')
-            res.status(500).json({error:err});
+            res.status(500).json({ message: "There was an error while saving the user to the database" });
         }    
     }
 })
-// [PUT] /api/dogs/:id (U of CRUD, update dog with :id using JSON payload)
+// [PUT] /api/users/:id (U of CRUD, update user with :id using JSON payload)
 
-server.put('/api/dogs/:id', async (req,res) =>{
+server.put('/api/user/:id', async (req,res) =>{
     const {id} = req.params;
-    const dog = req.body;
+    const user = req.body;
 
     try{
-        const updatedDog = await Dog.update(id,dog);
-        if(updatedDog){
-            res.json(updatedDog)
+        const updatedUser = await User.update(id,user);
+        if(updatedUser){
+            res.json(updatedUser)
         }else{
-            res.status(404).json({message: "bad id"})
+            res.status(404).json({ message: "The user with the specified ID does not exist" })
         }
     }catch(err){
         console.log(err,'error')
-        res.status(500).json({error:err});
+        res.status(500).json({ error: "The user information could not be modified" });
     }
     
 })
 
-server.patch('/api/dogs/:id', async (req,res) =>{
+server.patch('/api/user/:id', async (req,res) =>{
     const {id} = req.params;
-    const dog = req.body;
+    const user = req.body;
 
     try{
-        const updatedDog = await Dog.modify(id,dog);
-        if(updatedDog){
-            res.json(updatedDog)
+        const updatedUser = await User.modify(id,user);
+        if(updatedUser){
+            res.json(updatedUser)
         }else{
-            res.status(404).json({message: "bad id"})
+            res.status(404).json({ message: "The user with the specified ID does not exist" })
         }
     }catch(err){
         console.log(err,'error')
-        res.status(500).json({error:err});
+        res.status(500).json({ error: "The user with the specified ID does not exist" });
     }
     
 })
 
-// [DELETE] /api/dogs/:id (D of CRUD, remove dog with :id)
-server.delete('/api/dogs/:id', async(req,res) =>{
+// [DELETE] /api/users/:id (D of CRUD, remove user with :id)
+server.delete('/api/user/:id', async(req,res) =>{
     const{id} =req.params;
     try {
-        const dog = await Dog.delete(id)
-        if(dog){
-            res.json(dog);
+        const user = await User.remove(id)
+        if(user){
+            res.json(user);
         }
         else{
-            res.status(404).json({message: "bad id"})
+            res.status(404).json({ message: "The user with the specified ID does not exist" })
         }
     } catch (err) {
         console.log(err,'error')
-        res.status(500).json({error:err});
+        res.status(500).json({ message: "The user could not be removed" });
     }
 })
 // EXPOSING THE SERVER TO OTHER MODULES
