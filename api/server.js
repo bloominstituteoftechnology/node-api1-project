@@ -45,7 +45,7 @@ server.get(`/api/users/:id`, async (req, res) => {
     const {id} = req.params;
 
     try {
-        const user = await  User.findById(id);
+        const user = await User.findById(id);
 
         if (id !== user.id) {
             res.status(404).json({ message: "The user with the specified ID does not exist" });
@@ -58,6 +58,24 @@ server.get(`/api/users/:id`, async (req, res) => {
     };
 });
 
+
+//DELETE User by id
+server.delete(`/api/users/:id`, async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        const user = await User.remove(id);
+
+        if (id !== user) {
+            res.status(404).json({ message: "The user with the specified ID does not exist" });
+        } else {
+            res.json(user);
+        };
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "The user could not be removed" });
+    };
+});
 
 
 
