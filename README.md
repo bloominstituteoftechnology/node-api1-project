@@ -14,10 +14,10 @@ There are two possible ways to submit your project. Your instructor should have 
 
 #### Option A - Codegrade
 
-- [ ] Fork and clone the repository.
-- [ ] Open the assignment in Canvas and click on the "Set up git" option.
-- [ ] Follow instructions to set up Codegrade's Webhook and Deploy Key.
-- [ ] Push your first commit: `git commit --allow-empty -m "first commit" && git push`.
+- [x] Fork and clone the repository.
+- [x] Open the assignment in Canvas and click on the "Set up git" option.
+- [x] Follow instructions to set up Codegrade's Webhook and Deploy Key.
+- [x] Push your first commit: `git commit --allow-empty -m "first commit" && git push`.
 - [ ] Check to see that Codegrade has accepted your git submssion.
 
 #### Option B - Pull Request
@@ -31,7 +31,7 @@ There are two possible ways to submit your project. Your instructor should have 
 
 Use Node.js and Express to build an API that performs CRUD operations on users.
 
-- Add a `server` script to the `package.json` that runs the API using `nodemon`.
+- Add a `server` script to the `package.json` that runs the API using `nodemon`. DONE
 
 ### Write endpoints
 
