@@ -1,5 +1,5 @@
 const request = require('supertest')
-const server = require('./api/server')
+const {server} = require('./api/server')
 const User = require('./api/users/model')
 
 it('sanity check', () => {
