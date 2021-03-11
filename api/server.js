@@ -1,14 +1,16 @@
 // BUILD YOUR SERVER HERE
 const express = require('express');
 const User = require('./users/model');
+const bodyParser = require('body-parser');
+
 
 const server = express();
 
 server.use(express.json());
 
 
-// POST
-server.post("http://localhost:5000/api/users ", async (req, res) => {
+// POST a User
+server.post("/api/users/", async (req, res) => {
     const user = req.body;
 
     if( !user.name || !user.bio ) {
@@ -26,7 +28,7 @@ server.post("http://localhost:5000/api/users ", async (req, res) => {
 });
 
 
-//GET
+//GET all Users
 server.get('/', async (req, res) => {
     try {
         const users = await User.find();
@@ -34,6 +36,20 @@ server.get('/', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "The users information could not be retrieved" });
+    };
+});
+
+
+//GET User by id
+server.get(`/api/users/:id`, async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        const user = await  User.findById();
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(404).json({ message: "The user with the specified ID does not exist" });
     };
 });
 
