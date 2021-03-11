@@ -4,8 +4,11 @@ const User = require('./users/model');
 
 const server = express();
 
+server.use(express.json());
 
-server.post("/api/users", async (req, res) => {
+
+// POST
+server.post("http://localhost:5000/api/users ", async (req, res) => {
     const user = req.body;
 
     if( !user.name || !user.bio ) {
@@ -21,5 +24,20 @@ server.post("/api/users", async (req, res) => {
         };
     };
 });
+
+
+//GET
+server.get('/', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "The users information could not be retrieved" });
+    };
+});
+
+
+
 
 module.exports = server; // EXPORT YOUR SERVER instead of {}
