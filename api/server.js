@@ -49,6 +49,47 @@ server.get('/api/users', async (req, res) => {
 
 //| GET    | /api/users/:id | Returns the user object with the specified `id`.        
 
+server.get('/api/users/:id', async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        const user = await User.findById(id);
+        res.json(user)
+    }
+
+        catch (err) {
+            res.status(500).json({ error: err.message})
+
+    }
+
+})
+
+
+//| DELETE | /api/users/:id | Removes the user with the specified `id` 
+//and returns the deleted user.    
+
+server.delete('/api/users/:id', async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        const user = await User.remove(id);
+        if (user) {
+            res.status(200).json(user);
+            
+        } else {
+            res.status(404).json({message: 'bad id'})
+            
+        }
+        
+    }
+
+        catch (err) {
+            res.status(500).json({ error: err.message})
+
+    }
+
+})
+
 
 
 
