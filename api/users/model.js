@@ -32,6 +32,15 @@ const insert = ({ name, bio }) => {
   return Promise.resolve(newUser)
 }
 
+
+
+
+
+
+
+
+
+
 const update = (id, changes) => {
   // UPDATE users SET name = 'foo', bio = 'bar WHERE id = 1;
   const user = users.find(user => user.id === id)
@@ -41,6 +50,14 @@ const update = (id, changes) => {
   users = users.map(d => (d.id === id) ? updatedUser : d)
   return Promise.resolve(updatedUser)
 }
+
+
+
+
+
+
+
+
 
 const remove = id => {
   // DELETE FROM users WHERE id = 1;
