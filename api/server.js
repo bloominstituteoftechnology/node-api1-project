@@ -24,7 +24,7 @@ server.post('/api/users', async (req, res) => {
          
         else {
             try {
-                const newUser = await User.create(user);
+                const newUser = await User.insert(user);
                 res.status(200).json(newUser);
             } catch (err) {
                 res.status(500).json({error: err.message });
@@ -36,9 +36,18 @@ server.post('/api/users', async (req, res) => {
 // | Returns an array users.     
 
 server.get('/api/users', async (req, res) => {
-
+    
+    try {
+        const users = await User.find();
+        res.status(200).json(users)
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message})
+    }
 })
 
+
+//| GET    | /api/users/:id | Returns the user object with the specified `id`.        
 
 
 
