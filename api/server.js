@@ -90,7 +90,26 @@ server.delete('/api/users/:id', async (req, res) => {
 
 })
 
+//| PUT    | /api/users/:id | Updates the user with the specified 
+//`id` using data from the `request body`. Returns the modified user |
 
+server.put('/api/users/:id', async (req, res) => {
+    const { id } = req.params;
+    const  user= req.body;
 
+    try {
+        const updatedUser = await User.update(id, user);
+        if (updatedUser) {
+            res.json(updatedUser);
+
+        }else{
+            res.status(404).json({message: "bda id"});
+        }
+    } catch (err) {
+        res.status(500).json({error:err})
+    }
+})
+
+   
 
 module.exports = server; // EXPORT YOUR SERVER instead of {}
