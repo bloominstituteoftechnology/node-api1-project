@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "server": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
   },
   "devDependencies": {
