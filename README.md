@@ -51,7 +51,7 @@ Each User _resource_ should conform to the following structure (AKA schema):
 
 ```js
 {
-  id: "a_unique_id", // String, hint: use the installed `shortid` npm package to generate it
+  id: "a_unique_id", // String, required
   name: "Jane Doe",  // String, required
   bio: "Having fun", // String, required
 }
