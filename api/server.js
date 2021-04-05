@@ -24,7 +24,7 @@ server.get('/api/users/:id', async (req,res)=>{
         const {id} = req.params
         const user = await Users.findById(id)
         if(!user){
-            res.status(422).json('user does not exist')
+            res.status(404).json('user does not exist')
         }
         else{
             res.status(200).json(user)
@@ -66,7 +66,7 @@ server.put('/api/users/:id', async (req,res)=>{
         else{
             const upUser = await Users.update(id, incoming)
             if(!upUser){
-                res.status(422).json('User does not exist')
+                res.status(404).json('User does not exist')
             }
             else{
                 res.status(202).json(upUser)
@@ -86,7 +86,7 @@ server.delete('/api/users/:id', async (req,res)=>{
         const deleteUser = await Users.remove(id)
 
         if(!deleteUser){
-            res.status(422).json('User does not exist')
+            res.status(404).json('User does not exist')
         }
         else{
             res.status(200).json(deleteUser)
