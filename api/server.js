@@ -9,6 +9,22 @@ server.use(express.json())
 
 // | POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
 // server.post('/api/users', (req,res)=>{
+server.post('/api/users', (req,res)=>{
+    const newUser = req.body
+
+    if(!newUser.name || !newUser.bio){
+        res.status(404).json("Please add a name and bio.")
+    }else{
+        Users.insert(newUser)
+        .then(users=>{
+            res.status(201).json(users)
+        })
+        .catch(err=>{
+            res.status(500).json({message: err.message})
+        })
+    }
+})
+
 
 // })
 // | GET    | /api/users     | Returns an array users.  
@@ -27,7 +43,12 @@ server.get('/api/users/:id',(req,res)=>{
 
     Users.findById(id)
     .then(users=>{
-        res.status(200).json(users)
+        if(!users){
+            res.status(404).json("User not found")
+        }else{
+            res.status(200).json(users)
+        }
+        
     })
     .catch(err=>{
         res.status(500).json({message: err.message})
@@ -35,6 +56,16 @@ server.get('/api/users/:id',(req,res)=>{
 })
 // | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
 // | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
+server.put('/api/users/:id', (req,res)=>{
+    Users.update()
+    .then(users=>{
+
+    })
+    .catch(err=>{
+        res.status(500).json({message: err.message})
+    })
+})
+
 
 //CATCH ALL
 server.use("*",(req,res)=>{
