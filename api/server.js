@@ -54,16 +54,43 @@ server.get('/api/users/:id',(req,res)=>{
         res.status(500).json({message: err.message})
     })
 })
-// | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
+// | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.  
+server.delete('/api/users/:id', async (req,res)=>{
+   
+   try{
+    const {id} = req.params
+    const deletedUser = await Users.remove(id)
+    if(!deletedUser){
+        res.status(422).json("User doesn't exist.")
+    }else{
+        res.status(201).json(deletedUser)
+    }
+   }catch(err){
+    res.status(500).json({message: err.message})
+   }
+
+
+})
+
 // | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
 server.put('/api/users/:id',async(req,res)=>{
     const {id} = req.params
     const changes = req.body
     try{
-        const updatedUser = await Users.update(id, changes)
-        res.status(201).json(updatedUser)
-    }catch{
-        // res.status(500).json({message: err.message})
+        if(!changes.name || !changes.bio){
+            res.status(422).json("Name and weight required.")
+        }else{
+            const updatedUser = await Users.update(id, changes)
+            if(!updatedUser){
+                res.status(422).json("User doesn't exist.")
+            }else{
+                res.status(201).json(updatedUser)
+            }
+            
+        }
+        
+    }catch(err){
+        res.status(500).json({message: err.message})
     }
     
     
