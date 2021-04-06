@@ -56,14 +56,24 @@ server.get('/api/users/:id',(req,res)=>{
 })
 // | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
 // | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
-server.put('/api/users/:id', (req,res)=>{
-    Users.update()
-    .then(users=>{
+server.put('/api/users/:id',async(req,res)=>{
+    const {id} = req.params
+    const changes = req.body
+    try{
+        const updatedUser = await Users.update(id, changes)
+        res.status(201).json(updatedUser)
+    }catch{
+        // res.status(500).json({message: err.message})
+    }
+    
+    
+    // Users.update()
+    // .then(users=>{
 
-    })
-    .catch(err=>{
-        res.status(500).json({message: err.message})
-    })
+    // })
+    // .catch(err=>{
+    //     res.status(500).json({message: err.message})
+    // })
 })
 
 
