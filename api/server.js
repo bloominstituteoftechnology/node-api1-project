@@ -5,13 +5,13 @@ const server = express()
 
 server.use(express.json())
 
-server.get("/api/users", (req, res) => {
-    const users = db.find()
+server.get("/api/users", async (req, res) => {
+    const users = await db.find()
     res.json(users)
 })
 
-server.get("/api/users/:id", (req, res) => {
-    const user = db.findById(req.params.id)
+server.get("/api/users/:id", async (req, res) => {
+    const user = await db.findById(req.params.id)
     if(user) {
         res.json(user)
     } else {
@@ -21,27 +21,36 @@ server.get("/api/users/:id", (req, res) => {
     }
 })
 
-server.post("/api/users", (req, res) => {
-    const newUser = db.insert({
+server.post("/api/users", async (req, res) => {
+    const newUser = await db.insert({
         id: req.body.id,
         name: req.body.name,
         bio: req.body.bio
     })
-    // if(newUser) {
-    //     res.json(user)
-    // } else {
-    //     res.status(404).json({
-    //         message: "user not found"
-    //     })
-    // }
-    res.json(newUser)
+    
+    if(newUser) {
+        res.json(newUser)
+        res.status(201)
+    } else if(!newUser.name || !newUser.bio){
+        res.status(400).json({
+            message: "Please provide name and bio for the user"
+        })
+    } else if(!newUser.name || !newUser.bio){
+        res.status(400).json({
+            message: "Please provide name and bio for the user"
+        })
+    } else {
+        res.status(500).json({
+            message: "There was an error while saving the user to the database"
+        })
+    }
 })
 
-server.delete("/api/users/:id", (req, res) => {
-    const user = db.findById(req.params.id)
+server.delete("/api/users/:id", async (req, res) => {
+    const user = await db.findById(req.params.id)
 
 	if (user) {
-		db.remove(user.id)
+		db.remove(user)
 		res.status(204).end()
 	} else {
 		res.status(404).json({
@@ -50,13 +59,14 @@ server.delete("/api/users/:id", (req, res) => {
 	}
 })
 
-server.put("/api/users/:id", (req, res) => {
-    const user = db.findById(req.params.id)
+server.put("/api/users/:id", async (req, res) => {
+    const user = await db.findById(req.params.id)
 
 	if (user) {
 		const updatedUser = db.update(user.id, {
 			// use a fallback value so we don't accidentally set it to empty
 			name: req.body.name || user.name,
+            bio: req.body.bio || user.bio
 		})
 		res.json(updatedUser)
 	} else {
