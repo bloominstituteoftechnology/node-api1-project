@@ -34,8 +34,8 @@ server.get("/api/users/:id", async (req, res) => {
     }
 })
 
-server.post("/api/users", async (req, res) => {
-    const newUser = await db.insert({
+server.post("/api/users", (req, res) => {
+    const newUser = db.insert({
         id: req.body.id,
         name: req.body.name,
         bio: req.body.bio
@@ -63,7 +63,7 @@ server.delete("/api/users/:id", async (req, res) => {
     const user = await db.findById(req.params.id)
 
 	if (user) {
-		db.remove(user)
+		db.remove(user.id)
 		res.status(204).end()
     } else if(!user.id){
         res.status(404).json({
