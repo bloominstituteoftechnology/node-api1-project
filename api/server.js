@@ -7,6 +7,7 @@ server.use(express.json())
 
 server.get("/api/users", async (req, res) => {
     const users = await db.find()
+
     if(users) {
         res.json(users)
     } else {
@@ -19,6 +20,7 @@ server.get("/api/users", async (req, res) => {
 
 server.get("/api/users/:id", async (req, res) => {
     const user = await db.findById(req.params.id)
+
     if(user) {
         res.json(user)
     } else if(!user.id) {
@@ -63,11 +65,15 @@ server.delete("/api/users/:id", async (req, res) => {
 	if (user) {
 		db.remove(user)
 		res.status(204).end()
-	} else {
-		res.status(404).json({
-			message: "user not found",
-		})
-	}
+    } else if(!user.id){
+        res.status(404).json({
+            message: "The user with the specified ID does not exist"
+        })
+    } else {
+        res.status(500).json({
+            message: "The user could not be removed"
+        })
+    }
 })
 
 server.put("/api/users/:id", async (req, res) => {
