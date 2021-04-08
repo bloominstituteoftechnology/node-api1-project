@@ -21,9 +21,13 @@ server.get("/api/users/:id", async (req, res) => {
     const user = await db.findById(req.params.id)
     if(user) {
         res.json(user)
-    } else {
+    } else if(!user.id) {
         res.status(404).json({
-            message: "user not found"
+            message: "The user with the specified ID does not exist"
+        })
+    } else {
+        res.status(500).json({
+            message: "The user information could not be retrieved"
         })
     }
 })
