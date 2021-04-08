@@ -43,7 +43,7 @@ server.post("/api/users", async (req, res) => {
     
     if(newUser) {
         res.json(newUser)
-        res.status(201)
+        res.status(201).end()
     } else if(!newUser.name || !newUser.bio){
         res.status(400).json({
             message: "Please provide name and bio for the user"
@@ -86,11 +86,20 @@ server.put("/api/users/:id", async (req, res) => {
             bio: req.body.bio || user.bio
 		})
 		res.json(updatedUser)
-	} else {
-		res.status(404).json({
-			message: "user not found",
-		})
-	}
+        res.status(200).end()
+    } else if(!user.id){
+        res.status(404).json({
+            message: "The user with the specified ID does not exist"
+        })
+    } else if(!user.name || !user.bio){
+        res.status(400).json({
+            message: "Please provide name and bio for the user"
+        })
+    } else {
+        res.status(500).json({
+            message: "The user information could not be modified"
+        })
+    }
 })
 
 module.exports = server
