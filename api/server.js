@@ -7,6 +7,13 @@ server.use(express.json())
 
 server.get("/api/users", async (req, res) => {
     const users = await db.find()
+    if(users) {
+        res.json(users)
+    } else {
+        res.status(500).json({
+            message: "The users information could not be retrieved"
+        })
+    }
     res.json(users)
 })
 
