@@ -22,8 +22,8 @@ There are two possible ways to submit your project. Your instructor should have 
 
 #### Option B - Pull Request
 
-- [ ] Fork and clone the repository.
-- [ ] Implement your project in a `firstname-lastname` branch.
+- [x] Fork and clone the repository.
+- [x] Implement your project in a `firstname-lastname` branch.
 - [ ] Create a pull request of `firstname-lastname` against your `main` branch.
 - [ ] Open the assignment in Canvas and submit your pull request.
 
@@ -69,7 +69,7 @@ You can find them inside `api/users/model.js`. All of these functions return Pro
 
 #### Endpoint Specifications
 
-When the client makes a `POST` request to `/api/users`:
+****When the client makes a `POST` request to `/api/users`:
 
 - If the request body is missing the `name` or `bio` property:
 
@@ -86,13 +86,13 @@ When the client makes a `POST` request to `/api/users`:
   - respond with HTTP status code `500` (Server Error).
   - return the following JSON object: `{ message: "There was an error while saving the user to the database" }`.
 
-When the client makes a `GET` request to `/api/users`:
+****When the client makes a `GET` request to `/api/users`:
 
 - If there's an error in retrieving the _users_ from the database:
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ message: "The users information could not be retrieved" }`.
 
-When the client makes a `GET` request to `/api/users/:id`:
+****When the client makes a `GET` request to `/api/users/:id`:
 
 - If the _user_ with the specified `id` is not found:
 
@@ -103,7 +103,7 @@ When the client makes a `GET` request to `/api/users/:id`:
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ message: "The user information could not be retrieved" }`.
 
-When the client makes a `DELETE` request to `/api/users/:id`:
+****When the client makes a `DELETE` request to `/api/users/:id`:
 
 - If the _user_ with the specified `id` is not found:
 
@@ -114,7 +114,7 @@ When the client makes a `DELETE` request to `/api/users/:id`:
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ message: "The user could not be removed" }`.
 
-When the client makes a `PUT` request to `/api/users/:id`:
+****When the client makes a `PUT` request to `/api/users/:id`:
 
 - If the _user_ with the specified `id` is not found:
 
