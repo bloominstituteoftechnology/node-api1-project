@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "server": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
   },
   "devDependencies": {
@@ -15,10 +16,19 @@
     "supertest": "^6.1.3"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
     "shortid": "^2.2.16"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/node-api1-project.git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/LambdaSchool/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/LambdaSchool/node-api1-project#readme",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
