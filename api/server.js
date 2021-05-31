@@ -1,6 +1,7 @@
 // BUILD YOUR SERVER HERE
 
 const express = require('express');
+const cors = require('cors');
 const users = require('./users/model');
 
 // INSTANCE OF EXPRESS APP
@@ -10,6 +11,7 @@ const server = express();
 // GLOBAL MIDDLEWARE
 
 server.use(express.json());
+server.use(cors());
 
 // ENDPOINTS
 
