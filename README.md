@@ -14,7 +14,7 @@ There are two possible ways to submit your project. Your instructor should have 
 
 #### Option A - Codegrade
 
-- [ ] Fork and clone the repository.
+- [*] Fork and clone the repository.
 - [ ] Open the assignment in Canvas and click on the "Set up git" option.
 - [ ] Follow instructions to set up Codegrade's Webhook and Deploy Key.
 - [ ] Push your first commit: `git commit --allow-empty -m "first commit" && git push`.
@@ -22,16 +22,35 @@ There are two possible ways to submit your project. Your instructor should have 
 
 #### Option B - Pull Request
 
-- [ ] Fork and clone the repository.
-- [ ] Implement your project in a `firstname-lastname` branch.
-- [ ] Create a pull request of `firstname-lastname` against your `main` branch.
-- [ ] Open the assignment in Canvas and submit your pull request.
+- [*] Fork and clone the repository.
+- [*] Implement your project in a `firstname-lastname` branch.
+- [*] Create a pull request of `firstname-lastname` against your `main` branch.
+- [*] Open the assignment in Canvas and submit your pull request.
 
 ### Task 2: Minimum Viable Product
 
 Use Node.js and Express to build an API that performs CRUD operations on users.
 
 - Add a `server` script to the `package.json` that runs the API using `nodemon`.
+
+npm i -D nodeman
+npm i express
+add "server": "nodemon index.js", under start in scripts package.json
+control L cleans terminal
+npm start 
+console log hey
+npm run server
+npm run test - press a to run all tests
+
+index.js server.listen(port, () => {
+    console.log('listening on', port)
+})
+
+look in model for endpoint info model exports 
+
+build server.js
+
+
 
 ### Write endpoints
 
