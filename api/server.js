@@ -45,15 +45,30 @@ server.get("/api/users/:id", (req, res) => {
 
 server.post('/api/users', (req, res) => {
     const newUser = req.body
-    User.insert(newUser)
-    .then(user => {
-        res.status(201).json(user)
-    })
-    .catch(err => {
-        res.status(500).json({message: err.message})
-    })
+    if(!newUser.name || !newUser.bio){
+        res.status(422).json("needs name and bio")
+    } else {
+        User.insert(newUser)
+        .then(user => {
+            res.status(201).json(user)
+        })
+        .catch(err => {
+            res.status(500).json({message: err.message})
+        })
+    }
 })
 
+server.put("/api/users/:id", async (req, res) => {
+    const { id } = req.params
+    const changes = req.body
+    try {
+        const updatedUser = await User.update(id, changes)
+        res.status(200).json(updatedUser)
+    } catch(err){
+        res.status(500).json({message: err.message})
+    }
+
+})
 
 
  // EXPORT YOUR SERVER instead of {}
