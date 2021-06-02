@@ -27,6 +27,17 @@ server.get("/api/users", (req, res) => {
     })
 })
 
+server.get("/api/users/:id", (req, res) => {
+    const idVar = req.params.id
+    User.findById(idVar)
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        res.status(500).json({message: err})
+    })
+})
+
 
 
  // EXPORT YOUR SERVER instead of {}
