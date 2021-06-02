@@ -48,6 +48,7 @@ const remove = id => {
   if (!user) return Promise.resolve(null)
 
   users = users.filter(d => d.id !== id)
+  console.log("remove fired:", users)
   return Promise.resolve(user)
 }
 
