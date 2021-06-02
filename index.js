@@ -1,6 +1,6 @@
-const server = require('./api/server');
-
+const server = require('./api/server.js');
 const port = 5000;
 
-// START YOUR SERVER HERE
-console.log('script added successfully!')
+server.listen(port, () => {
+    console.log("server is running on 5000")
+})
