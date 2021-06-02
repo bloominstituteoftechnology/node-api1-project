@@ -31,10 +31,26 @@ server.get("/api/users/:id", (req, res) => {
     const idVar = req.params.id
     User.findById(idVar)
     .then(user => {
+        if(!user){
+            res.status(404).json("User does not exist")
+        } else {
+            res.json(user)
+        }
         res.json(user)
     })
     .catch(err => {
         res.status(500).json({message: err})
+    })
+})
+
+server.post('/api/users', (req, res) => {
+    const newUser = req.body
+    User.insert(newUser)
+    .then(user => {
+        res.status(201).json(user)
+    })
+    .catch(err => {
+        res.status(500).json({message: err.message})
     })
 })
 
