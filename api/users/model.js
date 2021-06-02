@@ -6,6 +6,7 @@ const shortid = require('shortid')
 const initializeUsers = () => ([
   { id: shortid.generate(), name: 'Ed Carter', bio: 'hero' },
   { id: shortid.generate(), name: 'Mary Edwards', bio: 'super hero' },
+  {id: shortid.generate(), name: 'Cody', bio: 'super duper'}
 ])
 
 // FAKE IN-MEMORY USERS "TABLE"
