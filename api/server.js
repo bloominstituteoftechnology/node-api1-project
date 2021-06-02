@@ -62,12 +62,30 @@ server.put("/api/users/:id", async (req, res) => {
     const { id } = req.params
     const changes = req.body
     try {
-        const updatedUser = await User.update(id, changes)
-        res.status(200).json(updatedUser)
+        if(!changes.name || !changes.bio){
+            res.status(422).json("Please add both name and bio")
+        } else {
+            const updatedUser = await User.update(id, changes)
+            if(!updatedUser){
+                res.status(404).json("User does not exist")
+            } else {
+                res.status(200).json(updatedUser)
+            }
+        }
     } catch(err){
         res.status(500).json({message: err.message})
     }
 
+})
+
+server.delete("/api/users/:id", async (req, res) =>{
+    try{
+        const { id } = req.params
+        const deletedUser = await User.remove(id)
+        res.status(200).json(deletedUser)
+    } catch(err){
+        res.status(500).json({message: err.message})
+    }
 })
 
 
