@@ -6,10 +6,11 @@ const server = require('./api/server');
 const port = 5000;
 
 // START YOUR SERVER HERE
-/*
-server.listen(1234, ()=>{
-    console.log("Server running on 1234")
-})*/ 
+
+server.listen(5000, ()=>{
+    console.log("Server running on 5000")
+})
+
 
 
 //server - has the CRUD get, post, put, delete

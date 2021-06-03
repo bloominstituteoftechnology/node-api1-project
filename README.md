@@ -69,7 +69,7 @@ You can find them inside `api/users/model.js`. All of these functions return Pro
 
 #### Endpoint Specifications
 
-When the client makes a `POST` request to `/api/users`:
+[x]When the client makes a `POST` request to `/api/users`:
 
 - If the request body is missing the `name` or `bio` property:
 
