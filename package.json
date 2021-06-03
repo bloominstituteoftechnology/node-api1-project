@@ -4,8 +4,9 @@
   "description": "Node API 1 Project Code",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
+
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
@@ -20,5 +21,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/node-api1-project.git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/LambdaSchool/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/LambdaSchool/node-api1-project#readme",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
