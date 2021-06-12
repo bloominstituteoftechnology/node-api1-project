@@ -15,8 +15,8 @@ let hubs = [
   },
 ];
 
-server.get("/", (req, res) => {
-  res.send(Date.now());
+server.get("/test", (req, res) => {
+  res.json({ API: "server is running and working.." });
 });
 
 //C -- CREATE POST
