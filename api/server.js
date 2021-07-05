@@ -40,13 +40,26 @@ server.get('/api/users/:id', (req, res) => {
         })
  })
 
-//  - respond with HTTP status code `404` (Not Found).
-//  - return the following JSON object: `{ message: "The user with the specified ID does not exist" }`.
-
-// [POST]
-// server.post('/api/users', (req, res) => {
-//     console.log("hitting POST request")
-// })
+// [POST] /api/users -> 
+server.post('/api/users', (req, res) => {
+    // console.log("hitting POST request")
+    if (!req.body.name || !req.body.bio) {
+        res.status(400).json({
+            message: "Please provide name and bio for the user"
+        })
+    } else {
+        const { name, bio } = req.body
+        User.insert({ name, bio })
+            .then(user => {
+                res.status(201).json(user)
+            })
+            .catch(err => {
+                res.status(500).json({
+                    message: "There was an error while saving the user to the database"
+                })
+            })
+    }
+})
 
 // [PUT]
 
