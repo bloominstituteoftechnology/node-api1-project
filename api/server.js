@@ -42,7 +42,6 @@ server.get('/api/users/:id', (req, res) => {
 
 // [POST] /api/users -> create new user
 server.post('/api/users', (req, res) => {
-    // console.log("hitting POST request")
     if (!req.body.name || !req.body.bio) {
         res.status(400).json({
             message: "Please provide name and bio for the user"
@@ -63,7 +62,6 @@ server.post('/api/users', (req, res) => {
 
 // [PUT] /api/users/:id -> update specified user by id
 server.put('/api/users/:id', (req, res) => {
-// console.log("PUT request connected")
     const { id } = req.params
     const { name, bio } = req.body
     if (!name || !bio) {
@@ -89,29 +87,24 @@ server.put('/api/users/:id', (req, res) => {
     }
 })
 
-// update()
-
 // [DELETE] /api/users/:id -> delete specified user by id
 server.delete('/api/users/:id', (req, res) => {
-    // console.log("DELETE request connected")
-    const { id } = req.params
-
-    if (!id) {
-        res.status(404).json({
-            message: "The user with the specified ID does not exist"
-        })
-    } else {
-        User.remove(id)
-            .then(user => {
-                res.status(201).json(user)
-            })
-            .catch(err => {
-                res.status(500).json({
-                    message: "The user could not be removed"
+    const id = req.params.id
+    User.remove(id)
+        .then(user => {
+            if (!user) {
+                res.status(404).json({
+                    message: "The user with the specified ID does not exist"
                 })
+            } else {
+                res.status(201).json(user)
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: "The user could not be removed"
             })
-    }
+        })
 })
-
 
 module.exports = server; // EXPORT YOUR SERVER instead of {}
