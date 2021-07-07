@@ -39,7 +39,8 @@ Add the code necessary in `index.js` and `api/server.js` to create a Web API and
 
 | Method | URL | Description
 
-| POST   | /api/users     | Creates a user using the information sent inside the `request body`.      
+| POST   | /api/users     | Creates a user using the information sent inside the `request body`.  
+
 | GET    | /api/users     | Returns an array users.                                                                               
 | GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       
 | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 
@@ -78,13 +79,13 @@ When the client makes a `POST` request to `/api/users`:
 
 - If the information about the _user_ is valid:
 
-  - save the new _user_ the the database.
+  - save the new _user_ to the database.
   - respond with HTTP status code `201` (Created).
   - return the newly created _user document_ including its id.
 
 - If there's an error while saving the _user_:
   - respond with HTTP status code `500` (Server Error).
-  - return the following JSON object: `{ message: "There was an error while saving the user to the database" }`.
+  - return the following JSON object: `{ message: "There was an error " }`. Or similar
 
 When the client makes a `GET` request to `/api/users`:
 
