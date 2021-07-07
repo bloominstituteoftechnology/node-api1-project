@@ -28,7 +28,7 @@ server.get('/api/users', (req, res) => { //R of CRUD, read
             error: err.message
         })
         )
-})
+}) 
 
 server.get('/api/users/:id', async (req, res) => { //R of CRUD, read
     const {id} = req.params
