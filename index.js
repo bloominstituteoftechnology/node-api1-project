@@ -68,6 +68,21 @@ app.put("/heroes", (req, res) => {
   }
 });
 
+app.delete("/heroes/:id", (req, res) => {
+  const idVar = req.params.id;
+  try {
+    throw "ERROR ERROR ERROR";
+    if (!heroes.find((heroes) => heroes.id === idVar)) {
+      res.status(404).json({ message: ` Heroes with id: ${idVar} not found` });
+    } else {
+      heroes = heroes.filter((heroes) => heroes.id !== idvar);
+      res.status(200).json({ message: `Hero:: ${idVar} was deleted` });
+    }
+  } catch (e) {
+    res.status(500).json({ message: `Server error: ${e}` });
+  }
+});
+
 // 404 always in the last place
 //------------------------------
 app.use("*", (req, res) => {
