@@ -52,9 +52,25 @@ app.post("/heroes", (req, res) => {
   console.log(name, bio);
 });
 
+app.put("/heroes", (req, res) => {
+  const id = req.params.id;
+  const { name, bio } = req.body;
+  const indexOfHero = heroes.findIndex((heroes) => heroes.id === id);
+  try {
+    if (indexOfHero != -1) {
+      heroes[indexOfHero] = { idVar, name, bio };
+      res.status(200).json({ id, name, bio });
+    } else {
+      res.status(404).jdon({ message: `no heroes with id: ${id}` });
+    }
+  } catch (e) {
+    res.status(500).json({ message: `Server error ${e}` });
+  }
+});
+
 // 404 always in the last place
 //------------------------------
-app.get("*", (req, res) => {
+app.use("*", (req, res) => {
   res.status(404).json({ message: "404 Not found )*:" });
 });
 
