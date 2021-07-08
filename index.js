@@ -39,6 +39,21 @@ app.get("/heroes/:id", (req, res) => {
     res.status(200).json(emp);
   }
 });
+
+app.post("/heroes", (req, res) => {
+  const { name, bio } = req.body;
+  if (!name || !bio) {
+    res.status(400).json({ message: "Name and bio are required" });
+  } else {
+    const newHero = { id: generate().name, bio };
+    heroes.push(newHero);
+    res.status(201).json(newHero);
+  }
+  console.log(name, bio);
+});
+
+// 404 always in the last place
+//------------------------------
 app.get("*", (req, res) => {
   res.status(404).json({ message: "404 Not found )*:" });
 });
