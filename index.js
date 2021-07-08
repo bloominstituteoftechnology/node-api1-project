@@ -6,7 +6,7 @@ app.use(express.json());
 
 const PORT = 1234;
 
-let office = [
+let heroes = [
   { id: generate(), name: "Ed Carter", bio: "hero" },
   { id: generate(), name: "Mary Edwards", bio: "super hero" },
 ];
@@ -25,10 +25,20 @@ app.get((req, res) => {
   res.status("new status");
 });
 
-app.get("/users", (req, res) => {
-  res.status(200).json(office);
+app.get("/heroes", (req, res) => {
+  res.status(200).json(heroes);
 });
 
+app.get("/heroes/:id", (req, res) => {
+  const idVar = req.params.id;
+  //   res.json(idVar);
+  const emp = heroes.find((heroes) => heroes.id === idVar);
+  if (!emp) {
+    res.status(404).json({ message: `ID: ${idVar} does not exist` });
+  } else {
+    res.status(200).json(emp);
+  }
+});
 app.get("*", (req, res) => {
   res.status(404).json({ message: "404 Not found )*:" });
 });
