@@ -55,10 +55,40 @@ server.get("/api/users/:id", (req,res)=>{
 })
 
 //[DELETE] /api/users/:id | Removes the user with the specified `id` and returns the deleted user
-
+server.delete("/api/users/:id", (req,res)=>{
+    try{
+        const {id}= req.params
+        const removeUser = await Users.remove(id)
+        if(!removeUser){
+            res.status(404).json({ message: "The user with the specified ID does not exist" })
+        }else{
+            res.status(201).json(removeUser)
+        }        
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
 
 //[PUT] /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user 
 
+server.put("/api/users/:id", async (req,res) =>{
+    const {id} = req.params
+    const changes = req.body
+    try{
+        if(!changes.name || !changes.bio){
+            res.status(400).json({ message: "Please provide name and bio for the user" })
+        }else{
+            const updatedUser = await Users.update(id, changes)
+            if(!updatedUser){
+                res.status(404).json({message:"The user with the specified ID does not exist"})
+            }else{
+                res.status(200).json(updatedUser)
+            }
+        }
+    }catch(err){
+        res.status(500).json({message:err.message})
+    }
+})
 
 // [GET] / Hello World endpoint must go at the bottom.
 //"*" works with any request
