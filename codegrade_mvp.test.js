@@ -125,16 +125,17 @@ describe('server.js', () => {
         expect(res.body.message).toMatch(/does not exist/)
       }, 750)
       test('[15] responds with the correct message & status code on validation problem', async () => {
+        let [user] = await User.find()
         let updates = { name: 'xxx' }
-        let res = await request(server).put('/api/users/foobar').send(updates)
+        let res = await request(server).put(`/api/users/${user.id}`).send(updates)
         expect(res.status).toBe(400)
         expect(res.body.message).toMatch(/provide name and bio/)
         updates = { bio: 'zzz' }
-        res = await request(server).put('/api/users/foobar').send(updates)
+        res = await request(server).put(`/api/users/${user.id}`).send(updates)
         expect(res.status).toBe(400)
         expect(res.body.message).toMatch(/provide name and bio/)
         updates = {}
-        res = await request(server).put('/api/users/foobar').send(updates)
+        res = await request(server).put(`/api/users/${user.id}`).send(updates)
         expect(res.status).toBe(400)
         expect(res.body.message).toMatch(/provide name and bio/)
       }, 750)
