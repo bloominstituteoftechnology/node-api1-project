@@ -57,7 +57,7 @@ server.get("/api/users/:id", (req,res)=>{
 //[DELETE] /api/users/:id | Removes the user with the specified `id` and returns the deleted user
 server.delete("/api/users/:id", (req,res)=>{
     try{
-        const {id}= req.params
+        const {id} = req.params
         const removeUser = await Users.remove(id)
         if(!removeUser){
             res.status(404).json({ message: "The user with the specified ID does not exist" })
