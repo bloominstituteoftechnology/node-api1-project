@@ -4,8 +4,8 @@
   "description": "## Introduction",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env DB_ENV=testing jest --watch",
-    "server": "cross-env NODE_ENV=development nodemon require dotenv/config index.js",
+    "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand --silent",
+    "server": "cross-env NODE_ENV=development nodemon --require dotenv/config index.js",
     "start": "node index.js",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run"

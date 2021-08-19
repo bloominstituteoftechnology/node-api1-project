@@ -1,106 +1,115 @@
-const express = require("express");
-const shortid = require("shortid");
+const server = require("./api/server");
 
-//create an express server instance
-const server = express();
-
-//middleware
-server.use(express.json());
-
-let hubs = [
-  {
-    id: 1,
-    name: "rigo",
-    bio: "",
-  },
-];
-
-server.get("/", (req, res) => {
-  res.send(Date.now());
+//PORT 5000
+const PORT = process.env.PORT || 8000;
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}...*****`);
 });
 
-//C -- CREATE POST
-//R - READ GET
-//U - UPDATE PUT
-//D - DELETE DELETE
+// const express = require("express");
 
-// create
-server.post("/api/hubs", (req, res) => {
-  const newPost = req.body;
-  newPost.id = shortid.generate();
-  hubs.push(newPost);
+// const shortid = require("shortid");
 
-  res.status(201).json(newPost);
-});
+// //create an express server instance
+// const server = express();
 
-// read
-server.get("/api/hubs", (req, res) => {
-  if (hubs) {
-    res.status(200).json(hubs);
-  } else {
-    res
-      .status(500)
-      .json({ errorMessage: "the user is not found / could not be retrieved" });
-  }
-});
+// //middleware
+// server.use(express.json());
 
-//read by ID
-server.get("/api/hubs/:id", (req, res) => {
-  const id = req.params.id;
+// let hubs = [
+//   {
+//     id: 1,
+//     name: "rigo",
+//     bio: "",
+//   },
+// ];
 
-  const found = hubs.find((item) => item.id === id);
-  if (found) {
-    // hubs = hubs.filter((item) => item.id !== id);
-    res.status(200).json(found);
-  } else {
-    res.status(404).json({ message: "user with ID not found" });
-  }
-});
+// server.get("/", (req, res) => {
+//   res.send(Date.now());
+// });
 
-//delete
-server.delete("/api/hubs/:id", (req, res) => {
-  const id = req.params.id;
+// //C -- CREATE POST
+// //R - READ GET
+// //U - UPDATE PUT
+// //D - DELETE DELETE
 
-  const deleted = hubs.find((item) => item.id === id);
-  if (deleted) {
-    hubs = hubs.filter((item) => item.id !== id);
-    res.status(200).json(deleted);
-  } else {
-    res.status(404).json({ message: "id not found" });
-  }
-});
+// // create
+// server.post("/api/hubs", (req, res) => {
+//   const newPost = req.body;
+//   newPost.id = shortid.generate();
+//   hubs.push(newPost);
 
-//PATCH
-server.patch("/api/hubs/:id", (req, res) => {
-  //
-  const { id } = req.params;
-  const changes = req.body;
+//   res.status(201).json(newPost);
+// });
 
-  let found = hubs.find((item) => item.id === id);
-  if (found) {
-    Object.assign(found, changes);
-    res.status(200).json(found);
-  } else {
-    res.status(404).json({ message: "id not found" });
-  }
-});
+// // read
+// server.get("/api/hubs", (req, res) => {
+//   if (hubs) {
+//     res.status(200).json(hubs);
+//   } else {
+//     res
+//       .status(500)
+//       .json({ errorMessage: "the user is not found / could not be retrieved" });
+//   }
+// });
 
-//UPDATE
-server.put("/api/hubs/:id", (req, res) => {
-  const { id } = req.params;
-  const changes = req.body;
-  changes.id = id;
+// //read by ID
+// server.get("/api/hubs/:id", (req, res) => {
+//   const id = req.params.id;
 
-  let index = hubs.findIndex((item) => item.id === id);
+//   const found = hubs.find((item) => item.id === id);
+//   if (found) {
+//     // hubs = hubs.filter((item) => item.id !== id);
+//     res.status(200).json(found);
+//   } else {
+//     res.status(404).json({ message: "user with ID not found" });
+//   }
+// });
 
-  if (index !== -1) {
-    hubs[index] = changes;
-    res.status(200).json(hubs[index]);
-  } else {
-    res.status(404).json({ message: "id not found" });
-  }
-});
+// //delete
+// server.delete("/api/hubs/:id", (req, res) => {
+//   const id = req.params.id;
 
-server.listen(8000, () => {
-  console.log(`server is listening on port`, 8000);
-});
+//   const deleted = hubs.find((item) => item.id === id);
+//   if (deleted) {
+//     hubs = hubs.filter((item) => item.id !== id);
+//     res.status(200).json(deleted);
+//   } else {
+//     res.status(404).json({ message: "id not found" });
+//   }
+// });
+
+// //PATCH
+// server.patch("/api/hubs/:id", (req, res) => {
+//   //
+//   const { id } = req.params;
+//   const changes = req.body;
+
+//   let found = hubs.find((item) => item.id === id);
+//   if (found) {
+//     Object.assign(found, changes);
+//     res.status(200).json(found);
+//   } else {
+//     res.status(404).json({ message: "id not found" });
+//   }
+// });
+
+// //UPDATE
+// server.put("/api/hubs/:id", (req, res) => {
+//   const { id } = req.params;
+//   const changes = req.body;
+//   changes.id = id;
+
+//   let index = hubs.findIndex((item) => item.id === id);
+
+//   if (index !== -1) {
+//     hubs[index] = changes;
+//     res.status(200).json(hubs[index]);
+//   } else {
+//     res.status(404).json({ message: "id not found" });
+//   }
+// });
+
+// server.listen(8000, () => {
+//   console.log(`server is listening on port`, 8000);
+// });
