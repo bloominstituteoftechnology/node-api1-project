@@ -22,8 +22,30 @@ router.post("/register", (req, res, next) => {
 //LOGIN
 router.post("/login", (req, res, next) => {
   const credentials = req.body;
+  Users.loginUser({ username: credentials.username })
+    .then((user) => {
+      req.session.user = user;
+      if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        res.json({ message: `welcome ${credentials.username} have a cookie!` });
+      } else {
+        res.json({ message: "no access, invalid login credentials" });
+      }
+    })
+    .catch((err) => next(err));
 });
 
 //LOGOUT
+router.get("/logout", (req, res, next) => {
+  console.log("loging out session.....");
+  if (req.session) {
+    req.session.destroy((err) => {
+      err
+        ? res.json({ message: "you cant logout yet" })
+        : res.json({ message: "logged out" });
+    });
+  } else {
+    res.json({ message: "this user doesn't even exist at all" });
+  }
+});
 
 module.exports = router;
