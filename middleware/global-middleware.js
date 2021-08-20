@@ -17,3 +17,13 @@ function getById() {
     });
   };
 }
+
+function restrictedUser() {
+  return (req, res, next) => {
+    if (req.session && req.session.user) {
+      next();
+    } else {
+      res.json({ message: "please validate login and try again" });
+    }
+  };
+}
