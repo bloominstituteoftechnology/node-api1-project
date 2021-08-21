@@ -12,4 +12,16 @@ router.get("/:id", getById(), (req, res, next) => {
   res.json(req.user);
 });
 
+router.get("/:id/powers", (req, res, next) => {
+  const { id } = req.params;
+  Users.getUserPowers(id)
+    .then((userPowers) => {
+      userPowers.map((item) => {
+        return (item.power = Boolean(item.power));
+      });
+      res.json(userPowers);
+    })
+    .catch((err) => next(err));
+});
+
 module.exports = router;
