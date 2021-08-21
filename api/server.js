@@ -33,9 +33,11 @@ server.use(express.json(), helmet(), cors(), session(sessionConfig));
 //IMPORT ROUTERS
 const userRouter = require("../users/users-router");
 const authRouter = require("../auth/auth-router");
+const powersRouter = require("../powers/powers-router");
 
 //Server endpoints ------->
 server.use("/api/users", restrictedUser(), userRouter);
+server.use("/api/powers", powersRouter);
 server.use("/api/auth", authRouter);
 
 //middleware for CATCH ERROR on all endpoints of /api/messages
