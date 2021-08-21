@@ -4,15 +4,14 @@ exports.up = function (knex) {
       .integer("user_id")
       .unsigned()
       .notNull()
-      .references("users.id") // ||.inTable("users")
+      .references("users.id")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     tbl
       .integer("power_id")
       .unsigned()
       .notNull()
-      .references("powers.id") // ||.inTable("classes")
-      .onDelete("CASCADE")
+      .references("powers.id")
       .onUpdate("CASCADE");
     tbl.primary(["user_id", "power_id"]);
   });
