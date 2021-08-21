@@ -24,4 +24,19 @@ router.get("/:id/powers", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.post("/:id/powers", async (req, res, next) => {
+  const { id } = req.params;
+  const powersBody = req.body;
+  let userID = await Users.getById(id);
+  Users.postUserPowers(powersBody, id)
+    .then((power) => {
+      console.log("power------>", power, powersBody, userID);
+      res.json([
+        { message: `powers post #${power} on user ${userID.username}` },
+        { powersBody },
+      ]);
+    })
+    .catch((err) => next(err));
+});
+
 module.exports = router;
