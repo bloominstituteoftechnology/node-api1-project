@@ -6,7 +6,7 @@ const server = express();
 
 server.use(express.json());
 
-// CRUD OP's POST
+// CRUD OP's POST New User
 server.post("/api/users", (req, res) => {
   const user = req.body;
   if (!user.name || !user.bio) {
@@ -28,7 +28,7 @@ server.post("/api/users", (req, res) => {
   }
 });
 
-// CRUD OP's GET All
+// CRUD OP's GET All Users
 server.get("/api/users", (req, res) => {
   User.find()
     .then((users) => {
@@ -43,7 +43,7 @@ server.get("/api/users", (req, res) => {
     });
 });
 
-// CRUD OP's GET by ID:
+// CRUD OP's GET Users by id:
 server.get("/api/users/:id", (req, res) => {
   User.findById(req.params.id)
     .then((user) => {
@@ -59,10 +59,26 @@ server.get("/api/users/:id", (req, res) => {
         stack: err.stack,
       });
     });
-  if (!user) {
-    res.status(404).json({ message: `user ID does not exist` });
-  } else {
-    res.status(200).json(user);
+});
+
+// CRUD OP's DELETE User
+server.delete("/api/users/:id", async (req, res) => {
+  try {
+    const possibleUser = await User.findById(req.params.id);
+    if (!possibleUser) {
+      res.status(404).json({
+        message: "The user with the specified ID does not exist",
+      });
+    } else {
+      const deleteUser = await User.remove(possibleUser.id);
+      res.status(200).json(deleteUser);
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: "error creating user",
+      err: err.message,
+      stack: err.stack,
+    });
   }
 });
 
