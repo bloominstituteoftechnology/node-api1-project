@@ -6,7 +6,7 @@ const server = express();
 
 server.use(express.json());
 
-// CRUD Op's
+// CRUD OP's POST
 server.post("/api/users", (req, res) => {
   const user = req.body;
   if (!user.name || !user.bio) {
@@ -26,6 +26,21 @@ server.post("/api/users", (req, res) => {
         });
       });
   }
+});
+
+// CRUD OP's GET
+server.get("/api/users", (req, res) => {
+  User.find()
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "this is bad",
+        err: err.message,
+        stack: err.stack,
+      });
+    });
 });
 
 server.use("*", (req, res) => {
