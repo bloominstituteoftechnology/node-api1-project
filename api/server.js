@@ -2,7 +2,33 @@
 
 const express = require('express')
 const User = require('./users/model')
+
 const server = express()
+server.use(express.json())
+
+
+server.post('/api/users', (req, res) => {
+    const user = req.body
+    if (!user.name || !user.bio) {
+        res.status(422).json({
+            message: "Please provide name and bio for the user"
+        })
+    } else {
+    User.insert(user)
+        .then(createdUser => {
+            console.log(createdUser)
+            res.status(201).json(createdUser)
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: "The users information could not be retrieved",
+                err: err.message,
+                stack: err.stack
+            })
+        })
+    }
+
+})
 
 
 server.get('/api/users', (req,res) => {
