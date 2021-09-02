@@ -28,6 +28,23 @@ server.get('/api/users', (req, res) => {
 
 })
 
+// [post] create a new user
+server.post("/api/users", (req,res)=>{
+    const newUser = req.body
+    if(!newUser.name || !newUser.bio){
+        res.status(422).json({message:"Name and bio are required"})
+    }else{
+        Users.insert(newUser)
+        .then(user=>{
+            res.json(user)
+        })
+        .catch(err=>{
+            res.status(500).json({message:err.message})
+        })
+    }
+})
+
+
 // START YOUR SERVER HERE
 server.listen(port, () => {
     console.log(`server running on http://localhost${port}`)
