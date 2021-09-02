@@ -1,12 +1,17 @@
 // BUILD YOUR SERVER HERE
 const express = require("express");
+const cors = require("cors");
 const User = require("./users/model");
-
+// const app = require("express");
 const server = express();
 
 server.use(express.json());
+server.use(cors());
 
-// CRUD OP's POST New User
+server.get("/api", (req, res) => {
+  res.json({ message: "Hello from server!" });
+});
+// CRUD OP's POST (create new user)
 server.post("/api/users", (req, res) => {
   const user = req.body;
   if (!user.name || !user.bio) {
@@ -28,7 +33,7 @@ server.post("/api/users", (req, res) => {
   }
 });
 
-// CRUD OP's GET All Users
+// CRUD OP's GET ( find users)
 server.get("/api/users", (req, res) => {
   User.find()
     .then((users) => {
@@ -76,6 +81,34 @@ server.delete("/api/users/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "error creating user",
+      err: err.message,
+      stack: err.stack,
+    });
+  }
+});
+
+// CRUD OP's PUT (Update User)
+server.put("/api/users/:id", async (req, res) => {
+  try {
+    const possibleUser = await User.findById(req.params.id);
+    if (!possibleUser) {
+      res.status(404).json({
+        message:
+          "Please provide name and bio, The user with the specified ID does not exist",
+      });
+    } else {
+      if (!req.body.name || !req.body.bio) {
+        res.status(400).json({
+          message: "Please provide name and bio",
+        });
+      } else {
+        const updateUser = await User.update(req.params.id, req.body);
+        res.status(200).json(updateUser);
+      }
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: "error updating user",
       err: err.message,
       stack: err.stack,
     });
