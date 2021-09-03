@@ -6,7 +6,7 @@ const User = require('./users/model')
 
 const server = express()
 server.use(express.json())
-
+ 
 
 server.put('/api/users/:id', async (req, res) => {
     try {
