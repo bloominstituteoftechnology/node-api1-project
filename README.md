@@ -10,7 +10,7 @@
 
 ### Task 1: Project Setup and Submission
 
-Your instructor should have communicated what submission method to use for this project during the Guided Project and in your cohort's Slack channel. If you are still unsure, reach out to Lambda Staff.
+Your assignment page on Canvas should contain instructions for submitting this project. If you are still unsure, reach out to Lambda Staff.
 
 ### Task 2: Minimum Viable Product
 
