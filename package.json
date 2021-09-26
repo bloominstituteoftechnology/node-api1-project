@@ -4,6 +4,7 @@
   "description": "Node API 1 Project Code",
   "main": "index.js",
   "scripts": {
+    "server": "nodemon index2.js",
     "start": "node index.js",
     "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
   },
