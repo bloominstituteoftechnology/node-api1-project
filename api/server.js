@@ -28,4 +28,37 @@ server.post('/api/users', async (req, res) => {
     }
 })
 
+//Get without ID
+server.get('/api/users', async (req, res) => {
+    try {
+        const users = await Users.find()
+        res.status(200).json(users)
+    } catch (err) {
+        res.status(500).json({
+            message: err.message,
+            customMessage: "The users information could not be retrieved"
+        })
+    }
+})
+
+//Get by ID
+server.get('/api/users/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        const users = await Users.findById(id)
+        if (!users) {
+            res.status(404).json({
+                message: "The user with the specified ID does not exist"
+            })
+        } else {
+            res.status(200).json(users)
+        }
+    } catch (err) {
+        res.status(500).json({
+            message: err.message,
+            customMessage: "The user information could not be retrieved"
+        })
+    }
+})
+
 module.exports = server; // EXPORT YOUR SERVER instead of {}
