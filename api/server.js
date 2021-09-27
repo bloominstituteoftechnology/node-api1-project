@@ -19,6 +19,17 @@ server.get('/users/:id', (req, res) => {
     res.json({ message: 'get user by id is working' })
 })
 
+server.post('/users', (req, res) =>{
+    res.json({ message: 'POST new dog working' })
+    
+})
 
+server.put('/users/:id', (req, res) => {
+    res.json({message: 'PUT update to existing user working!'})
+})
+
+server.delete('/users/:id', (req, res) =>{
+    res.json({message: `DELETE user with id ${req.params.id}`})
+})
 
 module.exports = server;
