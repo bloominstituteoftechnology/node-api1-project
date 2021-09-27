@@ -55,23 +55,43 @@ server.post('/api/users', async (req, res) => {
 })
 
 server.put('/api/users/:id', async (req, res) => {
-    // res.json({ message: 'PUT update to existing user working!' })
-
-})
-
-server.delete('/api/users/:id', async (req, res) => {
-    // res.json({ message: `DELETE user with id ${req.params.id}` })
     try {
-        const deleteUser = await User.remove(req.params.id)
-        // console.log(deleteUser);
-        if (!deleteUser) {
-            res.status(404).json({ message: "The user with the specified ID does not exist" })
-        } else { 
-            res.json(deleteUser)
+        const { name, bio } = req.body
+        const { id } = req.params
+        if (!name || !bio) {
+            res.status(400).json({ message: "Please provide name and bio for the user" })
+        } else {
+            const updateUser = await User.update(id, { name, bio })
+            if (updateUser === null) {
+                res.status(404).json({ message: "The user with the specified ID does not exist" })
+            } else {
+                // console.log(updateUser)
+                res.json(updateUser)
+            }
         }
     } catch (err) {
-        res.status(500).json({ message: "Please provide name and bio for the user" })
+        res.status(500).json({
+            message: err.message,
+            customMessage: 'something went wrong'
+        })
     }
 })
 
-module.exports = server;
+
+
+    server.delete('/api/users/:id', async (req, res) => {
+        // res.json({ message: `DELETE user with id ${req.params.id}` })
+        try {
+            const deleteUser = await User.remove(req.params.id)
+            // console.log(deleteUser);
+            if (!deleteUser) {
+                res.status(404).json({ message: "The user with the specified ID does not exist" })
+            } else {
+                res.json(deleteUser)
+            }
+        } catch (err) {
+            res.status(500).json({ message: "Please provide name and bio for the user" })
+        }
+    })
+
+    module.exports = server;
