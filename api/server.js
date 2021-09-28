@@ -93,6 +93,7 @@ server.get('/api/users', (req, res) => {
         })
     })
 })
+
 //grab by id 
 server.get('api/users/id', (req, res) => {
     User.findById(req.params.id) //grabs them by id ****
@@ -114,14 +115,11 @@ server.get('api/users/id', (req, res) => {
     })
 })
 
-
 server.use('*', (req, res) => {
     res.status(404).json({
         message: 'not found'
     })
 })
 
-
-
-module.exports = server; // EXPORT YOUR SERVER instead of {}
+module.exports = server // EXPORT YOUR SERVER instead of {}
  
