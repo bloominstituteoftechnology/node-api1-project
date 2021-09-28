@@ -77,8 +77,6 @@ server.put('/api/users/:id', async (req, res) => {
     }
 })
 
-
-
     server.delete('/api/users/:id', async (req, res) => {
         // res.json({ message: `DELETE user with id ${req.params.id}` })
         try {
@@ -95,3 +93,4 @@ server.put('/api/users/:id', async (req, res) => {
     })
 
     module.exports = server;
+    
