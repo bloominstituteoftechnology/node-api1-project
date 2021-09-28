@@ -5,7 +5,8 @@ const express = require('express')
 const User = require('./users/model') //***/ grab them from model **
 
 const server = express()
-server.user(express.json())// very critical to have this 
+
+server.use(express.json())// very critical to have this 
 
 //update 
 server.put('/api/users/:id', async (req, res) => {
@@ -32,7 +33,7 @@ server.put('/api/users/:id', async (req, res) => {
             stack: err.stack
         })
     }
-})
+}),
 
 //delete users 
 server.delete('/api/users/:id', async (req, res) => {
@@ -54,7 +55,7 @@ server.delete('/api/users/:id', async (req, res) => {
             stack: err.stack
         })
     }
-})
+}),
 
 //create a new user 
 server.post('/api/users', (req, res) => {
@@ -70,14 +71,14 @@ server.post('/api/users', (req, res) => {
         })
         .catch(err => {
             res.status(500).json({
-                message: 'err creating new user'
+                message: 'err creating new user',
                 err: err.message, 
                 stack: err.stack,
             })
         })
     }
    
-}
+},
 
 //grab users
 server.get('/api/users', (req, res) => {
@@ -92,7 +93,7 @@ server.get('/api/users', (req, res) => {
             err: err.message, 
         })
     })
-})
+}),
 
 //grab by id 
 server.get('api/users/id', (req, res) => {
@@ -103,23 +104,24 @@ server.get('api/users/id', (req, res) => {
             res.status(404).json({
                 message: 'The use with the ID does not exist',
             })
+        } else {
+            res.json(user)
         }
-        res.json(user)
     })
     .catch(err => {
         res.status(500).json({
-            message: 'error getting ids'
+            message: 'error getting ids',
             err: err.message, 
             stack: err.stack,
         })
     })
-})
+}),
 
 server.use('*', (req, res) => {
     res.status(404).json({
         message: 'not found'
     })
-})
+}),
 
-module.exports = server // EXPORT YOUR SERVER instead of {}
+module.exports = server;// EXPORT YOUR SERVER instead of {}
  
