@@ -20,6 +20,7 @@ let users = initializeUsers()
 // DATABASE ACCESS FUNCTIONS
 const find = () => {
   // SELECT * FROM users;
+  // console.log(users)
   return Promise.resolve(users)
 }
 
