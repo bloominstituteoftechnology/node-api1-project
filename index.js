@@ -1,5 +1,7 @@
-const server = require('./api/server');
+const server = require('./api/server.js');
 
 const port = 5000;
 
-// START YOUR SERVER HERE
+server.listen(1234,()=>{
+    console.log("server is live")
+})

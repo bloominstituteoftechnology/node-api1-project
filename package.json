@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "server": "nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
   },
   "devDependencies": {
@@ -12,6 +13,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "jest": "^26.6.3",
+    "nodemon": "^2.0.13",
     "supertest": "^6.1.4"
   },
   "repository": {
@@ -19,6 +21,7 @@
     "url": "git+https://github.com/LambdaSchool/node-api1-project.git"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "nanoid": "^3.1.28"
   }
 }
