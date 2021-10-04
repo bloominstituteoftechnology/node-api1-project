@@ -1,5 +1,6 @@
 // BUILD YOUR SERVER HERE
 // imports
+const e = require("express");
 const express = require("express");
 const Users = require("./users/model.js")
 // instance of express app
@@ -73,6 +74,22 @@ server.put("/api/users/:id",async (req, res) => {
         res.status(500).json({ message: "The user information could not be modified" })
     }
 })
+
+// [DELETE] /api/users/:id (D of CRUD, removes the user with the specified `id` and returns the deleted user)
+server.delete("/api/users/:id", async (req, res) => {
+    try{
+        const { id } = req.params
+        const deletedUser = await Users.remove(id)
+        if(!deletedUser){
+            res.status(404).json({ message: "The user with the specified ID does not exist" })
+        }else{
+            res.status(201).json(deletedUser)
+        }   
+    }catch(err){
+        res.status(500).json({ message: "The user could not be removed" })
+    }
+})
+
 
 // universal endpoint
 server.use("*", (req, res) => {
