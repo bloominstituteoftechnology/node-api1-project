@@ -17,7 +17,7 @@ server.get("/api/users", (req, res) => {
             res.status(200).json(users)
         })
         .catch(err => {
-            res.status(500).json({ message: "The users information could not be retrieved"})
+            res.status(500).json({ message: "The users information could not be retrieved" })
         })
 })
 
@@ -27,13 +27,13 @@ server.get("/api/dogs/:id", (req, res) => {
     Users.findById(idVar)
         .then(user => {
             if(!user){
-                res.status(400).json({ message: "The user with the specified ID does not exist"})
+                res.status(400).json({ message: "The user with the specified ID does not exist" })
             }else{
                 res.json(user)
             }
         })
         .catch(err => {
-            res.status(500).json({ message: "The user information could not be retrieved"})
+            res.status(500).json({ message: "The user information could not be retrieved" })
         })
 })
 
@@ -49,8 +49,28 @@ server.post("/api/users", (req, res) => {
             res.status(201)
         })
         .catch(err => {
-            res.status(500).json({ message: "There was an error while saving the user to the database"})
+            res.status(500).json({ message: "There was an error while saving the user to the database" })
         })
+    }
+})
+
+// [PUT] /api/users/:id (U of CRUD, updates the user with the specified id using data from the request body and returns the modified user)
+server.put("/api/users/:id",async (req, res) => {
+    const { id } = req.params
+    const changes = req.body
+    try{
+        if(!changes.name || !changes.bio){
+            res.status(400).json({ message: "Please provide name and bio for the user" })
+        }else{
+            const updatedUser = await Users.update(id, changes)
+            if(!updatedUser){
+                res.status(404).json({ message: "The user with the specified ID does not exist" })
+            }else{
+                res.status(200).json(updatedUser)
+            }
+        }        
+    }catch(err){
+        res.status(500).json({ message: "The user information could not be modified" })
     }
 })
 
