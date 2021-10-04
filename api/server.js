@@ -1,6 +1,5 @@
 // BUILD YOUR SERVER HERE
 // imports
-const e = require("express");
 const express = require("express");
 const Users = require("./users/model.js")
 // instance of express app
