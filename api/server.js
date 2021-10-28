@@ -14,11 +14,19 @@ server.use(express.json());
 // | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
 
 server.post("/api/users", (req, res) => {
-  res.send("POST to /api/users");
+  model.insert(req.body).then((newUser) => {
+    res.send(newUser)
+  })
 });
 
 server.get("/api/users", (req, res) => {
-  model.find().then((data) => res.send(data));
+  model
+    .find()
+    .then((data) => res.send(data))
+    .catch((err) => {
+      res.status(500);
+      res.render("error", { error: err });
+    });
 });
 
 server.get("/api/users/:id", (req, res) => {
