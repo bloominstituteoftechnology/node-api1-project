@@ -1,5 +1,7 @@
-const server = require('./api/server');
+const express = require("express");
+const server = express();
+const PORT = process.env.PORT || 5280;
 
-const port = 5000;
-
-// START YOUR SERVER HERE
+server.listen(PORT, () => {
+  console.log(`server running on port ${PORT}`);
+});
