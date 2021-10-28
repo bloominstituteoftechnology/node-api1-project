@@ -14,11 +14,13 @@ server.post("/api/users", (req, res) => {
     model
       .insert(req.body)
       .then((newUser) => {
-          res.status(201).send(newUser)
+        res.status(201).send(newUser);
       })
-      .catch((err) => {
+      .catch(() => {
         res.status(500);
-        res.render("error", { error: err });
+        res.send({
+          message: "There was an error while saving the user to the database",
+        });
       });
   }
 });
