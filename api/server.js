@@ -15,8 +15,8 @@ server.use(express.json());
 
 server.post("/api/users", (req, res) => {
   model.insert(req.body).then((newUser) => {
-    res.send(newUser)
-  })
+    res.send(newUser);
+  });
 });
 
 server.get("/api/users", (req, res) => {
@@ -29,8 +29,16 @@ server.get("/api/users", (req, res) => {
     });
 });
 
-server.get("/api/users/:id", (req, res) => {
-  res.send("GET to /api/users/:id");
+server.get(`/api/users/:id`, (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  model
+    .findById(id)
+    .then((user) => res.send(user))
+    .catch((err) => {
+      res.status(500);
+      res.render("error", { error: err });
+    });
 });
 
 server.delete("/api/users", (req, res) => {
