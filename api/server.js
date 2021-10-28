@@ -51,8 +51,17 @@ server.delete(`/api/users/:id`, (req, res) => {
     });
 });
 
-server.put("/api/users", (req, res) => {
-  res.send("PUT to /api/users/:id");
+server.put(`/api/users/:id`, (req, res) => {
+    const id = req.params.id;
+    console.log(`id: ${id}`)
+    console.log("request body: ", req.body)
+  model
+    .update(id, req.body)
+    .then((user) => res.send(user))
+    .catch((err) => {
+      res.status(500);
+      res.render("error", { error: err });
+    });
 });
 
 module.exports = server;
