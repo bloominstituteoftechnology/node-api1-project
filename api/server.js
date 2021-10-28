@@ -14,7 +14,7 @@ server.post("/api/users", (req, res) => {
     model
       .insert(req.body)
       .then((newUser) => {
-        res.send(newUser);
+          res.status(201).send(newUser)
       })
       .catch((err) => {
         res.status(500);
