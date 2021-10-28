@@ -44,7 +44,7 @@ server.get('/api/users/:id', (req, res) => {
 
 //Removes the user with the specified `id` and returns the deleted user.
 server.delete('/api/users/:id', (req, res) => {
-    users.delete(req.params.id)
+    users.remove(req.params.id)
         .then(user => {
             if (user) {
                 res.status(200).json(user)
