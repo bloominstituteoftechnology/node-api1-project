@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
+    "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand",
+    "server": "nodemon index.js"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.0.1",
     "jest": "^27.3.1",
+    "nodemon": "^2.0.14",
     "supertest": "^6.1.6"
   },
   "repository": {
@@ -19,6 +21,13 @@
     "url": "git+https://github.com/LambdaSchool/node-api1-project.git"
   },
   "dependencies": {
-    "nanoid": "^3.1.30"
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "morgan": "^1.10.0",
+    "nanoid": "^3.1.30",
+    "shortid": "^2.2.16"
   }
 }
