@@ -28,7 +28,7 @@ server.post("/api/users", (req, res) => {
 server.get("/api/users", (req, res) => {
   model
     .find()
-    .then((data) => res.send(data))
+    .then((data) => res.status(200).send(data))
     .catch(() => {
       res.status(500);
       res.send({ message: "The users information could not be retrieved" });
@@ -40,11 +40,11 @@ server.get(`/api/users/:id`, (req, res) => {
   model
     .findById(id)
     .then((user) => {
-      return user === undefined
+      return user === undefined || user === null
         ? res
             .status(404)
             .send({ message: "The user with the specified ID does not exist" })
-        : res.send(user);
+        : res.status(200).send(user);
     })
     .catch(() => {
       res.status(500);
@@ -57,11 +57,11 @@ server.delete(`/api/users/:id`, (req, res) => {
   model
     .remove(id)
     .then((user) => {
-      return user === undefined
+      return user === undefined || user === null
         ? res
             .status(404)
             .send({ message: "The user with the specified ID does not exist" })
-        : res.send(user);
+        : res.status(200).send(user);
     })
     .catch(() => {
       res.status(500);
@@ -71,20 +71,30 @@ server.delete(`/api/users/:id`, (req, res) => {
 
 server.put(`/api/users/:id`, (req, res) => {
   const id = req.params.id;
-  console.log(`id: ${id}`);
-  console.log("request body: ", req.body);
-  model
-    .update(id, req.body)
-    .then((user) => res.send(user))
-    .catch((err) => {
-      res.status(500);
-      res.render("error", { error: err });
-    });
+  if (!req.body.name || !req.body.bio) {
+    res
+      .status(400)
+      .send({ message: "Please provide name and bio for the user" });
+  } else {
+    model
+      .update(id, req.body)
+      .then((user) => {
+        return user === undefined || user === null
+          ? res.status(404).send({
+              message: "The user with the specified ID does not exist",
+            })
+          : res.status(200).send(user);
+      })
+      .catch(() => {
+        res.status(500);
+        res.send({ message: "The user information could not be modified" });
+      });
+  }
 });
 
 server.get("/reset", (req, res) => {
   model.resetDB();
-  res.send("server reset");
+  res.status(200).send("server reset");
 });
 
 module.exports = server;
