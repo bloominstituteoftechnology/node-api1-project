@@ -1,6 +1,6 @@
 const express = require("express");
 const server = express();
-
+const model = require("./users/model");
 require("colors");
 
 server.use(express.json());
@@ -18,7 +18,7 @@ server.post("/api/users", (req, res) => {
 });
 
 server.get("/api/users", (req, res) => {
-  res.send("GET to /api/users");
+  model.find().then((data) => res.send(data));
 });
 
 server.get("/api/users/:id", (req, res) => {
