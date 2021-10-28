@@ -5,18 +5,22 @@ require("colors");
 
 server.use(express.json());
 
-// | Method | URL            | Description                                                                                            |
-// | ------ | -------------- | ------------------------------------------------------------------------------------------------------ |
-// | POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
-// | GET    | /api/users     | Returns an array users.                                                                                |
-// | GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       |
-// | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
-// | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
-
 server.post("/api/users", (req, res) => {
-  model.insert(req.body).then((newUser) => {
-    res.send(newUser);
-  });
+  if (!req.body.name || !req.body.bio) {
+    res
+      .status(400)
+      .send({ message: "Please provide name and bio for the user" });
+  } else {
+    model
+      .insert(req.body)
+      .then((newUser) => {
+        res.send(newUser);
+      })
+      .catch((err) => {
+        res.status(500);
+        res.render("error", { error: err });
+      });
+  }
 });
 
 server.get("/api/users", (req, res) => {
@@ -52,9 +56,9 @@ server.delete(`/api/users/:id`, (req, res) => {
 });
 
 server.put(`/api/users/:id`, (req, res) => {
-    const id = req.params.id;
-    console.log(`id: ${id}`)
-    console.log("request body: ", req.body)
+  const id = req.params.id;
+  console.log(`id: ${id}`);
+  console.log("request body: ", req.body);
   model
     .update(id, req.body)
     .then((user) => res.send(user))
@@ -62,6 +66,11 @@ server.put(`/api/users/:id`, (req, res) => {
       res.status(500);
       res.render("error", { error: err });
     });
+});
+
+server.get("/reset", (req, res) => {
+  model.resetDB();
+  res.send("server reset");
 });
 
 module.exports = server;
