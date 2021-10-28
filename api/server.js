@@ -11,7 +11,7 @@ server.post('/api/users',(req, res) => {
     })
     .catch(err => {
         console.log(err)
-        res.status(500).json({ message: err.message })
+        res.status(500).json({ message: "Please provide name and bio for the user" })
     })
 });
 
@@ -22,7 +22,7 @@ server.get('/api/users',(req,res) => {
         res.status(200).json(users)
     })
     .catch(err => {
-        res.status(500).json({ message: err.message})
+        res.status(500).json({ message: "The users information could not be retrieved"})
     })
 });
 
@@ -33,7 +33,7 @@ server.get('/api/users/:id', (req, res) => {
             if (user) {
                 res.status(200).json(user)
             } else {
-                res.status(404).json({ message: 'not found'})
+                res.status(404).json({ message: "The user with the specified ID does not exist"})
             }
         })
         .catch(err => {
@@ -49,7 +49,7 @@ server.delete('/api/users/:id', (req, res) => {
             if (user) {
                 res.status(200).json(user)
             } else {
-                res.status(404).json({ message: `the user ${req.params.id} is not in the database`
+                res.status(404).json({ message: "The user could not be removed"
                 })
             }
         })
@@ -68,7 +68,7 @@ server.put('/api/users/:id', async (req, res) => {
         res.status(200).json(result)
     } catch {
         console.log(err)
-        res.status(500).json({ message: err.message })
+        res.status(500).json({ message: "The user with the specified ID does not exist" })
     }
 })
 
