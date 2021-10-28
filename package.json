@@ -19,6 +19,7 @@
     "url": "git+https://github.com/LambdaSchool/node-api1-project.git"
   },
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "nanoid": "^3.1.30",
