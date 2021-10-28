@@ -31,7 +31,6 @@ server.get("/api/users", (req, res) => {
 
 server.get(`/api/users/:id`, (req, res) => {
   const id = req.params.id;
-  console.log(id)
   model
     .findById(id)
     .then((user) => res.send(user))
@@ -41,8 +40,15 @@ server.get(`/api/users/:id`, (req, res) => {
     });
 });
 
-server.delete("/api/users", (req, res) => {
-  res.send("DELETE to /api/users/:id");
+server.delete(`/api/users/:id`, (req, res) => {
+  const id = req.params.id;
+  model
+    .remove(id)
+    .then((user) => res.send(user))
+    .catch((err) => {
+      res.status(500);
+      res.render("error", { error: err });
+    });
 });
 
 server.put("/api/users", (req, res) => {
