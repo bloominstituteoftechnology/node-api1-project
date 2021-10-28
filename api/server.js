@@ -56,10 +56,16 @@ server.delete(`/api/users/:id`, (req, res) => {
   const id = req.params.id;
   model
     .remove(id)
-    .then((user) => res.send(user))
-    .catch((err) => {
+    .then((user) => {
+      return user === undefined
+        ? res
+            .status(404)
+            .send({ message: "The user with the specified ID does not exist" })
+        : res.send(user);
+    })
+    .catch(() => {
       res.status(500);
-      res.render("error", { error: err });
+      res.send({ message: "The user could not be removed" });
     });
 });
 
