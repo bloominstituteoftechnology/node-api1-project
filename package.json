@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LambdaSchool/node-api1-project.git"
+    "url": "git+https://github.com/BloomInstituteOfTechnology/node-api1-project.git"
   },
   "dependencies": {
     "nanoid": "^3.1.30"
