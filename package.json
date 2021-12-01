@@ -5,15 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+<<<<<<< HEAD
     "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand",
     "server":"nodemon index.js"
+=======
+    "server": "nodemon index.js",
+    "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand"
+>>>>>>> 89372f2ae7f2615e1ebc2befd554b7b149926f3f
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "jest": "^26.6.3",
+<<<<<<< HEAD
     "nodemon": "^2.0.15",
+=======
+    "nodemon": "^2.0.13",
+>>>>>>> 89372f2ae7f2615e1ebc2befd554b7b149926f3f
     "supertest": "^6.1.4"
   },
   "repository": {
@@ -22,7 +31,12 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+<<<<<<< HEAD
     "httpie": "^1.1.2",
     "nanoid": "^3.1.28"
+=======
+    "nanoid": "^3.1.28",
+    "node": "^16.10.0"
+>>>>>>> 89372f2ae7f2615e1ebc2befd554b7b149926f3f
   }
 }
