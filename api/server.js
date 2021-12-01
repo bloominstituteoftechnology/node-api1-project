@@ -26,6 +26,17 @@ server.get("/api/users", (req, res) => {
 // POST	/api/users	Creates a user using the information sent inside the request body.
 server.post("/api/users", (req, res) => {
   const newUser = req.body;
+  if(!newUser.name || !newUser.bio) {
+    res.status(422).json({message: "Name and Bio required"})
+  } else {
+    User.insert(newUser)
+      .then(user => {
+        res.json(user)
+      })
+      .catch(err => {
+        res.status(500).json({message:err.message})
+      })
+  }
 
 
 })
