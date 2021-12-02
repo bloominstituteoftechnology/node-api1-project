@@ -62,6 +62,26 @@ server.delete("/api/users/:id", async (req, res) => {
 		}
 })
 
+//[PUT] /api/users/:id
+server.put("/api/users/:id", async (req, res) => {
+	const { id } = req.params
+	const changes = req.body
+	try {
+		if (!changes.name || !changes.bio) {
+			res.status(422).json({message: "name and bio required"})
+		} else {
+			const updateUser = await userServer.update(id, changes)
+			if (!updateUser) {
+				res.status(500).json({message: "user doesn't exist"})
+			} else {
+				res.status(200).json(updateUser)
+			}
+		}
+	}catch (err) {
+			res.status(500).json({message: err.message})
+		}
+})
+
 //[GET] / makes sure server works
 server.use("*", (req, res) => {
 	res.status(404).json({message: "server is live"})
