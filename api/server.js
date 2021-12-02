@@ -19,7 +19,7 @@ server.get("/api/users", (req, res) => {
       res.status(200).json(users)
     })
     .catch(err => {
-      res.status(500).json({message:err.message})
+      res.status(500).json({message:"The users information could not be retrieved"})
     })
 })
 
@@ -29,13 +29,13 @@ server.get("/api/users/:id", (req, res) => {
   User.findById(idVar)
     .then(user => {
       if(!user){
-        res.status(404).json(`User ${idVar} does not exist`)
+        res.status(404).json({message:"The user with the specified ID does not exist"})
       } else {
         res.status(200).json(user)
       }
     })
     .catch(err => {
-      res.status(500).json({message:err.message})
+      res.status(500).json({message:"The users information could not be retrieved"})
     })
 })
 
@@ -44,17 +44,33 @@ server.get("/api/users/:id", (req, res) => {
 server.post("/api/users", (req, res) => {
   const newUser = req.body;
   if(!newUser.name || !newUser.bio) {
-    res.status(422).json({message: "Name and Bio required"})
+    res.status(400).json({message: "Please provide name and bio for the user"})
   } else {
     User.insert(newUser)
       .then(user => {
-        res.json(user)
+        res.status(201).json(user)
       })
       .catch(err => {
-        res.status(500).json({message:err.message})
+        res.status(500).json({message:"There was an error while saving the user to the database"})
       })
   }
 
+
+})
+
+// DELETE	/api/users/:id	Removes the user with the specified id and returns the deleted user.
+server.delete("/api/user/:id", async (req, res) => {
+  try{
+    const {id} = req.params
+    const deletedUser = await User.remove(id)
+    if(!deletedUser) {
+      res.status(404).json({message: "The user with the specified ID does not exist"})
+    } else {
+      res.status(201).json(deletedUser)
+    }
+  } catch(err){
+    res.status(500).json({message: "The user could not be removed"})
+  }
 
 })
 
