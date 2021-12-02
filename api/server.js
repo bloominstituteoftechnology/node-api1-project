@@ -23,6 +23,23 @@ server.get("/api/users", (req, res) => {
     })
 })
 
+// GET	/api/users/:id	Returns the user object with the specified id.
+server.get("/api/users/:id", (req, res) => {
+  const idVar = req.params.id;
+  User.findById(idVar)
+    .then(user => {
+      if(!user){
+        res.status(404).json(`User ${idVar} does not exist`)
+      } else {
+        res.status(200).json(user)
+      }
+    })
+    .catch(err => {
+      res.status(500).json({message:err.message})
+    })
+})
+
+
 // POST	/api/users	Creates a user using the information sent inside the request body.
 server.post("/api/users", (req, res) => {
   const newUser = req.body;
