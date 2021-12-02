@@ -59,7 +59,7 @@ server.post("/api/users", (req, res) => {
 })
 
 // DELETE	/api/users/:id	Removes the user with the specified id and returns the deleted user. in Postman = user/id - no s after user
-server.delete("/api/user/:id", async (req, res) => {
+server.delete("/api/users/:id", async (req, res) => {
   try{
     const {id} = req.params
     const deletedUser = await User.remove(id)
@@ -98,8 +98,8 @@ server.put("/api/users/:id", async (req, res) => {
 
 
 // [GET] / (Catch-All endpoint)
-// server.use("*", (req, res) => {
-//   res.status(404).json({ message: "404 not found" })
-// })
+server.use("*", (req, res) => {
+  res.status(404).json({ message: "404 not found" })
+})
 
 module.exports = server; // EXPORT YOUR SERVER instead of {}
