@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand"
+    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
+    "server": "nodemon index.js"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.3.0",
+    "express": "^4.17.1",
     "jest": "^27.3.1",
     "supertest": "^6.1.6"
   },
