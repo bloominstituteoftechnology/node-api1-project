@@ -12,7 +12,7 @@ server.post("/api/users", (req, res) => {
 	const newUser = req.body
 	userServer.insert(newUser)
 		.then(user => {
-			res.json(user)
+			res.status(201).json(user)
 		})
 		.catch(err => {
 			res.status(500).json({message: err.message})
@@ -28,7 +28,38 @@ server.get("/api/users", (req, res) => {
 		.catch(err => {
 			res.status(500).json({message: err.message})
 		})
-	
+})
+
+//[GET] /api/users/:id
+server.get("/api/users/:id", (req, res) => {
+	const userId = req.params.id
+	userServer.findById(userId)
+		.then(user => {
+			if (!user) {
+				res.status(400).json(`user with id ${userId} does not exist`)
+			} else {
+				res.status(200).json(user)
+			}
+		})
+		.catch(err => {
+			res.status(500).json({message: err.message})
+		})
+})
+
+//[DELETE] /api/users/:id
+server.delete("/api/users/:id", async (req, res) => {
+	try {
+		const { id } = req.params
+		const deletedUser = await userServer.remove(id)
+		if (!deletedUser) {
+			res.status(404).json("User does not exist")
+		} else {
+			res.status(201).json(deletedUser)
+		}
+	}
+	catch (err) {
+			res.status(500).json({message: err.message})
+		}
 })
 
 //[GET] / makes sure server works
