@@ -16,7 +16,7 @@ Your assignment page on Canvas should contain instructions for submitting this p
 
 Use Node.js and Express to build an API that performs CRUD operations on users.
 
-- Add a `server` script to the `package.json` that runs the API using `nodemon`.
+- Add a `server` script to the `package.json` that runs the API using `nodemon`. - ok
 
 ### Write endpoints
 
