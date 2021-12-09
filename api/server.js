@@ -6,7 +6,7 @@ server.use(express.json());
 const model = require("./users/model");
 
 // server.use("*", (req, res) => {
-//   res.status(200).json({ message: "sup bitch" });
+//   res.status(200).json({ message: "sup" });
 // });
 
 // server.use("/api", (req, res) => {
