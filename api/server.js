@@ -64,4 +64,19 @@ server.delete("/api/users/:id", async (req, res) => {
   }
 });
 
+server.put("/api/users/:id", async (req, res) => {
+  const updateUser = await Users.update(req.params.id, req.body);
+  if (!updateUser) {
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist" });
+  } else if (!updateUser.name || !updateUser.bio) {
+    res
+      .status(400)
+      .json({ message: "Please provide name and bio for the user" });
+  } else {
+    res.json(updateUser);
+  }
+});
+
 module.exports = server; // EXPORT YOUR SERVER instead of {}
