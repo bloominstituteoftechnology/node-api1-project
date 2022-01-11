@@ -15,7 +15,6 @@ function App() {
       ...newUser,
       [e.target.name]: e.target.value,
     });
-    console.log(newUser);
   };
 
   useEffect(() => {
@@ -31,14 +30,18 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:9000/api/users", newUser)
-      .then((res) => {
-        setNewUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!newUser.name || !newUser.bio) {
+      return alert("please fill out both fields");
+    } else {
+      axios
+        .post("http://localhost:9000/api/users", newUser)
+        .then((res) => {
+          setNewUser(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -57,7 +60,6 @@ function App() {
           placeholder='bio'
         />
         <button onClick={handleSubmit}>Add</button>
-        <button>Delete</button>
       </form>
       {users.map((user) => (
         <Users key={user.id} user={user} setUsers={setUsers} />
