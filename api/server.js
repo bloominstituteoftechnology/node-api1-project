@@ -1,4 +1,3 @@
-// BUILD YOUR SERVER HERE
 const express = require('express')
 const User = require('./users/model')
 
@@ -110,4 +109,4 @@ server.delete('/api/users/:id', async (req, res) => {
         })
     }
 })
-module.exports = server; // EXPORT YOUR SERVER instead of {}
+module.exports = server; 
