@@ -11,7 +11,7 @@ server.get('/', (req, res) => {
 })
 
 server.get('/api/users', (req, res) => {
-    console.log('getting users');
+    // console.log('getting users');
     User.find()
     .then(users => {
         res.json(users)
@@ -86,6 +86,26 @@ server.put('/api/user/:id', async (req, res) => {
         res.status(500).json({
             message: 'error with updated user',
             err: err.message,
+            stack: err.stack
+        })
+    }
+})
+
+server.delete('/api/users/:id', async (req, res) => {
+    try{
+        const possibleUser = await User.findById(req.params.id)
+        if(!possibleUser){
+        res.status(404).json({
+            message: 'The user with the specified ID does not exist'
+        })
+    }else{
+        const deletedUser = await User.remove(possibleUser.id)
+        res.status(200).json(deletedUser)
+    }
+    }catch(err){
+        res.status(500).json({
+            message: 'error deleting users',
+            err: err.message, 
             stack: err.stack
         })
     }
