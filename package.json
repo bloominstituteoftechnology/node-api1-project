@@ -1,10 +1,10 @@
 {
-  "name": "node-api1-project",
+  "name": "api1-project",
   "version": "1.0.0",
   "description": "Node API 1 Project Code",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon server.js",
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand"
   },
   "devDependencies": {
@@ -19,6 +19,16 @@
     "url": "git+https://github.com/BloomInstituteOfTechnology/node-api1-project.git"
   },
   "dependencies": {
-    "nanoid": "^3.1.30"
-  }
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "nanoid": "^3.1.30",
+    "nodemon": "^2.0.15"
+  },
+  "bugs": {
+    "url": "https://github.com/BloomInstituteOfTechnology/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/BloomInstituteOfTechnology/node-api1-project#readme",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
