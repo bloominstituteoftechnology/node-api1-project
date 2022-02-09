@@ -57,7 +57,27 @@ server.delete('/api/users/:id', async (req, res) => {
             res.status(201).json(deletedUser)
         }
     } catch {
-        res.status(500).json({message: err.message})
+        res.status(500).json({message: 'unable to delete user'})
+    }
+})
+
+server.put('/api/users/:id', async (req, res) => {
+    const { id } = req.params
+    const updatedUser = req.body
+
+    try {
+        if (!updatedUser.name || !updatedUser.bio) {
+            res.status(404).json({message: 'name and/or bio are required'})
+        } else {
+            const updatedInfo = await User.update(id, updatedUser)
+            if (!updatedInfo) {
+                res.status(404).json({message:'the User with the specific id does not exist'})
+            } else {
+                res.status(200).json(updatedInfo)
+            }
+        }
+    } catch {
+        res.status(500).json({message: 'user could not be updated'})
     }
 })
 
