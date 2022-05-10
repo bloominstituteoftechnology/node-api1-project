@@ -8,17 +8,17 @@
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^27.5.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.10.0",
-    "jest": "^27.5.1",
-    "supertest": "^6.2.2"
+    "eslint": "^8.15.0",
+    "jest": "^28.1.0",
+    "supertest": "^6.2.3"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BloomInstituteOfTechnology/node-api1-project.git"
   },
   "dependencies": {
-    "nanoid": "^3.3.1"
+    "nanoid": "^3.3.4"
   }
 }
