@@ -57,6 +57,7 @@ export const useData = (initialData) => {
                 setData({...data, message : newMessage, spinnerOn : false})
             },100)
         })}}
+        
 
     const closeAlerts = () => {
         setData({...data, message : ""})
