@@ -9,5 +9,5 @@ export const getData = () => {
     return axios.get(`${base}/api/users`); 
 }
 export const getDataById = (id) => {
-    return axios.get(`${base}/api/users/${id}`); 
+    return axios.get(`${base}/api/users/${id}`)
 }

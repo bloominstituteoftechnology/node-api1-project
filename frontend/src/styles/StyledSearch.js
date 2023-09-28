@@ -26,4 +26,16 @@ button {
 button:active {
     transform : scale(105%);
 }
+#closed {
+    position : absolute;
+    right : 1rem;
+    top : 1px;
+    cursor: pointer;
+}
+#alert {
+    position : absolute;
+    right : 1rem;
+    top : 0;
+    padding: 2rem;
+}
 `

@@ -9,13 +9,13 @@ import { Hidden } from './components/Hidden';
 import SearchForm from './components/forms/SearchForm';
 
 function App() {
-  const [data,initialGet,searchById,changeSearchValue] = useData(initialData); 
+  const [data,initialGet,searchById,changeSearchValue,closeAlerts,getUserData] = useData(initialData); 
   return (
     <StyledApp>
-    <GlobalContext.Provider value={{data,initialGet,searchById,changeSearchValue}}>
+    <GlobalContext.Provider value={{data,initialGet,searchById,changeSearchValue,closeAlerts,getUserData}}>
       <SearchForm />
       <UserContext.Provider value = {[]}>
-        { <User />}
+        {data.userManager.usersAreVisible && <User />}
       </UserContext.Provider>
       <FormContext.Provider value = {[]}>
         {data.userManager.userAddMode && <AddUserForm />}

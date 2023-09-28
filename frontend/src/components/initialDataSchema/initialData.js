@@ -16,7 +16,6 @@ const userSchema = {
 
     userIdToSearch : "",
     
-    userMessage : "",
 
     spinnerOn : false,
 }
@@ -30,4 +29,5 @@ export const initialData = {
     userManager : userSchema,
     formManager : formSchema,
     initialVisibility : false,
+    message : "",
 }

@@ -12,6 +12,7 @@ code {
 }
 
 .material-symbols-outlined {
+  cursor: pointer !important;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
