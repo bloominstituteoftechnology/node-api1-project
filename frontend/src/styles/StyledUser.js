@@ -62,6 +62,35 @@ justify-content : flex-start;
 flex-direction : column;
 background-color :whitesmoke;
 position : relative;
+button {
+    border : 1px solid azure;
+    background-color : transparent;
+    transition : .1s ease-in-out;
+    border-radius : 5px;
+}
+button:active {
+    transform : scale(105%);
+}
+input {
+    margin-left : 1rem;
+    background-color : transparent;
+    border : none;
+    color : azure;
+    border-bottom : 1px solid azure;
+    &:focus {
+        outline : none;
+    }
+} 
+#sub{
+    position : absolute;
+    right : 30vw;
+    top : 4rem;
+}
+#edit {
+    position : absolute;
+    right : -3rem;
+    color : magenta;
+}
 .users {
     margin : 1.5rem;
     flex-basis : 10rem;

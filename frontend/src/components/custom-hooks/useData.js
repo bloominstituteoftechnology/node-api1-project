@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getData, getDataById } from "../axios/actions";
+import { editData, getData, getDataById } from "../axios/actions";
 
 
 export const useData = (initialData) => {
@@ -30,12 +30,30 @@ export const useData = (initialData) => {
                 }).catch(err => {
                     const newMessage = (err.response.data.message);
                     setTimeout(()=>{
-                        setData({...data, message : newMessage, spinnerOn : false})
+                        setData({...data, message : newMessage, userManager : {...data.userManager, spinnerOn : false,}})
                     },100)
                 }
                 )
     }
-    
+    const toggleEditMode = (id) => {
+        const setUser = data.userManager.users.find(n => n.id == id);
+        setData({...data, userManager : {...data.userManager, userEditMode : !data.userManager.userEditMode, users : [setUser], userBody : setUser, userEditedId : id}});
+    }
+    const changeEditHandler = e => {
+        setData({...data, userManager : {...data.userManager, userBody : {...data.userManager.userBody, [e.target.name] : e.target.value}}})
+    }
+    const pushModification = (id,modification) => {
+        setData({...data, userManager : {...data.userManager, spinnerOn : true}})
+        editData(id,modification).then(res=> {
+            setData({...data, userManager : {...data.userManager, spinnerOn : false, userBody : {name : "", bio : "", userEditedId : ""}}})
+            getUserData();
+        }).catch(err => {
+            const newMessage = (err.response.data.message);
+            setTimeout(()=>{
+                setData({...data, message : newMessage, spinnerOn : false})
+            },100)
+        })
+    }
     const closeAlerts = () => {
         setData({...data, message : ""})
     }
@@ -45,6 +63,9 @@ export const useData = (initialData) => {
         searchById,
         changeSearchValue,
         closeAlerts,
-        getUserData
+        getUserData,
+        pushModification,
+        toggleEditMode,
+        changeEditHandler,
     ]
 }

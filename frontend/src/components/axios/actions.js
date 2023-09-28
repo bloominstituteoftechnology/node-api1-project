@@ -11,3 +11,6 @@ export const getData = () => {
 export const getDataById = (id) => {
     return axios.get(`${base}/api/users/${id}`)
 }
+export const editData = (id,modifiedContent) => {
+    return axios.put(`${base}/api/users/${id}`,modifiedContent)
+}

@@ -11,6 +11,7 @@ const userSchema = {
     userObjectToAdd : {},
     
     userEditMode : false,
+    userBody : {name : "", bio: ""},
     userEditedOutput : "",
     userEditedId : "",
 
