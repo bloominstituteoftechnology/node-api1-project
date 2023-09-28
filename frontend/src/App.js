@@ -1,24 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import { GlobalContext, FormContext, UserContext } from "./components/contexts/contextHandlers";
+import User from "./components/users/User";
+import AddUserForm from "./components/forms/AddUserForm";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalContext.Provider value={[]}>
+      <UserContext.Provider value = {[]}>
+        <User />
+      </UserContext.Provider>
+      <FormContext.Provider value = {[]}>
+        <AddUserForm />
+      </FormContext.Provider>
+    </GlobalContext.Provider>
   );
 }
 
