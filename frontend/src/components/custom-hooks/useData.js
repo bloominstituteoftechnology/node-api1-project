@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { editData, getData, getDataById } from "../axios/actions";
+import { StyledSearch } from "../../styles/StyledSearch";
 
 
 export const useData = (initialData) => {
@@ -11,7 +12,7 @@ export const useData = (initialData) => {
     
     const getUserData = () => {
         getData().then(res=> {
-            setData({...data, userManager : {...data.userManager, users : res.data}})
+            setData({...data, userManager : {...data.userManager, users : res.data,userEditMode : false}})
         })
     }
     
@@ -40,20 +41,23 @@ export const useData = (initialData) => {
         setData({...data, userManager : {...data.userManager, userEditMode : !data.userManager.userEditMode, users : [setUser], userBody : setUser, userEditedId : id}});
     }
     const changeEditHandler = e => {
-        setData({...data, userManager : {...data.userManager, userBody : {...data.userManager.userBody, [e.target.name] : e.target.value}}})
+        setData({...data, userManager : {...data.userManager, userBody : {...data.userManager.userBody, [e.target.name] : e.target.value, updatedUserBody : true}}})
     }
     const pushModification = (id,modification) => {
+        if (data.userManager.updatedUserBody == 0) {
+            setData({...data, message : "Please provide name and bio for the user"})
+        } else {
         setData({...data, userManager : {...data.userManager, spinnerOn : true}})
         editData(id,modification).then(res=> {
-            setData({...data, userManager : {...data.userManager, spinnerOn : false, userBody : {name : "", bio : "", userEditedId : ""}}})
+            setData({...data,message : "", userManager : {...data.userManager, spinnerOn : false, userBody : "",userEditedId : "",updatedUserBody : 0}})
             getUserData();
         }).catch(err => {
             const newMessage = (err.response.data.message);
             setTimeout(()=>{
                 setData({...data, message : newMessage, spinnerOn : false})
             },100)
-        })
-    }
+        })}}
+
     const closeAlerts = () => {
         setData({...data, message : ""})
     }
