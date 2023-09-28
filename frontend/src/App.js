@@ -6,15 +6,16 @@ import { StyledApp } from './styles/StyledApp';
 import { useData } from './components/custom-hooks/useData';
 import { initialData } from './components/initialDataSchema/initialData';
 import { Hidden } from './components/Hidden';
+import SearchForm from './components/forms/SearchForm';
 
 function App() {
-  const [data,initialGet] = useData(initialData); 
-  console.log(data)
+  const [data,initialGet,searchById,changeSearchValue] = useData(initialData); 
   return (
     <StyledApp>
-    <GlobalContext.Provider value={{data,initialGet}}>
+    <GlobalContext.Provider value={{data,initialGet,searchById,changeSearchValue}}>
+      <SearchForm />
       <UserContext.Provider value = {[]}>
-        {data.userManager.usersAreVisible && <User />}
+        { <User />}
       </UserContext.Provider>
       <FormContext.Provider value = {[]}>
         {data.userManager.userAddMode && <AddUserForm />}

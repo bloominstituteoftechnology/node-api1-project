@@ -1,12 +1,17 @@
 import { useContext } from "react";
 import { StyledUser } from "../../styles/StyledUser";
 import { GlobalContext } from "../contexts/contextHandlers";
+import { Spinner } from "reactstrap";
 
 export default function User() {
     const {data} = useContext(GlobalContext);
     const users = data.userManager.users;
     return (
         <StyledUser>
+            {data.userManager.spinnerOn ? 
+                <Spinner /> 
+                :
+                <>
                 {users.map(n=> {
                     return <div key = {n.id} className="users">
                         <span className="movingGeo"></span>
@@ -15,7 +20,7 @@ export default function User() {
                         <div><span className="contents">Bio:</span> {n.bio}</div>
                         </div>
                 })}
-                 <span className="movingGeo3"></span>
+                 <span className="movingGeo3"></span></>}
         </StyledUser>
     )
 }

@@ -52,7 +52,7 @@ const kf3 = keyframes`
 `
 
 export const StyledUser = styled.div`
-margin-top : 20rem;
+margin-top : 5rem;
 height : 110vh;
 padding-top : 2rem;
 max-height : fit-content;

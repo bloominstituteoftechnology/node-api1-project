@@ -13,8 +13,12 @@ const userSchema = {
     userEditMode : false,
     userEditedOutput : "",
     userEditedId : "",
+
+    userIdToSearch : "",
     
     userMessage : "",
+
+    spinnerOn : false,
 }
 
 const formSchema = {
