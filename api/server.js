@@ -1,9 +1,11 @@
 // BUILD YOUR SERVER HERE
 const express = require("express");
+const cors = require("cors"); 
 const Data = require("./users/model.js")
 const server = express();
 
 server.use(express.json()); 
+server.use(cors()); 
 //!get
 server.get("/api/users",async(req,res)=> {
     try {
